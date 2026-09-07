@@ -32,11 +32,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Syed Ali — Design Engineer",
+  title: "Syed Ali — Designing things, Building myself",
   description:
     "The guy who designs things and brings them to life, cuz why not. Engineering taught me to do things the unconventional way.",
   openGraph: {
-    title: "Syed Ali — Design Engineer",
+    title: "Syed Ali — Designing things, Building myself",
     description:
       "The guy who designs things and brings them to life, cuz why not. Engineering taught me to do things the unconventional way.",
     siteName: "Syed Ali",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Syed Ali — Design Engineer",
+    title: "Syed Ali — Designing things, Building myself",
     description:
       "The guy who designs things and brings them to life, cuz why not. Engineering taught me to do things the unconventional way.",
   },

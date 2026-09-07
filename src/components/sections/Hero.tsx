@@ -10,7 +10,7 @@ import { TextFlip } from "@/components/text-flip";
 import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const DESIGNATIONS = [
-  "Design engineer",
+  "Product designer",
   "The guy",
   "Pixel perfectionist",
   "cant work without my cold coffee",
@@ -23,7 +23,7 @@ const INFO_ITEMS: {
   full?: boolean;
   copyText?: string;
 }[] = [
-  { icon: Briefcase, label: "Design Engineer", href: undefined, full: true },
+  { icon: Briefcase, label: "Product Designer", href: undefined, full: true },
   { icon: MapPin, label: "Bengaluru, India", href: undefined },
   {
     icon: Phone,

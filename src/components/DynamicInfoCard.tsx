@@ -167,7 +167,7 @@ export default function DynamicInfoCard({
               </span>
               <span className="flex flex-col items-start leading-tight">
                 <span className="text-[14px] font-medium tracking-[-0.04em] text-white">Syed Ali</span>
-                <span className="text-[14px] tracking-[-0.04em] text-white/60">Design Engineer</span>
+                <span className="text-[14px] tracking-[-0.04em] text-white/60">Product Designer</span>
               </span>
             </span>
             <span className="text-[14px] font-medium tracking-[-0.04em] whitespace-nowrap text-white tabular-nums">
