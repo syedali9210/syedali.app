@@ -34,7 +34,14 @@ export function ThemeSwitcher({ className }: ThemeSwitcherProps) {
   const handleClick = () => {
     click();
     if (!document.startViewTransition) switchTheme();
-    else document.startViewTransition(switchTheme);
+    else {
+      const vt = document.startViewTransition(switchTheme);
+      // Both reject when a transition is skipped or superseded (rapid
+      // toggles, tab hidden mid-flight) — harmless, but unhandled they
+      // surface as InvalidStateError unhandledRejections.
+      vt.ready.catch(() => {});
+      vt.finished.catch(() => {});
+    }
   };
 
   return (

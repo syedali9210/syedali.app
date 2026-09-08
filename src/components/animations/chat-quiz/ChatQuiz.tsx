@@ -283,7 +283,7 @@ const AppMark = ({
   icon: string;
   tint: string;
   size?: number;
-}) => (
+}) => BRAND[icon] ? (
   <svg
     viewBox="0 0 24 24"
     width={size}
@@ -294,7 +294,7 @@ const AppMark = ({
   >
     <path d={BRAND[icon]} />
   </svg>
-);
+) : null;
 
 /** "Question N of 3" - the digit rolls up on change. */
 function Counter({ index }: { index: number }) {
