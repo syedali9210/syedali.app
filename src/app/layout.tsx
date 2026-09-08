@@ -66,7 +66,7 @@ export default function RootLayout({
             so it never sits inside that wrapper's animated transform (see
             Nav.tsx for why that matters). */}
         <div id="nav-root" />
-        <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <ViewportEdgeBlur />
           <SmoothScroll>
             <PageTransition>{children}</PageTransition>
