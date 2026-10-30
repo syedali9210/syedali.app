@@ -15,6 +15,24 @@ function Body({ children }: { children: React.ReactNode }) {
   return <p className="text-base leading-relaxed text-muted-foreground">{children}</p>;
 }
 
+export function ProjectLinks({ links }: { links: { label: string; href: string }[] }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {links.map((link) => (
+        <a
+          key={link.href}
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-fit rounded-full border border-foreground/15 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+        >
+          {link.label} ↗
+        </a>
+      ))}
+    </div>
+  );
+}
+
 function NoteCard({ title, points }: { title: string; points?: string[] }) {
   return (
     <div className="flex w-full flex-col gap-2 rounded-xl bg-secondary/40 p-5">
@@ -168,6 +186,7 @@ export default function CaseStudyTemplate({ project }: { project: Project }) {
                 <Body key={i}>{p}</Body>
               ))}
             </div>
+            {project.links && <ProjectLinks links={project.links} />}
           </CaseStudySection>
         </FadeIn>
 
@@ -181,6 +200,18 @@ export default function CaseStudyTemplate({ project }: { project: Project }) {
             </div>
           </CaseStudySection>
         </FadeIn>
+
+        {cs.scope && (
+          <FadeIn delay={0.05} className={SECTION_CLASS}>
+            <CaseStudySection id="scope" className="flex flex-col gap-6">
+              <SectionTitle>What I Did, and What I Didn&rsquo;t</SectionTitle>
+              <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2">
+                <NoteCard title="What I did" points={cs.scope.did} />
+                <NoteCard title="What I didn't" points={cs.scope.didnt} />
+              </div>
+            </CaseStudySection>
+          </FadeIn>
+        )}
 
         <FadeIn delay={0.05} className={SECTION_CLASS}>
           <CaseStudySection id="research" className="flex flex-col gap-8">
