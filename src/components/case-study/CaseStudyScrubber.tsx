@@ -5,8 +5,13 @@ function buildItems(cs: CaseStudy): ScrubberItem[] {
   const items: ScrubberItem[] = [
     { id: "overview", label: "Overview" },
     { id: "challenge", label: "The Challenge" },
-    { id: "research", label: cs.researchTitle },
   ];
+
+  if (cs.scope) {
+    items.push({ id: "scope", label: "What I Did" });
+  }
+
+  items.push({ id: "research", label: cs.researchTitle });
 
   if (cs.findings && cs.findingsTitle) {
     items.push({ id: "findings", label: cs.findingsTitle });

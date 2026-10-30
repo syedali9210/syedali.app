@@ -30,6 +30,8 @@ export type CaseStudy = {
   outcomes: { label: string; metric: string }[];
   learnedTitle: string;
   learned: string[];
+  /** Honest scope: what I did on this project, and what I didn't. */
+  scope?: { did: string[]; didnt: string[] };
 };
 
 export type Project = {
@@ -41,11 +43,343 @@ export type Project = {
   gradient: string;
   image?: string;
   caseStudy?: CaseStudy;
+  /** Live demo, source, and similar — shown as pills on the card and in the case study. */
+  links?: { label: string; href: string }[];
   /** Not shippable yet — hero image stays blurred, with a "Coming soon" lock overlay on hover. */
   comingSoon?: boolean;
 };
 
 export const projects: Project[] = [
+  {
+    slug: "trace",
+    title: "TRACE",
+    meta: "Personal, 2026",
+    tag: "Product Design & Build",
+    description:
+      "A design memory for people and AI agents. It captures work from Figma, GitHub and folders, writes the changelog itself, and hands that context to every agent, so nobody has to re-explain a project again.",
+    gradient: "from-[#2a2a2a] to-[#4a4a4a]",
+    image: "/images/case-studies/trace/trace-cover.webp",
+    links: [{ label: "GitHub", href: "https://github.com/syedali9210/Trace" }],
+    caseStudy: {
+      overview: [
+        "TRACE is a design context engine. It watches the tools I design and build in, groups raw saves into moments, writes the changelog from what actually changed, and files everything into a project.",
+        "That memory goes two ways: to people as a timeline, diffs, a canvas and a case study, and to AI agents like Claude Code, Codex and Cursor through an MCP server.",
+      ],
+      challenge: [
+        "When I hand design work to an AI agent or a teammate, I want them to already know the project's history, decisions and current state. Instead I kept re-explaining it every session and writing changelogs by hand.",
+        "The persona is me: a solo design engineer who designs in Figma or Framer and builds with Claude Code. The one action the whole product hangs on is simple. Connect a tool once, then confirm what TRACE captured.",
+      ],
+      scope: {
+        did: [
+          "Framed the job, the persona and the one core action, then scoped the product into 15 features.",
+          "Designed the whole interface: home feed, project timeline, canvas of blocks, case study, to-do board and Ask.",
+          "Built it end to end with Claude Code: a local server, an MCP server for agents, and a React app on shadcn/ui and Fluid Functionalism.",
+          "Measured the app walk and made it faster, from 15 min for 28 screens to 2 min 47 s for 37.",
+        ],
+        didnt: [
+          "Run the Figma and GitHub connectors against live accounts yet. They're written to the documented APIs and proven on a sample project.",
+          "Ship a hosted version. It runs on your own machine, with no billing, browser extension or email-in.",
+          "Use real embeddings. Search similarity is local and offline for now, with an upgrade path in the code.",
+          "Test Cursor and Copilot memory reading on real chats. There were none on my machine to test with.",
+        ],
+      },
+      researchTitle: "Where the Context Gets Lost",
+      researchIntro: [
+        "Before designing anything, I traced where a project's context actually lives during a normal week of work. It was spread across four places, and none of them talked to each other.",
+      ],
+      researchNotes: [
+        { title: "Agents start every session cold.", points: ["Every new chat means re-explaining history and decisions."] },
+        { title: "Changelogs are written by hand.", points: ["Or more honestly, not written at all."] },
+        { title: "The work is split across tools.", points: ["Design in Figma, code in Git, the reasons buried in chat logs."] },
+        { title: "Every AI keeps its own memory.", points: ["What Claude learned never reaches Cursor or Codex."] },
+      ],
+      insightsTitle: "Design Principles",
+      insightsIntro: [
+        "A memory tool only works if it's trusted and costs nothing to keep up. These four rules shaped every screen.",
+      ],
+      insights: [
+        {
+          title: "Capture, don't ask",
+          description: "Connect a tool once. After that, the only job is confirming what TRACE captured in the review inbox, one key per moment.",
+        },
+        {
+          title: "Every claim comes from the diff",
+          description: "Changelogs are written by rules from what actually changed, like \"Decreased font size. Changed colours.\", so nothing is made up.",
+        },
+        {
+          title: "Agents are users too",
+          description: "The same memory people browse is served to agents over MCP, so the next AI already knows what the last one learned.",
+        },
+        {
+          title: "Code changes should look like design changes",
+          description: "When a component file changes, TRACE draws it, so a code change shows up as a picture with a diff, just like a Figma change.",
+        },
+      ],
+      solutionsTitle: "The Product",
+      solutionsIntro: ["Screens below are from TRACE running its own sample project."],
+      solutions: [
+        {
+          label: "A Project, Opened",
+          leftText: "Seeing what changed between iterations meant scrubbing through Figma versions or git logs.",
+          rightText: "Every iteration runs down the middle, newest first, with change cards beside it: one per kind of change, each with its before and after values.",
+          images: [{ src: "/images/case-studies/trace/trace-p1.webp", alt: "TRACE project timeline with change cards" }],
+          impactTitle: "Why it works",
+          impactText: "You read what changed in a sentence, then check the exact values only if you need to.",
+        },
+        {
+          label: "Canvas of Blocks",
+          leftText: "Briefs, constraints, references, decisions and reviews all lived in different docs.",
+          rightText: "A project canvas with a block for each: overview, iterations, reviews, constraints, references, tasks, decisions and the case study. Link two blocks and TRACE says what one means for the other.",
+          images: [{ src: "/images/case-studies/trace/trace-canvas.webp", alt: "TRACE project canvas" }],
+          impactTitle: "Why it works",
+          impactText: "The whole project fits on one screen, and gaps show up on their own.",
+        },
+        {
+          label: "Case Study and Tasks",
+          leftText: "Writing a case study after the fact meant digging through weeks of work from memory.",
+          rightText: "TRACE answers the case study questions from the work itself, each with its sources, and marks what's still open. Tasks live on a board you can drag and link.",
+          images: [
+            { src: "/images/case-studies/trace/trace-case.webp", alt: "TRACE case study view" },
+            { src: "/images/case-studies/trace/trace-todo.webp", alt: "TRACE to-do board" },
+          ],
+          impactTitle: "Impact",
+          impactText: "The story of a project assembles itself while you work, instead of after.",
+        },
+      ],
+      outcomesTitle: "Outcomes",
+      outcomesIntro: [
+        "TRACE is still in progress, but every feature in its PRD is built and it runs end to end on a sample project.",
+      ],
+      closingNote: ["That was a lot of context.", "Good thing something's keeping track of it now."],
+      outcomes: [
+        { label: "PRD features built", metric: "15 of 15" },
+        { label: "Full app walk", metric: "15 min → 2 min 47 s" },
+        { label: "Screens found per walk", metric: "28 → 37" },
+        { label: "AI tools it reads memory from", metric: "6" },
+      ],
+      learnedTitle: "What I Learned",
+      learned: [
+        "The hardest part of working with AI agents isn't the code they write, it's the context they don't have. Building TRACE also taught me to trust claims I can trace back to evidence, which is why its changelogs come from the diff and not from a model's guess.",
+      ],
+    },
+  },
+  {
+    slug: "swish",
+    title: "Swish: When the Kitchen Runs Out",
+    meta: "Speculative, 2026",
+    tag: "Mobile Product Design",
+    description:
+      "A working mobile prototype for the one moment Swish still hands a paying customer to a phone call: an item running out mid-cook.",
+    gradient: "from-[#0b2a16] to-[#178039]",
+    image: "/images/case-studies/swish/swish-cover.webp",
+    links: [
+      { label: "Live prototype", href: "https://swish-red.vercel.app/" },
+      { label: "GitHub", href: "https://github.com/syedali9210/swish" },
+    ],
+    caseStudy: {
+      overview: [
+        "Swish is a 10-minute food delivery app in Bengaluru that cooks in its own kitchens. This is an unsolicited case study and working prototype for one gap in its app.",
+        "Swish already designs for unavailable items at browse time, where they're greyed out. The gap is after payment, mid-cook, when the only fix today is a phone call.",
+      ],
+      challenge: [
+        "Two App Store reviews a month apart describe the same problem. In July, one customer got three separate calls as three items ran out, one after another. In August, another was talked into receiving the same dish twice.",
+        "I checked the app's version history through 2.1.3, and no substitution feature had shipped. The goal was to replace the call with something the customer could settle in seconds.",
+      ],
+      scope: {
+        did: [
+          "Found the problem in App Store reviews and confirmed in the version history that nothing had shipped for it.",
+          "Sampled Swish's real palette and measured its motion frame by frame from a 60fps screen recording.",
+          "Designed the flow, states and copy, from the lock screen notification to the resolved order.",
+          "Built it as a working React prototype with Motion, built with Claude, and deployed it live.",
+        ],
+        didnt: [
+          "Work with Swish or use their data. I'm outside their delivery radius, so this is one screen recording, not real orders.",
+          "Pick the 40 second window from data. It's a guess, and their numbers would set it.",
+          "Use the real tracking screen. The recording stops at address confirmation, so the screen behind the sheet is my reconstruction.",
+          "Use real food photos or confirm the typeface. Images come from my Figma file and DM Sans is a close guess.",
+        ],
+      },
+      researchTitle: "Studying the Real App",
+      researchIntro: [
+        "I wanted the fix to feel like Swish had shipped it, so I studied the real app before designing anything.",
+      ],
+      researchNotes: [
+        { title: "Palette sampled, not invented.", points: ["Brand green #2DB955, surface #FDFDFD, from the recording."] },
+        { title: "Motion measured frame by frame.", points: ["Nav push 150ms, bottom sheet 200ms, screen change 300ms."] },
+        { title: "Swish doesn't bounce.", points: ["Ease out with no overshoot, so nothing in the prototype springs."] },
+        { title: "Their own out-of-stock pattern.", points: ["Greyed out with a disabled control, reused instead of reinvented."] },
+      ],
+      insightsTitle: "The Calls This Makes",
+      insightsIntro: [
+        "One decision drives the rest: the kitchen decides, it doesn't ask. In a 10-minute app, a question costs more than a reversible wrong guess.",
+      ],
+      insights: [
+        {
+          title: "The notification carries the whole decision",
+          description: "What ran out, what the kitchen already did, and that the 9 minutes still holds. If they never open the app, they've still been told everything.",
+        },
+        {
+          title: "It can't happen twice",
+          description: "Swaps only come from a small set the kitchen keeps on all day, so the July cascade of three calls is designed out.",
+        },
+        {
+          title: "It reads as an upgrade, because it is one",
+          description: "Swaps normally sell for more than you paid, so the copy leads with the good news and gives the reason in the very next line.",
+        },
+        {
+          title: "Dropping it is always one tap",
+          description: "\"No thanks, refund\" is never buried, and an item already in the order shows greyed out, so a duplicate can't happen.",
+        },
+      ],
+      solutionsTitle: "The Flow",
+      solutionsIntro: ["Four states, one sheet, on a screen Swish already has."],
+      solutions: [
+        {
+          label: "Notification and Swap",
+          leftText: "A phone call interrupts the customer and still needs an answer from them.",
+          rightText: "The lock screen notification explains everything. Tapping it opens straight onto the swap already in progress, with 40 seconds to keep it, change it or drop it.",
+          images: [{ src: "/images/case-studies/swish/swish-notif-sheet.webp", alt: "Lock screen notification and swap sheet" }],
+          impactTitle: "Why it works",
+          impactText: "The customer is informed before they unlock, and acting takes one tap.",
+        },
+        {
+          label: "Override and Resolve",
+          leftText: "In the reviews, the agreed substitute also ran out, and another customer ended up with a duplicate.",
+          rightText: "Other options come only from dishes the kitchen always has, each with its price difference. Anything already in the bag is greyed out. Once resolved, the ETA hasn't moved.",
+          images: [{ src: "/images/case-studies/swish/swish-override-resolved.webp", alt: "Override list and resolved order" }],
+          impactTitle: "Impact",
+          impactText: "Same nine minutes, no call, and money is never a surprise.",
+        },
+      ],
+      outcomesTitle: "Outcomes",
+      outcomesIntro: [
+        "This is a proposal, not a shipped feature, so these are design outcomes rather than measured ones.",
+      ],
+      closingNote: ["That's the kachori sorted.", "Hopefully nobody gets three calls again."],
+      outcomes: [
+        { label: "Calls to sort a stockout", metric: "3 → 0" },
+        { label: "Change to the ETA", metric: "+0 min" },
+        { label: "New screens added", metric: "0, one sheet" },
+        { label: "Motion matched to the app", metric: "150 / 200 / 300 ms" },
+      ],
+      learnedTitle: "What I Learned",
+      learned: [
+        "Matching a product's restraint is harder than out-animating it. Measuring Swish's real timings, and then not adding a single bounce, made the prototype feel like theirs. I also learned to write down my gaps as clearly as my decisions.",
+      ],
+    },
+  },
+  {
+    slug: "animation-engine",
+    title: "Animation Engine",
+    meta: "Personal, 2026",
+    tag: "Motion & Prototyping",
+    description:
+      "A motion library and studio where every animation runs live inside exact iPhone, iPad and MacBook frames, gets tuned with real controls, shows its GPU cost, and can be turned into a launch film.",
+    gradient: "from-[#1a1a1a] to-[#3a2a1a]",
+    image: "/images/case-studies/animation-engine/ae-swiggy-iphone.webp",
+    links: [
+      { label: "Live demo", href: "https://animation-engine-nine.vercel.app/" },
+      { label: "GitHub", href: "https://github.com/syedali9210/animation-engine" },
+    ],
+    caseStudy: {
+      overview: [
+        "Animation Engine puts every animation from my projects in one place. Each one runs inside an accurate device frame, can be tuned live, and can be composed into a launch film.",
+        "Built with React, TypeScript, Three.js, GSAP and Motion.",
+      ],
+      challenge: [
+        "My animations were scattered across separate Desktop projects. Previewing them in a desktop browser hid how they actually felt on a phone, I had no idea what each one cost the GPU, and making a launch film meant reaching for another tool.",
+      ],
+      scope: {
+        did: [
+          "Designed and built the engine: the library, device stage, inspector, Studio and command palette.",
+          "Made each animation run in a real iframe at the device's own viewport, so CSS breakpoints behave like they would on the device.",
+          "Rebuilt the Swiggy home screen and split it into components you can test on their own.",
+          "Added GPU and main-thread cost measurement for every animation.",
+        ],
+        didnt: [
+          "Write every animation from scratch. Most come from my earlier projects, the Swiggy screen started as a Figma Make export, and one is VengeanceUI's, as published.",
+          "Test on real hardware. The frames match viewport, pixel ratio and breakpoints in the browser, which is close, but not the same as a real device.",
+        ],
+      },
+      researchTitle: "What Motion Needs to Be Judged Fairly",
+      researchIntro: [
+        "Before building, I listed what a desktop browser preview gets wrong about mobile motion.",
+      ],
+      researchNotes: [
+        { title: "The wrong size.", points: ["A desktop window never hits the phone's breakpoints."] },
+        { title: "The wrong pixel ratio.", points: ["Canvas cost changes at 3x, so performance looked better than it was."] },
+        { title: "No reduced-motion check.", points: ["Easy to forget when the OS setting is off."] },
+        { title: "Tuning meant editing code.", points: ["Every timing tweak was a save and reload."] },
+      ],
+      insightsTitle: "Design Principles",
+      insightsIntro: ["Four rules for a tool that makes motion easier to judge."],
+      insights: [
+        {
+          title: "Judge motion where it lives",
+          description: "Every animation plays inside the device it's meant for, at its true size, and Compare shows them all at relative scale.",
+        },
+        {
+          title: "Tune, don't re-code",
+          description: "Timing, easing and behavior are live controls in the inspector, including a cubic-bezier editor.",
+        },
+        {
+          title: "Know the cost",
+          description: "Every animation shows what it costs the GPU and main thread on each device, so smooth isn't a guess.",
+        },
+        {
+          title: "Motion is also marketing",
+          description: "The same animations become scenes in a launch film, without leaving the tool.",
+        },
+      ],
+      solutionsTitle: "The Tool",
+      solutionsIntro: ["Screens from the live demo."],
+      solutions: [
+        {
+          label: "Components in a Device",
+          leftText: "Tuning motion in a desktop browser hid how it felt on a phone.",
+          rightText: "Pick any animation and it runs in an iPhone 16 Pro frame at 402 by 874, with its timing and easing exposed as live controls beside it.",
+          images: [
+            { src: "/images/case-studies/animation-engine/ae-swiggy-iphone.webp", alt: "Swiggy home screen in an iPhone frame" },
+            { src: "/images/case-studies/animation-engine/ae-component-tuning.webp", alt: "Toast stack with timing controls" },
+          ],
+          impactTitle: "Why it works",
+          impactText: "You feel the motion at the size people will actually see it.",
+        },
+        {
+          label: "Compare Across Devices",
+          leftText: "A layout that works on a phone can break on a tablet or a laptop.",
+          rightText: "Compare places iPhone, Duo, iPad and MacBook side by side at true relative size, each showing which breakpoint is active.",
+          images: [{ src: "/images/case-studies/animation-engine/ae-compare.webp", alt: "Compare view across four devices" }],
+          impactTitle: "Why it works",
+          impactText: "Responsive problems show up in one glance instead of four window resizes.",
+        },
+        {
+          label: "Studio for Launch Films",
+          leftText: "Turning an animation into a launch video meant exporting it into another tool.",
+          rightText: "The Studio composes scenes from layers, with devices, camera moves and a timeline, and exports the film.",
+          images: [
+            { src: "/images/case-studies/animation-engine/ae-studio.webp", alt: "Studio with a launch film timeline" },
+            { src: "/images/case-studies/animation-engine/ae-overview.webp", alt: "Product overview with film templates" },
+          ],
+          impactTitle: "Impact",
+          impactText: "One tool from tuning a micro-interaction to shipping the film that shows it off.",
+        },
+      ],
+      outcomesTitle: "Outcomes",
+      outcomesIntro: ["The engine is live, and it's where I build and test motion now."],
+      closingNote: ["That's a lot of easing curves.", "Thanks for scrolling through them smoothly."],
+      outcomes: [
+        { label: "Animations in the library", metric: "35" },
+        { label: "Device frames", metric: "4" },
+        { label: "Swiggy components to test alone", metric: "10" },
+        { label: "Film templates", metric: "15" },
+      ],
+      learnedTitle: "What I Learned",
+      learned: [
+        "Motion only feels right when you judge it at the real size, on the real pixel ratio, with its real cost in view. Building the engine made me a lot more honest about my own animations.",
+      ],
+    },
+  },
   {
     slug: "kodex",
     title: "Kodex",

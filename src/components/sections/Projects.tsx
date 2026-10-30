@@ -92,13 +92,28 @@ export default function Projects() {
               {/* Pulled up out of the parent's gap-6 — sits closer to the
                   description than the image/text spacing above it. */}
               <div className="-mt-3 flex flex-col gap-3">
-                {project.caseStudy && (
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="w-fit rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-80"
-                  >
-                    View Case Study
-                  </Link>
+                {(project.caseStudy || project.links) && (
+                  <div className="flex flex-wrap items-center gap-2">
+                    {project.caseStudy && (
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="w-fit rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-80"
+                      >
+                        View Case Study
+                      </Link>
+                    )}
+                    {project.links?.map((link) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-fit rounded-full border border-foreground/15 px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+                      >
+                        {link.label} ↗
+                      </a>
+                    ))}
+                  </div>
                 )}
 
                 {project.comingSoon && (
