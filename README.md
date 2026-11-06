@@ -56,7 +56,7 @@ Tokens need names that can't collide: `text-body` and `text-label` were both a c
 
 ## How it's built
 
-- **Next.js 16** (App Router, static pages from `generateStaticParams`), **React 19**, **TypeScript**, **Tailwind CSS v4**. No other runtime dependencies; motion is CSS transitions driven by one `IntersectionObserver` (`src/components/motion.tsx`).
+- **Next.js 16** (App Router, static pages from `generateStaticParams`), **React 19**, **TypeScript**, **Tailwind CSS v4**. The site's own motion is CSS transitions driven by one `IntersectionObserver` (`src/components/motion.tsx`). The archive's animations are the exception: they use Motion and lucide-react, and run in frames of their own, so neither loads anywhere else.
 - Fonts: Geist, Geist Mono and Libre Baskerville through `next/font/google`.
 - Layout: text in a 688 px measure, pictures in a 923 px column, and one bar at the foot of the screen as the way round a case study on every size (`Panels.tsx`); a progressive blur runs along the bottom edge; headlines rise word by word as sections arrive. Type is one fluid scale of seven steps, and every gap is a named token on a 4 px grid (`globals.css`, explained in [DESIGN-SYSTEM.md](DESIGN-SYSTEM.md)).
 - Speed: `public/` keeps for a day and then refreshes behind the old copy (`next.config.ts`). A stone's WebGL outlives its page: the workers stay and a stone leaving is parked, so coming back costs nothing, and new ones are built one at a time, after the flight has landed (`useStones` in `Stamps.tsx`). A client component is only given what it needs, because everything it's given goes down the wire a second time.
@@ -79,6 +79,15 @@ Illustrations are hairline figures (`illustrations/<name>.js`), checked on the h
 2. Copy one of `src/content/case-studies/*.ts`, change the words and blocks. Block types are in `src/content/types.ts`: `section` (starts a card), `media` (picture or film, `tall` pans on hover), `immersive` (goes full screen as you scroll), `tradeoffs`, `decisions` and `alignment` (one three-column table each), `process` (the design process: phases with `phase`, `kind`, one line and an output, climbed by the stairs figure), `gallery` (one plate of pictures in rows that fill it, or with `tabs` one at a time), `image`, `wireframes` (the device section: `over` is the screen on the device, the screens from `src/content/wireframes.ts` are the field under it; the section right before it becomes its heading), `illustration`, `cards` (an even grid of points), `statement`, `stats`. Each case study also has a `tagline`, a `theme` (colours sampled from its screens), a `hero` device, an optional `card` film for its front-page card and an optional `closing`, the two-line sign-off above Up next; the four main sections take an `eyebrow` and an `entry` (rise, draw, focus, wipe), and a `gallery` with `tabs` shows one picture at a time. Mark a block `quick: true` to keep it in the quick overview, and fill `quick` with the three lines.
 3. Add it to the list in `src/content/index.ts`. The build fails if a picture is missing, an id repeats, or a status-card link points at nothing.
 
+## Adding an animation to the archive
+
+The archive's animations came from [syedali.app](https://github.com/syedali9210/syedali.app) and live in `src/components/animations/`.
+
+1. Put the component there and add it to `DEMOS` in `Figure.tsx`. It runs on its own page at `/archive/<id>`, which the stage opens in a frame, so what it's built on only loads when it's opened. In a frame a width says nothing about the screen: ask the device (`pointer`, `hover`), not a breakpoint.
+2. Add it to `src/content/archive.ts` with `fig(id, title, note)`.
+3. Give it a still, `public/archive/<id>.webp` at 1000 x 800, which its dust takes its colours from, and run `npm run media`.
+4. Give it a stone: a carving in `MOTIFS` (`scripts/stamps/motifs.js`), an entry in `PIECES` (`bake.py`) and a voice in `src/content/voices.ts`. Then `npm run stamps -- pieces`, because the number on every stone after it moves, and the archive's own stone keeps a tally of them all.
+
 ## What's next
 
 - Get Decathlon's OK for the two client pages.
@@ -87,7 +96,7 @@ Illustrations are hairline figures (`illustrations/<name>.js`), checked on the h
 
 ## The hero's rocks and the work's fields
 
-`npm run stamps` (with the site running on localhost:3418) bakes each project's rock and the maps its hover is lit from into `public/stamps/`, from `scripts/stamps/bake.py` and `motifs.js`.
+`npm run stamps` (with the site running on localhost:3418) bakes each project's rock and the maps its hover is lit from into `public/stamps/`, from `scripts/stamps/bake.py` and `motifs.js`. It needs numpy, scipy, Pillow and Playwright, and drives Edge unless told otherwise: `STAMPS_BROWSER=chromium`, and `STAMPS_SITE` for another address.
 
 `npm run fields` bakes the work section's dithered fields (`scripts/stamps/fields.py`).
 

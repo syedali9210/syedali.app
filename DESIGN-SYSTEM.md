@@ -116,6 +116,7 @@ Quiet, made on the spot with Web Audio (no files to load), and one switch turns 
 - **Plate** (`.plate`): a picture inset on a soft field of the project's colour.
 - **Picture rows** (`.bento`): pictures that are cards in their own right share one plate. Each keeps its shape, and a row's pictures grow by aspect ratio so the row fills the plate. Use `fit: "row"` for small files, which stay at their own size. A picture is never drawn wider than its file.
 - **Film** (`Immersive`): pinned and growing to the full screen on a landscape screen. On a portrait screen it stays in the page, edge to edge, and grows out to the edges as it rises.
+- **Archive animation** (`animations/Figure.tsx`): a live piece on its own page, opened in the stage's frame, 5:4 on a wide screen and 4:5 on a phone. Its own colours where it has a character of its own, such as the pet or the notch, and the site's tokens for everything round it.
 - **Case nav** (`Panels.tsx`): a carved stone to go back and a black bar that names your section, the same on every screen. Press the current section for the full list and the switches.
 - **Tables** (`Table`): three columns at 5:6:5. Below `sm` the rows stack and each cell carries its column's name.
 - **Dome** (`.dome`): the colour passage. `--bell` is the height the picture is drawn at, and `--crop` is how much shows, because the rest of the picture is plain core.

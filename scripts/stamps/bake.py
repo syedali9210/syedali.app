@@ -12,7 +12,7 @@ on a dressed panel, and the maps its hover is lit from. Each is its own stone.
 At rest the carving is shown at REST of its full depth; the hover hammers it to the full depth. The rock's own body doesn't
 change: its height (BODY px at most) is kept apart from the carving's (CARVE px), so the worker can deepen one alone.
 
-Run with the site up on localhost:3418:  python scripts/stamps/bake.py [slug ...]   or   bake.py pieces [piece ...] for the archive's
+Run with the site up on localhost:3418 (or STAMPS_SITE), in Edge (or STAMPS_BROWSER=chromium):  python scripts/stamps/bake.py [slug ...]   or   bake.py pieces [piece ...] for the archive's
 """
 import asyncio, base64, io, os, pathlib, re, sys
 import numpy as np
@@ -50,12 +50,13 @@ def ring(*pts):
 # The archive's pieces, each on a stone of its own: its colour and kind, its outline, how hard its edge was chipped (chip), how far
 # its corners were worn round (round), and what's carved on it. The cartouche fits any outline that reaches about 0.36 all round.
 PIECES = {
-    "memory": dict(title="A project", subject="figure", src="public/archive/memory.webp", lo=(0.56, 0.44, 0.42), hi=(0.76, 0.62, 0.58), fleck=(0.26, 0.2, 0.2), spark=(0.92, 0.82, 0.78), vein=0, strata=0, rough=0.84, fresh=0.2, seed=301, chip=1.3, round=12, shape=ring((-90, 0.5), (-30, 0.47), (30, 0.47), (90, 0.5), (150, 0.47), (210, 0.47))),
-    "devices": dict(title="Four devices", subject="figure", src="public/archive/devices.webp", lo=(0.3, 0.36, 0.44), hi=(0.47, 0.54, 0.63), fleck=(0.15, 0.18, 0.23), spark=(0.7, 0.76, 0.82), vein=0.3, strata=0, rough=0.74, fresh=0.3, seed=307, chip=0.8, round=26, shape=ring((-90, 0.42), (-45, 0.43), (0, 0.44), (45, 0.5), (90, 0.5), (135, 0.5), (180, 0.44), (225, 0.43))),
-    "shoeboxes": dict(title="Five series", subject="figure", src="public/archive/shoeboxes.webp", lo=(0.66, 0.5, 0.24), hi=(0.86, 0.7, 0.38), fleck=(0.46, 0.32, 0.12), spark=(0.92, 0.82, 0.58), vein=0, strata=1, rough=0.92, fresh=0.12, seed=311, chip=1.5, round=8, shape=ring((-125, 0.44), (-55, 0.44), (-10, 0.45), (40, 0.56), (90, 0.49), (140, 0.56), (190, 0.45))),
-    "vault": dict(title="The keys", subject="figure", src="public/archive/vault.webp", lo=(0.2, 0.38, 0.31), hi=(0.34, 0.56, 0.46), fleck=(0.08, 0.2, 0.15), spark=(0.55, 0.78, 0.66), vein=1, strata=0, rough=0.62, fresh=0.25, seed=313, chip=1, round=16, shape=ring((-145, 0.52), (-90, 0.46), (-35, 0.52), (20, 0.47), (65, 0.47), (90, 0.5), (115, 0.47), (160, 0.47))),
-    "deck": dict(title="The deck", subject="figure", src="public/archive/deck.webp", lo=(0.62, 0.3, 0.2), hi=(0.82, 0.46, 0.32), fleck=(0.38, 0.16, 0.1), spark=(0.9, 0.62, 0.48), vein=0, strata=1, rough=0.9, fresh=0.28, seed=317, chip=1.6, round=10, shape=ring((-90, 0.5), (-18, 0.48), (54, 0.52), (126, 0.52), (198, 0.48))),
-    "stairs": dict(title="The steps", subject="figure", src="public/archive/stairs.webp", lo=(0.74, 0.7, 0.6), hi=(0.92, 0.89, 0.79), fleck=(0.55, 0.5, 0.4), spark=(0.97, 0.95, 0.88), vein=0, strata=1, rough=0.82, fresh=0.06, seed=331, chip=1.1, round=20, shape=ring((-62, 0.5), (-20, 0.5), (30, 0.52), (118, 0.5), (160, 0.5), (210, 0.52))),
+    "maze-walk": dict(title="Maze Walk", subject="maze-walk", lo=(0.66, 0.5, 0.24), hi=(0.86, 0.7, 0.38), fleck=(0.46, 0.32, 0.12), spark=(0.92, 0.82, 0.58), vein=0, strata=1, rough=0.92, fresh=0.12, seed=311, chip=1.5, round=8, shape=ring((-125, 0.44), (-55, 0.44), (-10, 0.45), (40, 0.56), (90, 0.49), (140, 0.56), (190, 0.45))),
+    "hello": dict(title="Hello", subject="hello", lo=(0.56, 0.44, 0.42), hi=(0.76, 0.62, 0.58), fleck=(0.26, 0.2, 0.2), spark=(0.92, 0.82, 0.78), vein=0, strata=0, rough=0.84, fresh=0.2, seed=301, chip=1.3, round=12, shape=ring((-90, 0.5), (-30, 0.47), (30, 0.47), (90, 0.5), (150, 0.47), (210, 0.47))),
+    "tab-hop": dict(title="Tab Hop", subject="tab-hop", lo=(0.3, 0.36, 0.44), hi=(0.47, 0.54, 0.63), fleck=(0.15, 0.18, 0.23), spark=(0.7, 0.76, 0.82), vein=0.3, strata=0, rough=0.74, fresh=0.3, seed=307, chip=0.8, round=26, shape=ring((-90, 0.42), (-45, 0.43), (0, 0.44), (45, 0.5), (90, 0.5), (135, 0.5), (180, 0.44), (225, 0.43))),
+    "notch-card": dict(title="Notch Card", subject="notch-card", lo=(0.11, 0.11, 0.13), hi=(0.23, 0.23, 0.26), fleck=(0.05, 0.05, 0.06), spark=(0.62, 0.62, 0.64), vein=0.2, strata=0, rough=0.58, fresh=0.5, seed=319, chip=0.9, round=20, shape=ring((-90, 0.46), (-40, 0.5), (0, 0.46), (40, 0.5), (90, 0.46), (140, 0.5), (180, 0.46), (220, 0.5))),
+    "scratch-card": dict(title="Scratch Card", subject="scratch-card", lo=(0.74, 0.7, 0.6), hi=(0.92, 0.89, 0.79), fleck=(0.55, 0.5, 0.4), spark=(0.97, 0.95, 0.88), vein=0, strata=1, rough=0.82, fresh=0.06, seed=331, chip=1.1, round=20, shape=ring((-62, 0.5), (-20, 0.5), (30, 0.52), (75, 0.5), (118, 0.5), (160, 0.5), (210, 0.52))),
+    "nav-scrubber": dict(title="Nav Scrubber", subject="nav-scrubber", lo=(0.2, 0.38, 0.31), hi=(0.34, 0.56, 0.46), fleck=(0.08, 0.2, 0.15), spark=(0.55, 0.78, 0.66), vein=1, strata=0, rough=0.62, fresh=0.25, seed=313, chip=1, round=16, shape=ring((-145, 0.52), (-90, 0.46), (-35, 0.52), (20, 0.47), (65, 0.47), (90, 0.5), (115, 0.47), (160, 0.47))),
+    "chat-quiz": dict(title="Chat Quiz", subject="chat-quiz", lo=(0.62, 0.3, 0.2), hi=(0.82, 0.46, 0.32), fleck=(0.38, 0.16, 0.1), spark=(0.9, 0.62, 0.48), vein=0, strata=1, rough=0.9, fresh=0.28, seed=317, chip=1.6, round=10, shape=ring((-90, 0.5), (-18, 0.48), (54, 0.52), (126, 0.52), (198, 0.48))),
     "trace-launch": dict(title="Trace film", subject="film", film="trace", lo=(0.15, 0.19, 0.42), hi=(0.26, 0.33, 0.62), fleck=(0.07, 0.09, 0.24), spark=(0.85, 0.76, 0.45), vein=0.2, strata=0, rough=0.6, fresh=0.42, seed=337, chip=1.2, round=14, shape=ring((-100, 0.52), (-70, 0.45), (-20, 0.5), (35, 0.44), (80, 0.52), (120, 0.45), (170, 0.5), (230, 0.44))),
     "engine-launch": dict(title="Engine film", subject="film", film="animation-engine", lo=(0.36, 0.29, 0.46), hi=(0.55, 0.46, 0.66), fleck=(0.2, 0.15, 0.28), spark=(0.8, 0.72, 0.88), vein=0, strata=0, rough=0.72, fresh=0.3, seed=347, chip=1, round=24, shape=ring((-90, 0.46), (-50, 0.5), (-10, 0.44), (30, 0.5), (70, 0.45), (110, 0.5), (150, 0.45), (190, 0.5), (230, 0.45))),
     "kiprun-film": dict(title="KIPRUN film", subject="film", film="kiprun", lo=(0.13, 0.14, 0.15), hi=(0.25, 0.26, 0.27), fleck=(0.06, 0.06, 0.07), spark=(0.55, 0.55, 0.55), vein=1, strata=0, rough=0.7, fresh=0.6, seed=349, chip=1.4, round=9, shape=ring((-140, 0.53), (-90, 0.45), (-40, 0.53), (0, 0.44), (40, 0.5), (90, 0.47), (140, 0.5), (180, 0.44))),
@@ -432,7 +433,7 @@ async def main():
         pieces = only[1:]
     motifs = (pathlib.Path(__file__).parent / "motifs.js").read_text(encoding="utf-8")
     async with async_playwright() as p:
-        b = await p.chromium.launch(channel="msedge", headless=True)
+        b = await p.chromium.launch(channel=os.environ.get("STAMPS_BROWSER", "msedge"), headless=True)
         pg = await b.new_page()
         await pg.goto(SITE, wait_until="domcontentloaded")
         await pg.evaluate("document.fonts.ready")

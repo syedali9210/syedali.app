@@ -56,13 +56,14 @@ export const VOICES: Record<string, Voice> = {
   "piece-kodex": v("F#5 E5 D5", "marble"),
   "piece-anime-sports-league": v("A5 F#5 A5", "ironstone"),
 
-  // The archive's figures, light and high.
-  "piece-memory": v("B5 D6 F#6", "granite"),
-  "piece-devices": v("D6 E6 B5", "basalt"),
-  "piece-shoeboxes": v("E6 D6 A5", "sandstone"),
-  "piece-vault": v("F#6 A6 E6", "jade"),
-  "piece-deck": v("A5 E6 D6", "ironstone"),
-  "piece-stairs": v("F#5 A5 B5", "sandstone"), // a flight of steps
+  // The archive's animations, light and high.
+  "piece-maze-walk": v("E6 D6 A5", "sandstone"),
+  "piece-hello": v("B5 D6 F#6", "granite"),
+  "piece-tab-hop": v("D6 E6 B5", "basalt"),
+  "piece-notch-card": v("A5 D6 F#6", "basalt"),
+  "piece-scratch-card": v("F#5 A5 B5", "sandstone"),
+  "piece-nav-scrubber": v("F#6 A6 E6", "jade"),
+  "piece-chat-quiz": v("A5 E6 D6", "ironstone"),
 
   // The archive's films, lower.
   "piece-trace-launch": v("D5 A5 F#5", "marble"),

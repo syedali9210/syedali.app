@@ -7,7 +7,7 @@ import { ARCHIVE_KINDS, archive } from "@/content/archive";
 
 export const metadata: Metadata = {
   title: "Archive",
-  description: "Figures, films, sites and products by Syed Ali, each cut in its own stone.",
+  description: "Animations, films, sites and products by Syed Ali, each cut in its own stone.",
 };
 
 export default function Page() {

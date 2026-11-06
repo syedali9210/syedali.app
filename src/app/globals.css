@@ -1059,6 +1059,9 @@ html[data-flown] .ar-mark { animation: none; }
 /* The dust's own layer, drawn by its worker: above the stage, hidden between flights so it costs nothing. */
 .dust-layer { position: fixed; inset: 0; z-index: 91; width: 100vw; height: 100vh; pointer-events: none; visibility: hidden; }
 .stage-body { position: relative; z-index: 1; width: min(960px, 88vw, calc(68svh * var(--ar))); }
+/* An animation's frame: wide on a wide screen, and on a phone tall enough to use. */
+.stage-body[data-figure] { --ar: 1.25; }
+@media (max-width: 639px) { .stage-body[data-figure] { --ar: 0.8; } }
 .stage-media {
   position: relative; aspect-ratio: var(--ar); overflow: hidden; background: var(--color-card);
   box-shadow: 0 0 0 1px var(--color-line), 0 40px 80px -40px rgb(20 20 30 / 0.45);

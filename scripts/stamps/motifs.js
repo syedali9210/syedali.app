@@ -235,6 +235,18 @@ function cartouche(d, n, F) {
   return { panel, frame };
 }
 
+// The pet from the archive's animations, on its 22 x 24 grid, u px a square, its top left at x, y. With arms, it's reaching out both sides.
+const pet = (x, y, u, top, arms = false) => [
+  layer("raise", top * 0.8, 2, (c) => {
+    for (const k of [3, 14]) (rrect(c, x + k * u, y + 17 * u, 5 * u, 6.4 * u, u), c.fill());
+    if (arms) for (const k of [-3.4, 20.6]) (rrect(c, x + k * u, y + 9 * u, 4.8 * u, 4.2 * u, u * 0.8), c.fill());
+  }),
+  layer("raise", top, 2.4, (c) => (rrect(c, x + u, y + 3 * u, 20 * u, 16 * u, 3 * u), c.fill())),
+  layer("cut", 0.14, 1.2, (c) => {
+    for (const k of [5, 13]) (rrect(c, x + k * u, y + 9 * u, 4 * u, 4 * u, u * 0.4), c.fill());
+  }),
+];
+
 // Each subject, drawn where it sits in the cartouche or fitted into it (`fit`: scale k about cx, cy, moved to x, y).
 const MOTIFS = {
   // Trace: its own mark, the line from one point to the next, raised on a tile ruled like its canvas.
@@ -524,6 +536,210 @@ const MOTIFS = {
         c.restore();
       }));
       return out;
+    },
+  },
+
+  // The archive's animations, each carved as what it is.
+
+  // Maze Walk: its own walkway seen from above, the line the pet paces cut down the middle of it, and the pet at the start.
+  "maze-walk": {
+    fit: { k: 0.47, cx: 542, cy: 226, x: 338, y: 424 },
+    draw() {
+      const walk = new Path2D("M212 228L360 143L508 228L574 190L470 130L508 108L647 28L685 50L787 108L872 59L910 81L787 152L647 71L546 130L650 190L508 272L360 187L250 250L431 355L393 377L174 250Z M393 377L309 426L271 404L355 355Z");
+      const mid = [[290, 415], [393, 355], [212, 250], [360, 165], [508, 250], [612, 190], [508, 130], [647, 50], [787, 130], [891, 70]];
+      return [
+        layer("raise", 0.46, 3, (c) => {
+          c.lineWidth = 10;
+          c.fill(walk);
+          c.stroke(walk);
+        }),
+        layer("cut", 0.07, 1.2, (c) => {
+          c.lineWidth = 6;
+          c.setLineDash([16, 13]);
+          c.beginPath();
+          mid.forEach(([x, y], i) => c[i ? "lineTo" : "moveTo"](x, y));
+          c.stroke();
+        }),
+        ...pet(220, 300, 6.4, 0.86),
+      ];
+    },
+  },
+
+  // Hello: the pet, arms out, under its sign.
+  hello: {
+    draw() {
+      const u = 11, x = C[0] - 11 * u, y = C[1] - 66;
+      return [
+        layer("raise", 0.64, 5, (c) => {
+          c.save();
+          c.translate(C[0] + 34, C[1] - 136);
+          c.rotate(-0.1);
+          rrect(c, -104, -56, 208, 112, 22);
+          c.fill();
+          c.restore();
+        }),
+        layer("cut", 0.1, 1.6, (c) => {
+          c.save();
+          c.translate(C[0] + 34, C[1] - 136);
+          c.rotate(-0.1);
+          c.font = `700 62px ${fonts().serif}`;
+          c.textAlign = "center";
+          c.textBaseline = "middle";
+          c.fillText("Hi!", 0, 3);
+          c.restore();
+        }),
+        ...pet(x, y, u, 0.8, true),
+      ];
+    },
+  },
+
+  // Tab Hop: three tabs, one selected, and the pet landing on it, the way it came dashed in over the one before.
+  "tab-hop": {
+    draw() {
+      const y = C[1] + 62;
+      return [
+        layer("raise", 0.3, 5, (c) => (rrect(c, C[0] - 184, y, 368, 88, 44), c.fill())),
+        layer("raise", 0.6, 3, (c) => (rrect(c, C[0] - 62, y + 10, 124, 68, 34), c.fill())),
+        layer("cut", 0.08, 1.4, (c) => {
+          for (const x of [C[0] - 150, C[0] + 90]) (rrect(c, x, y + 34, 60, 20, 10), c.fill());
+          rrect(c, C[0] - 34, y + 34, 68, 20, 10);
+          c.fill();
+          c.lineWidth = 6;
+          c.setLineDash([14, 12]);
+          c.beginPath();
+          c.moveTo(C[0] - 120, y - 8);
+          c.quadraticCurveTo(C[0] - 112, y - 196, C[0] - 40, y - 150);
+          c.stroke();
+        }),
+        ...pet(C[0] - 55, y - 122, 5, 0.86),
+      ];
+    },
+  },
+
+  // Info Notch Card: the top edge of a screen, the notch hanging from it with its curved shoulders, and in it who, when and where to reach him.
+  "notch-card": {
+    draw() {
+      const x = C[0] - 164, w = 328, top = C[1] - 176, h = 228;
+      return [
+        layer("raise", 0.26, 4, (c) => (rrect(c, 60, top - 74, 556, 84, 0), c.fill())),
+        layer("raise", 0.56, 4, (c) => {
+          c.beginPath();
+          c.moveTo(x - 44, top);
+          c.quadraticCurveTo(x, top, x, top + 44);
+          c.lineTo(x, top + h - 44);
+          c.quadraticCurveTo(x, top + h, x + 44, top + h);
+          c.lineTo(x + w - 44, top + h);
+          c.quadraticCurveTo(x + w, top + h, x + w, top + h - 44);
+          c.lineTo(x + w, top + 44);
+          c.quadraticCurveTo(x + w, top, x + w + 44, top);
+          c.closePath();
+          c.fill();
+        }),
+        layer("cut", 0.08, 1.4, (c) => {
+          rrect(c, x + 104, top + 44, 128, 20, 10);
+          c.fill();
+          rrect(c, x + 104, top + 78, 92, 16, 8);
+          c.fill();
+          rrect(c, x + 170, top + 164, 118, 16, 8);
+          c.fill();
+        }),
+        layer("dome", 0.74, 0, (c) => {
+          disc(c, x + 56, top + 66, 38);
+          c.fill();
+          for (const k of [0, 1, 2]) (disc(c, x + 40 + k * 42, top + 172, 14), c.fill());
+        }),
+      ];
+    },
+  },
+
+  // Scratch Card: the card under its dotted foil, with a swathe scratched out of it.
+  "scratch-card": {
+    draw() {
+      const x = C[0] - 176, y = C[1] - 118, w = 352, h = 232;
+      return [
+        layer("raise", 0.5, 5, (c) => (rrect(c, x, y, w, h, 26), c.fill())),
+        layer("cut", 0.05, 0.8, (c) => {
+          for (let i = 0; i < 12; i++)
+            for (let j = 0; j < 8; j++) {
+              if (i * 0.8 + j > 9.2) continue;
+              disc(c, x + 26 + i * 27, y + 24 + j * 27, 4.2);
+              c.fill();
+            }
+        }),
+        layer("cut", 0.22, 7, (c) => {
+          c.lineWidth = 40;
+          c.beginPath();
+          c.moveTo(x + 156, y + 196);
+          c.lineTo(x + 232, y + 92);
+          c.lineTo(x + 244, y + 190);
+          c.lineTo(x + 318, y + 66);
+          c.stroke();
+        }),
+      ];
+    },
+  },
+
+  // Nav Scrubber: the pill, its name in the middle and the ones either side fading, the name again over it, and the thumb holding it.
+  "nav-scrubber": {
+    draw() {
+      const y = C[1] + 8;
+      return [
+        layer("raise", 0.5, 5, (c) => (rrect(c, C[0] - 180, y, 360, 92, 46), c.fill())),
+        layer("raise", 0.64, 4, (c) => (rrect(c, C[0] - 92, y - 110, 184, 74, 37), c.fill())),
+        layer("cut", 0.08, 1.4, (c) => {
+          rrect(c, C[0] - 52, y - 83, 104, 20, 10);
+          c.fill();
+          c.globalAlpha = 0.55;
+          for (const x of [C[0] - 158, C[0] + 86]) (rrect(c, x, y + 37, 72, 18, 9), c.fill());
+          c.globalAlpha = 1;
+        }),
+        layer("raise", 0.84, 2, (c) => (rrect(c, C[0] - 58, y + 34, 116, 24, 12), c.fill())),
+        layer("cut", 0.06, 1.4, (c) => {
+          c.lineWidth = 7;
+          for (const [a, b] of [[-1, 0], [1, 0]]) {
+            c.beginPath();
+            c.moveTo(C[0] + a * 112, y + 124);
+            c.lineTo(C[0] + a * 134, y + 146);
+            c.lineTo(C[0] + a * 112, y + 168);
+            c.stroke();
+          }
+        }),
+        layer("dome", 0.62, 0, (c) => (ellipse(c, C[0], y + 156, 58, 44), c.fill())),
+      ];
+    },
+  },
+
+  // Chat Quiz: the question in its bubble, its choices with one picked, and the composer under it.
+  "chat-quiz": {
+    draw() {
+      const x = C[0] - 176, y = C[1] - 190, w = 352, h = 264;
+      return [
+        layer("raise", 0.48, 5, (c) => {
+          rrect(c, x, y, w, h, 34);
+          c.fill();
+          c.beginPath();
+          c.moveTo(x + 52, y + h - 8);
+          c.lineTo(x + 40, y + h + 42);
+          c.lineTo(x + 112, y + h - 8);
+          c.closePath();
+          c.fill();
+        }),
+        layer("cut", 0.09, 1.4, (c) => {
+          rrect(c, x + 34, y + 32, 216, 22, 11);
+          c.fill();
+          c.lineWidth = 7;
+          for (const k of [0, 1, 2]) {
+            disc(c, x + 56, y + 96 + k * 56, 19);
+            c.stroke();
+            rrect(c, x + 96, y + 86 + k * 56, [172, 128, 150][k], 20, 10);
+            c.fill();
+          }
+        }),
+        layer("dome", 0.72, 0, (c) => (disc(c, x + 56, y + 96, 10), c.fill())),
+        layer("raise", 0.56, 4, (c) => (rrect(c, x, C[1] + 132, w, 72, 36), c.fill())),
+        layer("cut", 0.08, 1.4, (c) => (rrect(c, x + 34, C[1] + 158, 184, 20, 10), c.fill())),
+        layer("dome", 0.78, 0, (c) => (disc(c, x + w - 38, C[1] + 168, 22), c.fill())),
+      ];
     },
   },
 };

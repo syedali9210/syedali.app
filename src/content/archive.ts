@@ -19,7 +19,7 @@ export type ArchiveItem = {
 };
 
 const fig = (id: string, title: string, note: string): ArchiveItem => ({
-  id, kind: "animation", title, note, year: "2026", picture: { src: `/archive/${id}.webp`, alt: title }, figure: `/illustrations/${id}.html`,
+  id, kind: "animation", title, note, year: "2026", picture: { src: `/archive/${id}.webp`, alt: title }, figure: `/archive/${id}`,
 });
 const film = (id: string, title: string, note: string, dir: string, name: string, href: string): ArchiveItem => ({
   id, kind: "motion", title, note, year: "2026", picture: { src: `/case-studies/${dir}/${name}-poster.webp`, alt: title }, video: `/case-studies/${dir}/${name}.mp4`, href,
@@ -35,12 +35,13 @@ export const ARCHIVE_KINDS: { kind: ArchiveKind; label: string }[] = [
 ];
 
 export const archive: ArchiveItem[] = [
-  fig("memory", "A project, taken apart", "Trace's timeline, diffs, canvas and case study, layered over one memory."),
-  fig("devices", "Four devices on a plinth", "Every animation in the engine runs on one of these."),
-  fig("shoeboxes", "Five series, one shelf", "KIPRUN's five shoe series, a box each."),
-  fig("vault", "A scan across the keys", "Uniqkey's breach monitoring, drawn as a sweep."),
-  fig("deck", "Five cards, one in hand", "The five leagues of Anime Sports League."),
-  fig("stairs", "The design process", "A flight of steps, one per phase, climbed on a loop."),
+  fig("maze-walk", "Maze Walk", "A pixel pet walking an isometric maze. Steer it with the arrow keys."),
+  fig("hello", "Hello", "A small mascot by its sign, watching your pointer and waving back."),
+  fig("tab-hop", "Tab Hop", "The mascot leaps from tab to tab as you switch."),
+  fig("notch-card", "Info Notch Card", "A MacBook notch that opens into a business card."),
+  fig("scratch-card", "Scratch Card", "A foil card to scratch off, after Framer University's Image Scratch."),
+  fig("nav-scrubber", "Nav Scrubber", "A nav you hold and drag, one place at a time."),
+  fig("chat-quiz", "Chat Quiz", "An AI composer that asks its questions before it helps."),
   film("trace-launch", "Trace launch film", "Made with Animation Engine.", "trace", "launch", "/work/trace"),
   film("engine-launch", "Animation Engine launch film", "Exported from its own Studio.", "animation-engine", "engine-launch", "/work/animation-engine"),
   film("kiprun-film", "KIPRUN launch film", "48 seconds, made for the page.", "kiprun", "site-film", "/work/kiprun"),

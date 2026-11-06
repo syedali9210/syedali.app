@@ -245,12 +245,13 @@ function Stage({ open, onClosed }: { open: Open; onClosed: () => void }) {
   return createPortal(
     <div ref={root} role="dialog" aria-modal="true" aria-label={item.title} className={`stage stage-${phase}`} onClick={close}>
       <canvas ref={canvas} className="stage-dust" aria-hidden="true" />
-      <div className="stage-body" data-fly-scope onClick={(e) => e.stopPropagation()} style={{ "--ar": item.figure ? 1.25 : item.w / item.h } as CSSProperties}>
+      <div className="stage-body" data-fly-scope data-figure={item.figure ? "" : undefined} onClick={(e) => e.stopPropagation()} style={item.figure ? undefined : ({ "--ar": item.w / item.h } as CSSProperties)}>
         <div ref={media} className="stage-media" data-fly="screen">
           {item.video ? (
             <video ref={film} src={item.video} poster={item.picture.src} preload="none" muted loop playsInline controls className="size-full object-cover" />
           ) : item.figure ? (
-            <iframe src={item.figure} title={item.title} className="size-full border-0 bg-white" />
+            // Focused as it loads, so an animation that's steered by keys answers to them straight away.
+            <iframe src={item.figure} title={item.title} onLoad={(e) => e.currentTarget.contentWindow?.focus()} className="size-full border-0 bg-sheet" />
           ) : (
             <Image src={item.picture.src} alt={item.picture.alt} width={item.w} height={item.h} sizes="(min-width: 1100px) 960px, 88vw" className="size-full object-cover object-top" />
           )}
@@ -382,7 +383,7 @@ export function Archive({ items, kinds }: { items: Node[]; kinds: { kind: Archiv
               </div>
             </div>
             <h1 className="ar-title font-serif">Archive</h1>
-            <p className="ar-desc">{items.length} pieces: figures, films, sites and products, each cut in its own stone. Press one to break it open.</p>
+            <p className="ar-desc">{items.length} pieces: animations, films, sites and products, each cut in its own stone. Press one to break it open.</p>
           </aside>
           <main className="ar-main">
             <ul ref={grid} className="cards">

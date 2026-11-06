@@ -11,7 +11,7 @@ const config: NextConfig = {
   async headers() {
     return [
       {
-        source: "/:dir(stamps|archive|case-studies|illustrations|experience)/:path*",
+        source: "/:dir(stamps|archive|animations|case-studies|illustrations|experience)/:path*",
         headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=2592000" }],
       },
     ];

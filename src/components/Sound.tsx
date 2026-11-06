@@ -136,6 +136,8 @@ export function hammer(stone: string, n: number) {
  */
 export function Sound() {
   useEffect(() => {
+    // Inside an archive animation's frame: those have no sound of their own, and a second audio context would stall the page opening it.
+    if (window.parent !== window) return;
     let finger: { id: number; x: number; y: number; t: number } | null = null;
     const play = (t: EventTarget | null) => {
       const at = t instanceof Element ? t : null;
