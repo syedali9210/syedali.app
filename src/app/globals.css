@@ -547,6 +547,18 @@ section.hero { --fx: 36px; --fw: min(100vw, 620px); min-height: 100svh; }
   .hero-card > span:nth-child(3) { display: none; }
 }
 
+/* Contact (Contact.tsx): the address in its own case, not the labels' capitals, and a button that copies it. */
+.contact-mail { position: relative; display: inline-flex; align-items: center; gap: var(--spacing-label); }
+.contact-mail .contact-address { text-transform: none; letter-spacing: 0.02em; transition: opacity 0.16s ease-out; }
+.contact-copied { position: absolute; left: 0; top: 50%; translate: 0 -50%; font: var(--type-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent); pointer-events: none; opacity: 0; transition: opacity 0.16s ease-out; }
+.contact-mail[data-copied] .contact-address { opacity: 0; }
+.contact-mail[data-copied] .contact-copied { opacity: 1; }
+.contact-copy { position: relative; display: grid; place-items: center; width: 24px; height: 24px; margin-block: -4px; border-radius: 4px; color: var(--color-label); cursor: pointer; transition: color 0.16s ease-out, scale 0.15s var(--ease-out); }
+.contact-copy::after { content: ""; position: absolute; inset: -6px; } /* a bigger target than it looks */
+.contact-copy:active { scale: 0.9; }
+.contact-mail[data-copied] .contact-copy { color: var(--color-accent); }
+@media (hover: hover) and (pointer: fine) { .contact-copy:hover { color: var(--color-ink); } }
+
 /* The stamps (Stamps.tsx). Each li is only a point, the stamp's centre; everything hangs from it, centred. */
 .stamps { position: absolute; inset: 0; margin: 0; padding: 0; list-style: none; pointer-events: none; }
 .stamp {
@@ -701,8 +713,15 @@ a:hover > .menu-stone, a:focus-visible > .menu-stone, a:active > .menu-stone { o
 .smenu[data-open] .smenu-nav a:nth-child(2) { transition-delay: 0.22s; }
 .smenu[data-open] .smenu-nav a:nth-child(1) { transition-delay: 0.26s; }
 .smenu-nav img { width: 34px; height: auto; margin-right: 12px; rotate: -6deg; filter: drop-shadow(0 2px 4px rgb(20 26 40 / 0.3)); user-select: none; -webkit-user-drag: none; }
-.smenu-foot { display: flex; align-items: center; gap: var(--spacing-note); height: 78px; padding-right: 76px; opacity: 0.001; will-change: opacity; transition: opacity 0.22s ease-out; }
-.smenu[data-open] .smenu-foot { opacity: 1; transition: opacity 0.44s var(--ease-glide) 0.2s; }
+.smenu-contact { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; column-gap: var(--spacing-text); }
+.smenu-contact .smenu-out { margin: 0; }
+.smenu-contact .contact-copied { left: auto; right: calc(44px + var(--spacing-label)); }
+.smenu-contact .contact-copy { width: 44px; height: 44px; margin: 0 -12px 0 0; }
+.smenu-foot { display: flex; align-items: center; justify-content: flex-end; gap: var(--spacing-note); height: 78px; padding-right: 76px; }
+.smenu-contact, .smenu-foot { opacity: 0.001; will-change: opacity; transition: opacity 0.22s ease-out; }
+.smenu[data-open] .smenu-contact, .smenu[data-open] .smenu-foot { opacity: 1; transition: opacity 0.44s var(--ease-glide) 0.2s; }
+/* A phone on its side has no height to spare: the ways to reach him join the switches, beside the stone. */
+@media (orientation: landscape) { .smenu-contact { position: absolute; right: calc(76px + 68px + 2 * var(--spacing-note) + var(--spacing-text)); bottom: 0; height: 78px; flex-wrap: nowrap; } }
 .smenu-out { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; margin-right: auto; font: var(--type-label); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-fg); }
 /* A phone on its side: the foot's left end is above the blur's line, so GitHub joins the switches in it. */
 @media (orientation: landscape) { .smenu-out { margin-right: 0; margin-left: auto; } }

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Mail } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
+import { EMAIL, GITHUB, LINKEDIN } from "@/content/contact";
 import { GithubIcon, LinkedinIcon } from "./icons";
 
 const CARD_BG = "#050505";
@@ -11,9 +12,9 @@ const AVAILABLE_GREEN = "rgb(0, 255, 111)";
 const SPRING = { type: "spring" as const, bounce: 0.15, duration: 0.6 };
 
 const SOCIAL_LINKS = [
-  { label: "LinkedIn", icon: LinkedinIcon, href: "https://www.linkedin.com/in/syedali138/" },
-  { label: "Email", icon: Mail, href: "mailto:syedwali9286@gmail.com" },
-  { label: "GitHub", icon: GithubIcon, href: "https://github.com/syedali9210" },
+  { label: "LinkedIn", icon: LinkedinIcon, href: LINKEDIN },
+  { label: "Email", icon: Mail, href: `mailto:${EMAIL}` },
+  { label: "GitHub", icon: GithubIcon, href: GITHUB },
 ];
 
 function useLiveClock() {

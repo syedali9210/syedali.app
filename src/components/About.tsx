@@ -1,9 +1,9 @@
 import type { CSSProperties } from "react";
+import { GITHUB } from "@/content/contact";
 import { Icon } from "./Icon";
 import { Clock } from "./Peek";
 import { Rock, SidePage } from "./SidePage";
 
-const GITHUB = "https://github.com/syedali9210";
 const DO = ["Product design", "Design engineering", "Motion and launch films", "Design systems"];
 const WITH = ["Figma", "React and Next.js", "Three.js and WebGL", "Claude Code"];
 const num = (n: number) => String(n).padStart(4, "0");

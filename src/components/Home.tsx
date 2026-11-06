@@ -2,7 +2,7 @@ import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { caseStudies, sizeOf } from "@/content";
 import { PLACES } from "@/content/places";
-import { Icon } from "./Icon";
+import { Contact } from "./Contact";
 import { Cursor } from "./Cursor";
 import { Dome } from "./Dome";
 import { InkWord } from "./InkWord";
@@ -17,7 +17,6 @@ import { StoneMenu } from "./StoneMenu";
 import { ThemeToggle } from "./ThemeToggle";
 import { WorkFilter } from "./WorkFilter";
 
-const GITHUB = "https://github.com/syedali9210";
 const FRAME = "px-[clamp(16px,2.6vw,40px)]";
 const label = "font-mono text-[11px] leading-4 tracking-[0.08em] uppercase";
 const b = (n: number) => ({ "--b": n }) as CSSProperties;
@@ -132,7 +131,7 @@ export function Home() {
       <Cursor />
 
       <main className="relative z-[2]">
-        <StoneMenu github={GITHUB} />
+        <StoneMenu />
         {/* The first screen, on Bill Guo's grid. */}
         <section id="top" className="hero relative">
           <div className="hero-top">
@@ -150,10 +149,7 @@ export function Home() {
             </div>
             <div data-boot style={b(1)} className="hero-contact">
               <p className={`${label} text-label/60`}>Contact</p>
-              <a href={GITHUB} target="_blank" rel="noopener" className={`${label} inline-flex items-center gap-label text-fg underline-offset-4 hover:underline`}>
-                GitHub <Icon name="arrow-up-right" size={11} />
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
+              <Contact className="flex flex-col items-start gap-note" linkClass={`${label} inline-flex items-center gap-label text-fg underline-offset-4 hover:underline`} />
             </div>
             <div data-boot style={b(2)} className="hero-stamps">
               <p className={`${label} text-label/60`}>Stamps</p>

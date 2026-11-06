@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { PLACES } from "@/content/places";
-import { Icon } from "./Icon";
+import { Contact } from "./Contact";
 import { PageLink } from "./PageLink";
 import { onScrollFrame } from "./scroll";
 import { SoundToggle } from "./Sound";
@@ -11,10 +11,10 @@ import { ThemeToggle } from "./ThemeToggle";
 /**
  * The menu on a phone: a small rock in the bottom right corner, in reach of the thumb, that stays there down the page (the desktop has
  * its words instead). Pressed, it knocks and a soft blur opens from the corner, up to a line from the left edge to the top right, behind the
- * places to go, with GitHub and the switches along the foot, beside the stone; the page above that line stays sharp. A press anywhere else, or Esc, shuts it. While you read down the page it rolls most of the way off the edge, off the words,
+ * places to go and the ways to reach Syed, with the switches along the foot, beside the stone; the page above that line stays sharp. A press anywhere else, or Esc, shuts it. While you read down the page it rolls most of the way off the edge, off the words,
  * still there to press, and it rolls back as you scroll up and at the foot of the page.
  */
-export function StoneMenu({ github }: { github: string }) {
+export function StoneMenu() {
   const [open, setOpen] = useState(false);
   const stone = useRef<HTMLButtonElement>(null);
   const root = useRef<HTMLDivElement>(null);
@@ -71,11 +71,8 @@ export function StoneMenu({ github }: { github: string }) {
             </PageLink>
           ))}
         </nav>
+        <Contact className="smenu-contact" linkClass="smenu-out" />
         <div className="smenu-foot">
-          <a href={github} target="_blank" rel="noopener" className="smenu-out">
-            GitHub <Icon name="arrow-up-right" size={11} />
-            <span className="sr-only"> (opens in a new tab)</span>
-          </a>
           <SoundToggle className="hero-toggle" />
           <ThemeToggle plain className="hero-toggle" />
         </div>
