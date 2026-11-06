@@ -6,43 +6,44 @@ const dir = "/case-studies/animation-engine";
 export const animationEngine: CaseStudy = {
   slug: "animation-engine",
   title: "Animation Engine",
-  tagline: "I had 45 animations and no easy way to ==show any of them==.",
+  tagline: "Why go to someone else for a film of ==your own product==?",
   theme: { deep: "#2563eb", mid: "#9a8cf2", light: "#ffc2e6", highlight: "#ffcfeb" },
   hero: { frame: "screen", picture: { src: `${dir}/home.webp`, alt: "The Animation Engine's home: What are we making?" } },
   kind: "Product",
   year: "2026",
   summary:
-    "Animation Engine is one place for everything I've animated. Each piece runs live in exact iPhone, iPad and MacBook frames, and can become a launch film or an interactive canvas without opening the project it came from.",
+    "Animation Engine makes the whole product film for you. Ask for one in a sentence and it reads your screens, words and colours, then writes, directs and renders the film. The fun part is the taste: every film you keep or pass teaches it what you like, so it evolves with you.",
   meta: [
     { label: "Role", value: "Product Design, Motion, Development" },
-    { label: "Timeline", value: "3 weeks, 29 iterations" },
+    { label: "Made for", value: "Anyone with a product and no motion team" },
     { label: "Built with", value: "Vite, React 19, three.js, Motion, GSAP" },
   ],
   takeaways: [
-    "An animation that has to be opened in its own project rarely gets shown. 45 of them, from six projects, now run in one place, each as it was built.",
-    "Colour belongs to the work. My first pass had iris buttons and toggles competing with it, so the interface went monochrome.",
+    "A product film shouldn't depend on someone else's calendar. One sentence should be enough to get a first cut.",
+    "Generic films come from missing decisions. The engine fills them with your taste instead of a safe default.",
     "A template is only worth starting from if it's measured off a film I'd actually make. The generic ones made every film read generic.",
     "The device is half of every shot. CSS faces never looked real; three.js models at Apple's dimensions do.",
   ],
   quick: {
     problem:
-      "Every animation lived inside the project it was made for, so showing one meant running that project, and every launch film was built by hand.",
+      "A product film used to mean paying someone else, doing it all by hand, or accepting the look everyone gets from AI tools. I wanted the idea to stay mine and the slow part to go away.",
     approach:
-      "I built one app that runs them all live in exact Apple device frames, and turned my film process into a pipeline that can produce a launch film or a canvas from any codebase.",
+      "I built a studio that reads a product, then writes, directs and renders its film from one sentence. Every film you keep or pass teaches it your taste.",
     result:
-      "45 animations in one library, a launch film from a codebase in about 12 minutes, and a one-scene change re-exported in 12.6 s.",
+      "A launch film of any codebase in one call, every scene still editable, from a studio that learns your taste.",
   },
   status: {
     title: "Animation Engine, live and in daily use",
     live: true,
     facts: [
-      { label: "Recent Updates", value: "The Lab now has its own API key, with fallbacks when a model runs out" },
-      { label: "Devices", value: "iPhone 16 Pro, iPhone Duo, iPad Pro 11″, MacBook Pro 14″" },
+      { label: "The idea", value: "The taste that evolves with you" },
+      { label: "Makes", value: "Launch films, product demos, teasers, brand films and social cuts" },
     ],
     sections: [
       { label: "Problem", href: "#opening" },
       { label: "Process", href: "#process" },
       { label: "Product", href: "#one-call" },
+      { label: "Taste", href: "#taste" },
       { label: "Decisions", href: "#decisions" },
       { label: "Results", href: "#results" },
     ],
@@ -52,7 +53,7 @@ export const animationEngine: CaseStudy = {
   card: { video: `${dir}/card.mp4`, poster: `${dir}/card-poster.webp` },
   closing: [
     "That's enough of my own tools for now.",
-    "Next up is a real client, a real deadline and four days to ship.",
+    "Next up is a real client and a real deadline.",
   ],
   blocks: [
     {
@@ -66,24 +67,41 @@ export const animationEngine: CaseStudy = {
       id: "opening",
       entry: "rise",
       eyebrow: "The problem",
-      title: "Six projects, ==no device==",
+      title: "Why do I need ==someone else== for this?",
       body: [
-        "Every animation lived inside the project it was made for. To show one, I had to open that project, start its dev server and shrink the browser down to roughly a phone, with no idea what it cost a real device.",
-        "Films were worse. Each launch film was recorded, composed, rendered and spliced by hand, and changing one shot meant rendering the whole thing again.",
+        "Every product needs a film, and there have only been a few ways to get one. You pay someone to make it, you make it yourself by hand, or you ask an AI tool and get what everyone else gets.",
+        "I've made launch films the slow way, recording, composing, rendering and splicing each one myself. So the same question kept coming back. If I already know what a good film of my product looks like, why can't I just make it, and why does every new film start from an empty timeline?",
       ],
     },
     {
-      type: "media",
-      picture: { src: `${dir}/library.webp`, alt: "The library: 45 animations, each running live in an exact device frame." },
-      tall: true,
-      caption: "The library: 45 animations, each running live in an exact device frame.",
+      type: "cards",
+      quick: true,
+      items: [
+        { title: "Hire someone", text: "You brief them, wait, and go back to them for every change. Slowly the idea stops being yours." },
+        { title: "Do it by hand", text: "Record, crop, mock up, keyframe, export, and again. Changing one shot can mean rendering the whole film." },
+        { title: "Ask a generic AI tool", text: "It fills every decision you didn't make with a safe default: big centred text, a gradient, the logo at the end." },
+        { title: "Start over every time", text: "Whichever you choose, the next film begins from nothing, because nothing remembers what you liked." },
+      ],
+    },
+    {
+      type: "section",
+      id: "why",
+      title: "Why ==I made it==",
+      body: [
+        "I wanted two things that usually fight each other. I wanted the original idea of a film to stay mine, and I wanted the whole process of making it automated.",
+        "So the engine takes the slow parts: reading the product, writing the story, directing the shots and rendering the film. The idea, the taste and the final call stay with the person whose product it is. And like a good collaborator, it should get better at this the longer you work together.",
+      ],
+    },
+    {
+      type: "statement",
+      text: "Your product's film shouldn't have to wait for ==someone else's calendar==.",
     },
     {
       type: "section",
       id: "constraints",
       title: "Two rules ==I set for myself==",
       body: [
-        "The work already existed, in different stacks, and I wasn't going to rewrite any of it. That one rule decided most of the architecture.",
+        "The engine grew out of animations I had already made, in different stacks, and I wasn't going to rewrite any of them. That one rule decided most of the architecture.",
       ],
     },
     {
@@ -91,7 +109,7 @@ export const animationEngine: CaseStudy = {
       items: [
         {
           kind: "Existing work",
-          constraint: "45 animations already built, in different stacks: React, plain HTML, shaders.",
+          constraint: "My animations were already built, in different stacks: React, plain HTML, shaders.",
           chose: "Each one runs as it was built, in its own iframe at the device's viewport, with nothing rewritten.",
           cost: "Every device frame is a whole page, and parameters have to cross into it through a bridge.",
         },
@@ -108,7 +126,7 @@ export const animationEngine: CaseStudy = {
       id: "process",
       entry: "draw",
       eyebrow: "Design process",
-      title: "Twenty-nine iterations, ==starting from the device==",
+      title: "From a folder of animations to ==a studio==",
       body: [
         "I brought the work home first, then solved how it should look on a real screen. The film tools came after that, because the device is half of every shot.",
       ],
@@ -121,14 +139,14 @@ export const animationEngine: CaseStudy = {
           kind: "cards",
           title: "Bring the work home",
           text: "Each animation became a folder with a small meta file, and the library finds them on its own.",
-          made: "45 animations from six projects, in one library",
+          made: "everything I'd animated, in one library",
         },
         {
           phase: "Define",
           kind: "phone",
           title: "Start from the device",
           text: "Each animation runs at the device's own viewport, so its breakpoints behave as they would on the phone.",
-          made: "four exact frames, with a frame-rate estimate per device",
+          made: "exact device frames, with a frame-rate estimate for each",
         },
         {
           phase: "Build",
@@ -147,8 +165,8 @@ export const animationEngine: CaseStudy = {
         {
           phase: "Ship",
           kind: "box",
-          title: "Open it to my other projects",
-          text: "Once the pipeline was reliable, I put it behind an MCP server, so any project I'm working on can ask for its own film.",
+          title: "Make it one call",
+          text: "Once the pipeline was reliable, I put it behind an MCP server, so any project can ask for its own film.",
           made: "make_video and make_interactive",
         },
       ],
@@ -164,10 +182,10 @@ export const animationEngine: CaseStudy = {
       id: "one-call",
       entry: "focus",
       eyebrow: "The product",
-      title: "From a codebase to ==a launch film==",
+      title: "Ask for a film in ==one sentence==",
       body: [
-        "A launch film used to start from an empty timeline. Now I point the engine at a project's folder and the address where it runs. It reads the product's screens, words and colours, and drafts a story, an art direction and three takes.",
-        "Those drafts follow the rules I wrote from my own reference films, and they are only a starting point. When I use one, it opens in the Studio with every scene, title and cut still editable, so the final call stays with me.",
+        "You tell it what you want, from Claude or from the app: \"Make an intro video for this codebase.\" The engine reads the project, captures the running app and picks up its name, words and colours. Then it writes the story, sets the art direction and cuts the film to a beat.",
+        "What comes back is a starting point. In the Studio you get three takes to choose from, and every scene, title and cut stays editable, so the final call stays with you.",
       ],
     },
     {
@@ -181,11 +199,48 @@ export const animationEngine: CaseStudy = {
     },
     {
       type: "section",
+      id: "taste",
+      title: "The fun part: it ==learns your taste==",
+      body: [
+        "Most tools treat every film as the first one. The engine keeps track. The take you use, the ones you pass over and every film you export all teach it what you like, and it leans that way next time while still trying new things.",
+        "You can also tell it why. Say a film has too much going on, and that reason becomes a rule for the next one. Show it a film you love, and it takes that film apart into moves it can reuse. Over time the defaults stop being anyone else's and start being yours.",
+      ],
+    },
+    {
+      type: "section",
+      id: "lab",
+      title: "It studies ==while you sleep==",
+      body: [
+        "Every night the Lab studies reference films and proposes new templates and effects, following a written rulebook. Nothing reaches the engine until you review it. You keep or pass each proposal and give a reason, and those reasons shape the next night's work.",
+      ],
+    },
+    {
+      type: "illustration",
+      src: "/illustrations/lighttable.html",
+      title: "Frames on a light table",
+      note: "Point at the glass and the frames near the pointer rise, the way the Lab lifts out the frames worth keeping from a film.",
+    },
+    {
+      type: "section",
+      id: "library",
+      title: "Your own work, ==on real devices==",
+      body: [
+        "The engine started as a home for everything I'd animated, and that's still its heart. Each animation runs live in an exact iPhone, iPad or MacBook frame, so it can go straight into a film without opening the project it came from.",
+      ],
+    },
+    {
+      type: "media",
+      picture: { src: `${dir}/library.webp`, alt: "The library: every animation, running live in an exact device frame." },
+      tall: true,
+      caption: "The library: every animation, running live in an exact device frame.",
+    },
+    {
+      type: "section",
       id: "studio",
       title: "What you preview is ==what you export==",
       body: [
-        "Before anything becomes a film, I can rotate a device, compare every device at true size, emulate reduced motion and read the frame-rate estimate. The Studio then turns that into a film, with layered scenes, real 3D devices, titles and cuts.",
-        "The export renders the same pages the preview shows, so what I see is what ships, and a scene that didn't change is the same file as before.",
+        "Before anything becomes a film, you can rotate a device, compare every device at true size, emulate reduced motion and read the frame-rate estimate. The Studio then turns that into a film, with layered scenes, real 3D devices, titles and cuts.",
+        "The export renders the same pages the preview shows, so what you see is what ships, and a scene that didn't change is the same file as before.",
       ],
     },
     {
@@ -203,24 +258,6 @@ export const animationEngine: CaseStudy = {
       ],
     },
     { type: "wireframes", screens: engineWires, over: { src: `${dir}/studio.webp`, alt: "The Studio, where a film is made" } },
-    {
-      type: "section",
-      id: "lab",
-      title: "A nightly review, ==with me as the editor==",
-      body: [
-        "Every night the Lab studies reference films and proposes changes to templates and effects, following a written rulebook. Nothing reaches the engine until I review it. I keep or pass each proposal and give a reason, and those reasons become the rules for the next night.",
-      ],
-    },
-    {
-      type: "illustration",
-      src: "/illustrations/lighttable.html",
-      title: "Frames on a light table",
-      note: "Point at the glass and the frames near the pointer rise, the way the Lab lifts out the frames worth keeping from a film.",
-    },
-    {
-      type: "statement",
-      text: "The animations lived in ==six different projects==. Now they run in one place, each in the frame of a real device.",
-    },
     {
       type: "gallery",
       pictures: [
@@ -241,16 +278,8 @@ export const animationEngine: CaseStudy = {
       type: "decisions",
       items: [
         {
-          title: "The colour of the interface",
-          chose: "Monochrome: ink buttons, grey selection and Geist neutrals.",
-          why: "The colour belongs to the work on the devices.",
-          considered: [
-            { option: "Iris-filled buttons, toggles and selection", why: "That was my first pass, and the colour competed with the work." },
-          ],
-        },
-        {
           title: "Where the templates come from",
-          chose: "Ten templates rebuilt from my own reference films, with their measured cuts, framing and palette.",
+          chose: "Templates rebuilt from my own reference films, with their measured cuts, framing and palette.",
           why: "A template is only worth starting from if it's measured off a film I would actually make.",
           considered: [
             { option: "The generic built-in templates", why: "They read as generic, so every film made from them did too." },
@@ -264,6 +293,14 @@ export const animationEngine: CaseStudy = {
             { option: "Devices built from CSS faces", why: "Quick to make, but they never looked like real devices." },
           ],
         },
+        {
+          title: "The colour of the interface",
+          chose: "Monochrome: ink buttons, grey selection and Geist neutrals.",
+          why: "The colour belongs to the work on the devices.",
+          considered: [
+            { option: "Iris-filled buttons, toggles and selection", why: "That was my first pass, and the colour competed with the work." },
+          ],
+        },
       ],
     },
     {
@@ -274,35 +311,35 @@ export const animationEngine: CaseStudy = {
     {
       type: "section",
       id: "shift",
-      title: "The same jobs, ==before and after==",
+      title: "The same film, ==before and after==",
       body: [],
     },
     {
       type: "compare",
       quick: true,
       before: {
-        label: "Before",
+        label: "Getting a film made",
         steps: [
-          { text: "Find the project an animation was made for", time: "1 of 6" },
-          { text: "Install its packages, start its dev server", time: "per project" },
-          { text: "Shrink the browser to roughly a phone, guess its cost", time: "by eye" },
-          { text: "Record the screens, compose the film shot by shot", time: "by hand" },
-          { text: "Render every frame, then encode with ffmpeg", time: "by hand" },
+          { text: "Find someone to make it, or clear your calendar" },
+          { text: "Explain the product, the look and the idea from scratch" },
+          { text: "Record, crop and mock up every screen", time: "by hand" },
+          { text: "Keyframe each shot, then render every frame", time: "by hand" },
           { text: "Change one shot", time: "render it all again" },
+          { text: "Make the next film", time: "start from nothing" },
         ],
-        total: "One project open for every animation",
+        total: "Every film starts from nothing",
       },
       after: {
         label: "With the engine",
         steps: [
-          { text: "Open the library", time: "45 in one place" },
-          { text: "Nothing to install: each one already runs", time: "0 projects open" },
-          { text: "Pick a real device and read its frame cost", time: "4 exact frames" },
-          { text: "Ask for a film of a codebase", time: "1 call" },
-          { text: "Four gates check every scene, then it renders", time: "about 12 min" },
-          { text: "Change one scene and export again", time: "12.6 s" },
+          { text: "Ask for the film in one sentence", time: "1 call" },
+          { text: "It reads the product's screens, words and colours", time: "automatic" },
+          { text: "It captures the running app at device size", time: "automatic" },
+          { text: "It writes the story, cuts to a beat and renders", time: "automatic" },
+          { text: "Change one scene", time: "only that scene renders" },
+          { text: "Make the next film", time: "start from your taste" },
         ],
-        total: "One place for all of them",
+        total: "Every film starts from what it learned",
       },
     },
     {
@@ -310,7 +347,7 @@ export const animationEngine: CaseStudy = {
       id: "system",
       title: "Every part ==feeds a film==",
       body: [
-        "Retiming one scene of a six-scene film re-renders only that scene, in 12.6 s, because the same input always gives the same frames.",
+        "Change one scene and only that scene renders again, because the same input always gives the same frames. And everything you keep or pass flows back into the next draft.",
       ],
     },
     {
@@ -318,16 +355,17 @@ export const animationEngine: CaseStudy = {
       title: "How the engine's parts depend on each other",
       note: "Point at a part, or tab to it, and everything a change to it reaches lights up.",
       parts: [
-        { id: "animations", label: "Animations", note: "45 folders, each with a meta file, which the library picks up automatically.", moves: ["library", "devices"] },
+        { id: "animations", label: "Animations", note: "A folder each, with a meta file, which the library picks up automatically.", moves: ["library", "devices"] },
         { id: "kit", label: "Product kit", note: "A codebase read for its screens, words, colours and logo.", moves: ["templates", "artist", "canvas"] },
-        { id: "lab", label: "The Lab", note: "Nightly runs that study films and propose template changes I keep or pass.", moves: ["templates"] },
+        { id: "taste", label: "Your taste", note: "The takes you use, the ones you pass and your reasons, weighed into every next draft.", moves: ["templates", "artist"] },
+        { id: "lab", label: "The Lab", note: "Nightly runs that study films and propose template changes you keep or pass.", moves: ["templates"] },
         { id: "library", label: "Library", note: "Every animation, live, searchable by kind." },
         { id: "devices", label: "Device frames", note: "Each device an isolated iframe at its true viewport, with a bridge for parameters and frame timing.", moves: ["studio", "canvas"] },
-        { id: "templates", label: "Templates", note: "15 films that take a product's own device, screens and words.", moves: ["artist", "studio"] },
-        { id: "artist", label: "The Artist", note: "Drafts a story, an art direction and three takes for me to choose from.", moves: ["studio"] },
+        { id: "templates", label: "Templates", note: "Films that take a product's own device, screens and words.", moves: ["artist", "studio"] },
+        { id: "artist", label: "The Artist", note: "Drafts a story, an art direction and three takes to choose from.", moves: ["studio"] },
         { id: "studio", label: "Studio", note: "Scenes of layers over a background, real 3D devices, titles and cuts.", moves: ["gates"] },
         { id: "canvas", label: "Canvas", note: "An interactive canvas for a site: solid 3D devices and layers, saved as JSON with two lines to embed it.", moves: ["mcp"] },
-        { id: "gates", label: "Gates", note: "Four checks before export: every scene sampled, every word measured, the pixels read.", moves: ["render"] },
+        { id: "gates", label: "Gates", note: "Checks before export: every scene sampled, every word measured, the pixels read.", moves: ["render"] },
         { id: "render", label: "Render", note: "Headless Chrome and ffmpeg, scene by scene, re-rendering only what changed.", moves: ["films", "mcp"] },
         { id: "films", label: "Films", note: "MP4 or ProRes, with review links that pin notes to a moment and a spot." },
         { id: "mcp", label: "MCP server", note: "make_video and make_interactive: a film or a canvas of any codebase, in one call." },
@@ -345,12 +383,10 @@ export const animationEngine: CaseStudy = {
       type: "stats",
       quick: true,
       items: [
-        { label: "Animations in one library", value: "45", note: "From six projects, and none of them has to be opened to show its work." },
-        { label: "A launch film of a codebase", value: "1 call, ~12 min", note: "Trace's first launch film, from the call to a saved MP4." },
-        { label: "Retime one scene, export again", value: "12.6 s", note: "5 of its 6 scenes came from the render cache." },
-        { label: "Export again, nothing changed", value: "2.3 s", note: "Every scene from the cache, joined without re-encoding." },
-        { label: "Nightly Lab runs", value: "42", note: "50 proposals: 8 kept, 8 passed, each with its reason." },
-        { label: "Design iterations", value: "29", note: "Each one's decisions written into the engine's rulebook." },
+        { label: "To get a film of a product", value: "One sentence", note: "Trace's first launch film came from a single make_video call." },
+        { label: "Who has the final call", value: "You", note: "Every scene, title and cut stays editable after the draft." },
+        { label: "To change one scene", value: "One re-render", note: "Scenes that didn't change come straight from the cache." },
+        { label: "What each new film starts from", value: "Your taste", note: "The takes you used, the ones you passed and the reasons you gave." },
       ],
     },
     {
@@ -358,7 +394,7 @@ export const animationEngine: CaseStudy = {
       id: "outcomes",
       title: "Where it stands",
       body: [
-        "The engine now makes its own films. Its launch film came out of its own Studio, and Trace's first launch film came from one make_video call. Any animation in the library can be tuned on a device and exported as code without opening its original project.",
+        "The engine now makes its own films. Its launch film came out of its own Studio, and Trace's first launch film came from one call. Each film it drafts for me now starts from what I've already kept and passed.",
         "Next, I want to add music for films, and local models for private work.",
       ],
     },

@@ -114,7 +114,7 @@ export const engineWires: Wire[] = [
   },
   {
     title: "Library",
-    note: "Forty-five animations by category, each card a still of the real thing, opening into a live device.",
+    note: "Every animation by category, each card a still of the real thing, opening into a live device.",
     frame: "desktop",
     items: [
       { k: "text", x: 12, y: 10, w: 26, t: "Library" },
@@ -406,7 +406,7 @@ export const uniqkeyWires: Wire[] = [
 export const aslWires: Wire[] = [
   {
     title: "The poster",
-    note: "The campaign art in its frame, cut into fifteen layers that part as you scroll.",
+    note: "The campaign art in its frame, cut into layers that part as you scroll.",
     frame: "phone",
     items: [
       { k: "box", x: 6, y: 10, w: 88, h: 150 },

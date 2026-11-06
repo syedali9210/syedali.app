@@ -60,7 +60,7 @@ export const uniqkey: CaseStudy = {
       eyebrow: "The problem",
       title: "A topic people ==tune out==",
       body: [
-        "Data breach monitoring is technical, and the old page explained it that way. The people who decide whether to buy it aren't specialists, so the page was losing them before it reached the point.",
+        "Everyone agrees a data breach would be bad, and most businesses still put off doing anything about it. Data breach monitoring is technical, and the old page explained it that way. The people who decide whether to buy it aren't specialists, so the page was losing them before it reached the point.",
         "I followed a visitor down the page and marked every place a non-technical buyer would stop reading. I found five issues, and each one became a goal.",
       ],
     },
@@ -294,12 +294,12 @@ export const uniqkey: CaseStudy = {
     {
       type: "stats",
       quick: true,
-      note: "These numbers describe the page itself, not live traffic.",
+      note: "This describes the page itself, not live traffic.",
       items: [
-        { label: "Paths through the page", value: "1", note: "From the problem to booking a demo." },
-        { label: "Issues, each made a goal", value: "5", note: "Found by following a visitor down the old page." },
-        { label: "Questions it answers, in order", value: "4", note: "Why care, what it costs, what it does, who trusts it." },
-        { label: "Ways to act at the end", value: "2", note: "Try the feature, or book a demo." },
+        { label: "The page opens on", value: "Why it matters", note: "A reason to care comes before how the feature works." },
+        { label: "The risk", value: "Has a cost", note: "Shown through structure and visuals, without turning it into a scare." },
+        { label: "The features", value: "Easy to scan", note: "Modular cards replaced the long blocks of copy." },
+        { label: "The reader", value: "One clear path", note: "From the problem to trying the feature or booking a demo." },
       ],
     },
     {

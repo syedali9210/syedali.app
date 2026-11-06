@@ -12,10 +12,10 @@ export const trace: CaseStudy = {
   kind: "Product",
   year: "2026",
   summary:
-    "Trace is the design memory I built for my own work. It captures changes from Figma, GitHub and project folders, writes the changelog from what actually changed, and keeps the reasons next to the work. A teammate or a coding agent can then pick up a project without me explaining it all over again.",
+    "Trace is a design memory. It captures changes from Figma, GitHub and project folders, writes the changelog from what actually changed, and keeps the reasons next to the work, so a teammate or a coding agent can pick up a project without anyone explaining it all over again.",
   meta: [
     { label: "Role", value: "Product Design, UI/UX, Development" },
-    { label: "Timeline", value: "One week to the PRD's last feature, then 20 iterations" },
+    { label: "Made for", value: "Designers who build with AI" },
     { label: "Built with", value: "Node 22, node:sqlite, React, Vite, Tailwind v4, MCP" },
   ],
   takeaways: [
@@ -28,9 +28,9 @@ export const trace: CaseStudy = {
     problem:
       "Every new session and every new teammate started cold. The project's history, decisions and reasons were spread across Figma, Git and chat logs, and an agent got little more than a screenshot and a prompt.",
     approach:
-      "I built Trace to capture work from those tools, write the changelog by rules from what actually changed, walk the running app, and serve one memory to people and to agents through 31 MCP tools.",
+      "I built Trace to capture work from those tools, write the changelog by rules from what actually changed, walk the running app, and serve one memory to people and to agents.",
     result:
-      "A working design memory. All 15 PRD features run end to end, and a full walk of an app dropped from 15 minutes to 2 min 47 s.",
+      "A design memory I use every day. Agents and teammates now start with the history, the decisions and the reasons already in hand.",
   },
   status: {
     title: "Trace, live and in daily use",
@@ -124,9 +124,9 @@ export const trace: CaseStudy = {
       id: "process",
       entry: "draw",
       eyebrow: "Design process",
-      title: "From a PRD to ==twenty iterations==",
+      title: "From a PRD to ==daily use==",
       body: [
-        "I started with a PRD: 15 features, success metrics and a list of non-goals. The first full build took a week. Everything after that came from using Trace on real work and seeing where it failed.",
+        "I started with a PRD: what Trace had to do, how I'd know it worked, and what it would never try to be. Everything after the first build came from using it on real work and seeing where it failed.",
       ],
     },
     {
@@ -137,7 +137,7 @@ export const trace: CaseStudy = {
           kind: "notes",
           title: "Who it's for, and what they need done",
           text: "The first user is the solo design engineer who builds with AI, so I could test every idea on my own work.",
-          made: "the PRD, with 15 features, success metrics and non-goals",
+          made: "the PRD, with its features, success metrics and non-goals",
         },
         {
           phase: "Research",
@@ -151,14 +151,14 @@ export const trace: CaseStudy = {
           kind: "screen",
           title: "Capture first, screens second",
           text: "The timeline came before any other screen, because it's where every tool's changes meet.",
-          made: "the PRD's features, built and running end to end in a week",
+          made: "the whole PRD, running end to end",
         },
         {
           phase: "Iterate",
           kind: "box",
-          title: "Real use, then twenty rounds of fixes",
+          title: "Real use, then round after round of fixes",
           text: "Each round came from real use: dialogs the walk missed, a folder that wouldn't import, and a Home redesign I reverted the same day.",
-          made: "20 iterations, each with what changed and why",
+          made: "a log of every round: what changed and why",
         },
       ],
     },
@@ -320,7 +320,7 @@ export const trace: CaseStudy = {
       id: "system",
       title: "One change, ==many readers==",
       body: [
-        "When the walk learned that a dialog is a screen too, Animation Engine's Studio went from 5 screens to 9, and everything after the walk picked up those four with no extra work. That only works because of how the parts depend on each other.",
+        "When the walk learned that a dialog is a screen too, everything after the walk picked up the new screens with no extra work. That only works because of how the parts depend on each other.",
       ],
     },
     {
@@ -339,7 +339,7 @@ export const trace: CaseStudy = {
         { id: "timeline", label: "Timeline", note: "Where people read it: newest first, each change before and after." },
         { id: "casestudy", label: "Case study", note: "Answered only from the project's own evidence." },
         { id: "checks", label: "check_change", note: "Re-walks what a change touched and checks it by rule against the app's own values.", moves: ["mcp"] },
-        { id: "mcp", label: "MCP server", note: "31 tools: agents read the same memory people browse, and write their reasoning back." },
+        { id: "mcp", label: "MCP server", note: "Agents read the same memory people browse, and write their reasoning back." },
       ],
     },
     {
@@ -354,12 +354,10 @@ export const trace: CaseStudy = {
       type: "stats",
       quick: true,
       items: [
-        { label: "Full app walk", value: "15 min → 2 min 47 s", note: "A full walk of the same app, before and after the walk was rebuilt." },
-        { label: "Screens found per walk", value: "28 → 37", note: "The same app: more of its states reached in one walk." },
-        { label: "MCP tools agents can call", value: "31", note: "Read the context, check a change, explain it, answer comments." },
-        { label: "AI tools it reads memory from", value: "6", note: "Claude Code, Codex, Antigravity, Cursor, Copilot, exported chats." },
-        { label: "A real app, walked", value: "9 screens in 22 s", note: "The engine's Studio, walked in three tabs at once." },
-        { label: "PRD features built", value: "15 of 15", note: "Running end to end on my own projects." },
+        { label: "A new session", value: "Starts briefed", note: "Agents read the brief, the decisions and what was undone before they touch anything." },
+        { label: "The changelog", value: "Writes itself", note: "Written by rules from the diff, so every line can be checked." },
+        { label: "A code change", value: "Arrives as a picture", note: "The running app is walked, so a change shows up as screens." },
+        { label: "Every AI's memory", value: "In one place", note: "Claude Code, Codex, Antigravity, Cursor, Copilot and exported chats." },
       ],
     },
     {

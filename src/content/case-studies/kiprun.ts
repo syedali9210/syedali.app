@@ -7,7 +7,7 @@ const live = "https://www.decathlon.in/page/kiprun-series/";
 export const kiprun: CaseStudy = {
   slug: "kiprun",
   title: "KIPRUN",
-  tagline: "Four days from first commit to ==live on decathlon.in==.",
+  tagline: "A campaign page that had to ==behave like the store==.",
   theme: { deep: "#3643ba", mid: "#7d88ff", light: "#d6e78b", highlight: "#d6e78b" },
   hero: { frame: "phone", picture: { src: `${dir}/hero-phone.webp`, alt: "The KIPRUN hero on a phone" } },
   kind: "Web",
@@ -23,11 +23,11 @@ export const kiprun: CaseStudy = {
     "A campaign page has seconds per section: one shoe, big, with the motion coming from the scroll. The floating-shoe stage was gone the day it was built.",
     "Runners buy the shoe they see. A colour choice that shows the shoe itself beat plain squares of colour.",
     "Layers that move apart keep the shoe in one piece on screen. The crossfade I built first made it jump between states.",
-    "Logs show where the weight really goes: three colour films were requested about 2.5 million times, more than the page itself.",
+    "Logs show where attention really goes: the three colour films were requested more often than the page itself.",
   ],
   quick: {
     problem:
-      "KIPRUN's five shoe series needed a campaign page inside decathlon.in itself, working under Decathlon's address on every screen size.",
+      "KIPRUN's five shoe series needed a campaign page inside decathlon.in itself: exciting enough to stop a runner, and exact enough to send them to the right shoe at the right price.",
     approach:
       "I designed and built a page that runs from the series to the range, a film on the road, a shoe taken apart layer by layer and the kit, with every price and weight read from decathlon.in.",
     result:
@@ -52,7 +52,7 @@ export const kiprun: CaseStudy = {
   cover: { src: `${dir}/hero.webp`, alt: "The KIPRUN page's hero" },
   card: { video: `${dir}/card.mp4`, poster: `${dir}/card-poster.webp` },
   closing: [
-    "Four days, 47 commits and a lot of running shoes.",
+    "That's five series, ten cards and a lot of running shoes.",
     "Thanks for keeping pace. Let's slow down with something more serious: compliance.",
   ],
   blocks: [
@@ -69,8 +69,8 @@ export const kiprun: CaseStudy = {
       eyebrow: "The problem",
       title: "A page inside ==someone else's site==",
       body: [
-        "This page doesn't live on a site of its own. decathlon.in serves it through its own proxy, from a build I deploy elsewhere, so it had to work under Decathlon's address, survive their redirects and send people to real products at real prices.",
-        "Then there were the shoes. Five series, each with its own job, and a women's fit that is a separate product on decathlon.in. All of it had to go live in four days.",
+        "A campaign page is usually free to be a show. This one wasn't, because it lives inside the store. decathlon.in serves it through its own proxy, from a build I deploy elsewhere, so it had to work under Decathlon's address, survive their redirects and send people to real products at real prices.",
+        "Then there were the shoes: five series, each with its own job, and a women's fit that is a separate product on decathlon.in. A runner has seconds on a page like this, so the page had to make the choice feel easy and then open exactly the right shoe.",
       ],
     },
     {
@@ -107,7 +107,7 @@ export const kiprun: CaseStudy = {
     {
       type: "section",
       id: "constraints",
-      title: "Four days, ==inside someone else's proxy==",
+      title: "A short deadline, ==inside someone else's proxy==",
       body: [
         "Two limits decided almost everything: how little time I had, and where the page had to live.",
       ],
@@ -117,8 +117,8 @@ export const kiprun: CaseStudy = {
       items: [
         {
           kind: "Time",
-          constraint: "Four days from the first commit to launch.",
-          chose: "One job a day. Anything that didn't hold up was cut the same day.",
+          constraint: "The launch date was very close.",
+          chose: "One job at a time. Anything that didn't hold up was cut the same day.",
           cost: "The photos and the film shipped at full weight.",
         },
         {
@@ -134,9 +134,9 @@ export const kiprun: CaseStudy = {
       id: "process",
       entry: "draw",
       eyebrow: "Design process",
-      title: "Four days to ==live==, then a women's row",
+      title: "From the shoes to ==the store==, then a women's row",
       body: [
-        "Each day had one job. Here is how the four days went, and what came a month later.",
+        "Each stage had one job, starting with the product and ending at Decathlon's address. Here is how it came together, and what came a month later.",
       ],
     },
     {
@@ -145,29 +145,29 @@ export const kiprun: CaseStudy = {
         {
           phase: "Structure",
           kind: "notes",
-          title: "Day 1: the shoes",
+          title: "The shoes",
           text: "The hero, the five series as a catalogue, the Kipride Max film and the Kipstorm Elite coming apart layer by layer.",
           made: "the page's structure, and its first rule: one focal point per section",
         },
         {
           phase: "Data",
           kind: "cards",
-          title: "Day 2: the truth",
-          text: "Prices moved from pounds to decathlon.in's rupees, and a type and UI audit ran across nine widths.",
+          title: "The truth",
+          text: "Prices moved from pounds to decathlon.in's rupees, and the type and layout were audited across screen sizes.",
           made: "real prices, shared scales, analytics and speed insights",
         },
         {
           phase: "Detail",
           kind: "phone",
-          title: "Day 3: the details that send people right",
+          title: "The details that send people right",
           text: "The colour picker changed from plain squares to the shoe itself.",
           made: "a range you can trust to open the right product",
         },
         {
           phase: "Launch",
           kind: "box",
-          title: "Day 4: Decathlon's address",
-          text: "The base path moved twice more before decathlon.in served it, and each move meant checking every asset and link again.",
+          title: "Decathlon's address",
+          text: "The base path kept moving until decathlon.in served it, and each move meant checking every asset and link again.",
           made: "live on decathlon.in, 25 September 2026",
         },
         {
@@ -234,7 +234,7 @@ export const kiprun: CaseStudy = {
       id: "decisions",
       title: "Three things that ==didn't survive the day==",
       body: [
-        "Four days leaves no room for sentiment. Each of these first versions was built and replaced within a day.",
+        "A short deadline leaves no room for sentiment. Each of these first versions was built and replaced within a day.",
       ],
     },
     {
@@ -245,7 +245,7 @@ export const kiprun: CaseStudy = {
           chose: "One shoe, big, in each section, with the motion coming from the scroll.",
           why: "A campaign page has seconds per section.",
           considered: [
-            { option: "A filled stage with a floating shoe", why: "I built it on day one and took it out the same day, which left the shoe alone on the page." },
+            { option: "A filled stage with a floating shoe", why: "I built it first and took it out the same day, which left the shoe alone on the page." },
           ],
         },
         {
@@ -253,7 +253,7 @@ export const kiprun: CaseStudy = {
           chose: "The shoe itself, in the colour you picked.",
           why: "Runners buy the shoe they see.",
           considered: [
-            { option: "Plain squares of colour", why: "Built on day three and replaced the same day." },
+            { option: "Plain squares of colour", why: "They showed a colour when a runner wants to see a shoe, so they were replaced the day they were built." },
           ],
         },
         {
@@ -261,7 +261,7 @@ export const kiprun: CaseStudy = {
           chose: "Real layers that move apart as you scroll, each saying what it does.",
           why: "Moving layers keep the shoe in one piece on screen, so it never jumps between states.",
           considered: [
-            { option: "Layers that crossfade", why: "The day-one version. It only turned smooth once the layers moved instead." },
+            { option: "Layers that crossfade", why: "The first version. It only turned smooth once the layers moved instead." },
           ],
         },
       ],
@@ -283,24 +283,24 @@ export const kiprun: CaseStudy = {
       before: {
         label: "The first day's build",
         steps: [
-          { text: "The series on a filled stage, with a floating shoe", time: "22 Sep" },
-          { text: "Layers that crossfade into each other", time: "22 Sep" },
-          { text: "The essentials priced in pounds, from decathlon.co.uk", time: "23 Sep" },
-          { text: "A colour picker of plain squares", time: "24 Sep" },
-          { text: "Served from a test address", time: "/shop/Hyd-test-1" },
+          { text: "The series on a filled stage, with a floating shoe" },
+          { text: "Layers that crossfade into each other" },
+          { text: "The essentials priced in pounds, from decathlon.co.uk" },
+          { text: "A colour picker of plain squares" },
+          { text: "Served from a test address" },
         ],
         total: "Busy, and not yet true to the store",
       },
       after: {
         label: "What shipped",
         steps: [
-          { text: "No fill, no floating shoe: one thing big per section", time: "same day" },
-          { text: "Layers that move apart, so the shoe never jumps", time: "same day" },
-          { text: "Every price in rupees, read from decathlon.in", time: "same day" },
-          { text: "Picking a colour shows that shoe", time: "same day" },
-          { text: "Served at decathlon.in, under Decathlon's address", time: "/page/kiprun-series" },
+          { text: "No fill, no floating shoe: one thing big per section" },
+          { text: "Layers that move apart, so the shoe never jumps" },
+          { text: "Every price in rupees, read from decathlon.in" },
+          { text: "Picking a colour shows that shoe" },
+          { text: "Served at decathlon.in, under Decathlon's address" },
         ],
-        total: "Live in four days",
+        total: "True to the store, and live inside it",
       },
     },
     {
@@ -336,19 +336,17 @@ export const kiprun: CaseStudy = {
       id: "results",
       entry: "wipe",
       eyebrow: "Results",
-      title: "The numbers, ==one month in==",
+      title: "What happened ==once it was live==",
       body: [],
     },
     {
       type: "stats",
       quick: true,
       items: [
-        { label: "Page loads in a month", value: "~970K", note: "Requests for the page itself, 3 October to 2 November 2026, 99.9% served from the CDN's cache." },
+        { label: "Page loads in a month", value: "~970K", note: "Requests for the page itself, 3 October to 2 November 2026." },
         { label: "Fresh visits, roughly", value: "~680K", note: "Loads that fetched the page's script anew; a returning browser keeps it." },
-        { label: "Requests served", value: "42M", note: "Every photo, film, font and file the page asked for in the same month." },
-        { label: "First commit to live", value: "4 days", note: "22 to 25 September 2026, in 47 commits." },
-        { label: "Largest paint on a phone", value: "2.4 s", note: "The live page, one headless load at 390 px on 2 November 2026; 1.0 s on a laptop." },
-        { label: "Widths in one audit", value: "9", note: "Type, layout and UI checked across nine screen widths before launch." },
+        { label: "Where it lives", value: "decathlon.in", note: "Under Decathlon's own address, as part of the store." },
+        { label: "Prices on the page", value: "All real", note: "Every price, weight and rating read from decathlon.in." },
       ],
     },
     {
@@ -357,7 +355,7 @@ export const kiprun: CaseStudy = {
       title: "Where it stands",
       body: [
         "The page has been live on decathlon.in since 25 September 2026, under Decathlon's own address. The women's row came a month later without touching the rest.",
-        "The logs also show where the weight goes. The three Kipride colour films were requested about 2.5 million times, more than the page itself, and at 7.2 MB a load they're the next thing to cut.",
+        "The logs also show where attention goes. The three Kipride colour films were requested more often than the page itself, so making them lighter is the next job.",
       ],
     },
   ],

@@ -56,7 +56,7 @@ export const experience: Employer[] = [
         href: "/work/kiprun",
         stones: [{ slug: "kiprun", title: "KIPRUN" }],
         points: [
-          "Designed and built the campaign page for KIPRUN, Decathlon's running brand, live on decathlon.in four days after the first commit.",
+          "Designed and built the campaign page for KIPRUN, Decathlon's running brand, live inside decathlon.in.",
           "Served under Decathlon's own address through its proxy, with every price, weight and rating read from decathlon.in.",
           "A range where each colour shows its shoe and opens its own product, with the women's fits added a month after launch.",
           "Loaded about 970,000 times in its last month, according to Vercel's CDN logs.",
@@ -72,8 +72,8 @@ export const experience: Employer[] = [
         stones: [{ slug: "anime-sports-league", title: "Anime Sports League" }],
         points: [
           "Designed and built the campaign site for Decathlon India's Anime Sports League, around Jolly Yun Shann's illustrations.",
-          "Cut the traced poster (1,732 paths) into 15 layers that part as you scroll, and built an episode deck that deals itself.",
-          "Brought the card art from 3 MB to 310 kB, and tagged every product link with the campaign's UTM parameters.",
+          "Cut the flat traced poster into layers that part as you scroll, and built an episode deck that deals itself.",
+          "Ended every league on its own tee, with each product link tagged for the campaign.",
         ],
         skills: ["React", "Vite", "GSAP", "Lenis", "SVG"],
       },

@@ -170,7 +170,7 @@ export function Home() {
                 I&apos;m Syed Ali <span className="font-serif text-[15px] whitespace-nowrap text-label italic">/sai-yed&ensp;ah-lee/</span>, a product designer and design engineer.
               </p>
               <p className="mt-text text-small text-body max-lg:mt-note">
-                I design products and build them in code: tools of my own, like <Chip slug="trace">Trace</Chip> and <Chip slug="animation-engine">Animation Engine</Chip>, and sites for{" "}
+                I start from the problem, design the product and build it in code: tools of my own, like <Chip slug="trace">Trace</Chip> and <Chip slug="animation-engine">Animation Engine</Chip>, and sites for{" "}
                 <Chip slug="kiprun">Decathlon</Chip> and <Chip slug="kodex">Basenine&apos;s clients</Chip>.
               </p>
             </div>

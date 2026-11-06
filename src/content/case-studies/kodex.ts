@@ -60,7 +60,7 @@ export const kodex: CaseStudy = {
       eyebrow: "The problem",
       title: "Where the old site ==lost people==",
       body: [
-        "Kodex was a mature product with a site that didn't show it. Technical information was hard to digest, the navigation had no structure, and nothing on the page reflected how far the platform had come.",
+        "Compliance software is a serious purchase, and an enterprise buyer judges the vendor by its website long before anyone books a demo. Kodex was a mature product with a site that didn't show it. Technical information was hard to digest, the navigation had no structure, and nothing on the page reflected how far the platform had come.",
         "I went through the old site page by page, reading it the way a buyer would, and marked every place the thread broke. There were five, and each one became a goal for the redesign.",
       ],
     },
@@ -320,12 +320,12 @@ export const kodex: CaseStudy = {
     {
       type: "stats",
       quick: true,
-      note: "These numbers describe the redesign itself, not live traffic.",
+      note: "This describes the redesign itself, not live traffic.",
       items: [
-        { label: "Ways into the products", value: "3 → 1", note: "Products, industries and integrations, from one navigation." },
-        { label: "Frictions, each made a goal", value: "5", note: "Found by reviewing the old site page by page." },
-        { label: "Pages in the buyer's path", value: "4", note: "What it is, where to go, how it works, why to trust it." },
-        { label: "Where every path ends", value: "2", note: "Booking a demo, or the documentation." },
+        { label: "What Kodex does", value: "Said up front", note: "The hero explains the platform before anything else." },
+        { label: "Ways into the products", value: "One menu", note: "Products, industries and integrations, organised by why people came." },
+        { label: "Long workflows", value: "Read in pieces", note: "Product pages in modules, one idea at a time." },
+        { label: "Every path", value: "Ends somewhere", note: "A demo for the buyer, the documentation for the evaluator." },
       ],
     },
     {

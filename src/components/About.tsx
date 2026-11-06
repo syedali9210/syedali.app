@@ -4,7 +4,7 @@ import { Icon } from "./Icon";
 import { Clock } from "./Peek";
 import { Rock, SidePage } from "./SidePage";
 
-const DO = ["Product design", "Design engineering", "Motion and launch films", "Design systems"];
+const DO = ["Product design, from the real problem up", "Design engineering", "Motion and launch films", "Design systems"];
 const WITH = ["Figma", "React and Next.js", "Three.js and WebGL", "Claude Code"];
 const num = (n: number) => String(n).padStart(4, "0");
 
@@ -20,7 +20,10 @@ export function About() {
             </span>
             <b>{num(1)}</b>
           </p>
-          <p className="ab-lead font-serif">I design products and build them myself, so what ships is what was designed: the motion, the states, the last pixel.</p>
+          <p className="ab-lead font-serif">I find the real problem first, then design the product and build it myself, so what ships is what was designed.</p>
+          <p className="card-note ab-note">
+            When something keeps slowing my own work down, I turn it into a product. Explaining the same project in every session became Trace. Asking why I needed someone else to make a film of my work became Animation Engine.
+          </p>
           <p className="card-note ab-note">
             Root-cause fixes, never <em className="font-serif text-accent">jugaad</em> <span className="text-label">(the quick hack that holds till Monday).</span>
           </p>
@@ -52,7 +55,7 @@ export function About() {
               <Rock slug="animation-engine" title="Animation Engine" rot={8} />
             </div>
             <div className="xp-text">
-              <p className="ab-lead ab-now font-serif">Building Trace and Animation Engine.</p>
+              <p className="ab-lead ab-now font-serif">Building Trace, a design memory, and Animation Engine, a film studio that learns your taste.</p>
               <p className="ab-open">
                 <span className="live-dot relative size-1.5 shrink-0 rounded-full bg-live" aria-hidden="true" />
                 Open to design engineer roles

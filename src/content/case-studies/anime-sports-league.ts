@@ -6,13 +6,13 @@ const dir = "/case-studies/anime-sports-league";
 export const animeSportsLeague: CaseStudy = {
   slug: "anime-sports-league",
   title: "Anime Sports League",
-  tagline: "A flat poster, and a brief for ==a world you scroll into==.",
+  tagline: "The brief said step inside the poster. ==The poster was flat==.",
   theme: { deep: "#042c85", mid: "#fc4b6c", light: "#f0a60f", highlight: "#ffd36b" },
   hero: { frame: "phone", picture: { src: `${dir}/hero-phone.webp`, alt: "The poster on a phone" } },
   kind: "Web",
   year: "2026",
   summary:
-    "Decathlon India's campaign turns five sports into five anime leagues, each with its own tee. I designed and built the campaign site around Jolly Yun Shann's illustrations.",
+    "Decathlon India turned five sports into five anime leagues, each with its own tee. I designed and built the campaign site that lets you step inside Jolly Yun Shann's poster, meet the leagues and find your tee.",
   meta: [
     { label: "Role", value: "Web Design, Motion, Development" },
     { label: "Client", value: "Decathlon India" },
@@ -20,16 +20,16 @@ export const animeSportsLeague: CaseStudy = {
   ],
   takeaways: [
     "Traced art breaks when half of something moves, and a broken detail reads worse than a still one. So the football stays still.",
-    "Art that never moves doesn't belong in the page. Only the hero's 15 layers are live paths; inlining the cards too would have added 1.3 MB to every visit.",
-    "A page's motion should be the scroll and the deck, not a flicker the phone pays for on every frame. About 80 flame tweens became 4.",
+    "A campaign site has to feel like a world and still sell the tee. So every league ends on its own garment page.",
+    "A page's motion should come from the scroll and the deck, so the flames hold still.",
   ],
   quick: {
     problem:
-      "A Decathlon campaign that turns five sports into five anime leagues needed a site, but its artwork arrived as flat traced pictures that couldn't move.",
+      "Decathlon's campaign turns five sports into five anime leagues, and it needed a site people would want to stay in. But the art arrived as one flat traced poster, and a poster with a scroll bar sells nothing.",
     approach:
-      "I cut the poster into 15 layers that part as you scroll, built a deck of league cards that deals itself, and timed the motion against a reference site.",
+      "I cut the poster into layers that part as you scroll, built a deck of league cards that deals itself, and ended every league on its own tee.",
     result:
-      "Built for Decathlon India in four weeks: 1,732 traced paths became 15 moving layers, and the card art went from 3 MB to 310 kB.",
+      "A campaign site where the poster opens up around you and every league leads to its tee, built for Decathlon India.",
   },
   status: {
     title: "Built for Decathlon India",
@@ -63,10 +63,10 @@ export const animeSportsLeague: CaseStudy = {
       id: "opening",
       entry: "rise",
       eyebrow: "The problem",
-      title: "One ==flat picture==",
+      title: "A poster with ==a scroll bar==",
       body: [
-        "The campaign's art is by Jolly Yun Shann, and it arrived traced. The poster was a single frame of 1,732 unnamed paths, with no layers and no names. A site that only showed it would be a poster with a scroll bar.",
-        "The brief wanted a world you scroll into, where the scene parts, the leagues deal themselves out like cards, and every tee leads to its product. So before anything else, I had to work out how to make a flat picture move.",
+        "Decathlon India's campaign turns five sports into five anime leagues, each with its own tee. The brief wanted a world you scroll into, where the scene parts, the leagues deal themselves out like cards, and every tee leads to its product. A sports campaign only gets a few seconds of anyone's attention, so the site had to earn those seconds and still end on something to buy.",
+        "The art is by Jolly Yun Shann, and it arrived as one flat traced picture, with no layers and no names. Left like that, the site would only be a poster with a scroll bar. So before anything else, I had to work out how to make a flat picture move without redrawing it.",
       ],
     },
     {
@@ -110,14 +110,14 @@ export const animeSportsLeague: CaseStudy = {
         {
           kind: "Content",
           constraint: "The art is Jolly Yun Shann's, and it arrived flat.",
-          chose: "I cut it by paint order into 15 layers, and measured which paths were which before moving any.",
+          chose: "I cut it by paint order into layers, and worked out which shapes were which before moving any.",
           cost: "Whatever can't move cleanly stays still.",
         },
         {
           kind: "Performance",
           constraint: "Moving traced art on a mid-range phone.",
-          chose: "Layers sit on the GPU only while they move. The hero had been holding 19 at once.",
-          cost: "The hero's paths still weigh about 281 kB gzipped.",
+          chose: "Layers sit on the GPU only while they move, and only the art that moves goes into the page.",
+          cost: "The hero is still the heaviest part of the page.",
         },
       ],
     },
@@ -126,7 +126,7 @@ export const animeSportsLeague: CaseStudy = {
       id: "process",
       entry: "draw",
       eyebrow: "Design process",
-      title: "Four weeks, ==51 commits==",
+      title: "The poster ==came first==",
       body: [
         "The first question was whether the poster could move at all, so that came before any section.",
       ],
@@ -182,7 +182,7 @@ export const animeSportsLeague: CaseStudy = {
       eyebrow: "The site",
       title: "The ==episode deck==",
       body: [
-        "The five league cards start as a pile and deal themselves into a row, each turning over to reveal its league as it lands.",
+        "Five leagues are a lot to introduce at once, so they arrive as a deck. The cards start as a pile and deal themselves into a row, each turning over to reveal its league as it lands.",
         "The section holds still while the deck deals. With reduced motion, it's simply dealt, face up.",
       ],
     },
@@ -227,10 +227,10 @@ export const animeSportsLeague: CaseStudy = {
       items: [
         {
           title: "What goes into the code",
-          chose: "Only the art that moves, the hero's 15 layers, goes in as live paths. The episode cards load as pictures.",
+          chose: "Only the art that moves, the hero's layers, goes in as live paths. The episode cards load as pictures.",
           why: "Animating a path means it has to be in the page. Art that never moves doesn't.",
           considered: [
-            { option: "Inlining all the art", why: "Simpler, but the cards alone would add 1.3 MB to every visit." },
+            { option: "Inlining all the art", why: "Simpler, but every visitor would pay for art that never moves." },
           ],
         },
         {
@@ -243,10 +243,10 @@ export const animeSportsLeague: CaseStudy = {
         },
         {
           title: "The flames",
-          chose: "Flames that hold still, with each prop as one tween.",
+          chose: "Flames that hold still, so the scroll does the moving.",
           why: "The motion should come from the scroll and the deck, not from a flicker the phone pays for on every frame.",
           considered: [
-            { option: "Flickering flames on every prop", why: "About 80 tweens running at once, on every frame." },
+            { option: "Flickering flames on every prop", why: "They looked lively, but they kept the phone busy on every single frame." },
           ],
         },
       ],
@@ -256,7 +256,7 @@ export const animeSportsLeague: CaseStudy = {
       id: "system",
       title: "The art is ==the architecture==",
       body: [
-        "The artwork decides everything downstream. Its split decides the layers, and the layers decide the bundle and the scroll.",
+        "The artwork decides everything downstream. Its split decides the layers, and the layers decide how the page loads and how it scrolls.",
       ],
     },
     {
@@ -264,15 +264,15 @@ export const animeSportsLeague: CaseStudy = {
       title: "How the site's parts depend on each other",
       note: "Point at a part, or tab to it, and what a change to it reaches lights up.",
       parts: [
-        { id: "art", label: "Traced artwork", note: "The poster as one frame of 1,732 unnamed paths, and the card art beside it.", moves: ["assets"] },
+        { id: "art", label: "Traced artwork", note: "The poster as one flat traced frame, and the card art beside it.", moves: ["assets"] },
         { id: "products", label: "Prices and links", note: "Tees at 799, caps at 699; every link tagged with the campaign's UTM parameters.", moves: ["tees", "lineup"] },
-        { id: "assets", label: "Asset build", note: "Splits the art by paint order and runs SVGO. Skipping that step once added ~330 kB to the bundle, twice.", moves: ["layers", "chrome"] },
-        { id: "layers", label: "15 layers", note: "Stacked SVG layers on one viewBox, each with its own depth, inlined because they move.", moves: ["scroll", "bundle"] },
-        { id: "chrome", label: "Card chrome", note: "One 24 kB SVG for all six cards, pruned from 780 kB of embedded photo.", moves: ["deck"] },
+        { id: "assets", label: "Asset build", note: "Splits the art by paint order and cleans it up before it reaches the page.", moves: ["layers", "chrome"] },
+        { id: "layers", label: "Layers", note: "Stacked SVG layers on one viewBox, each with its own depth, inlined because they move.", moves: ["scroll", "bundle"] },
+        { id: "chrome", label: "Card chrome", note: "One shared frame for all the cards, with the photos kept out of it.", moves: ["deck"] },
         { id: "scroll", label: "Scroll-out", note: "A linear relay of three overlapping beats, timed off yesnowww.com.", moves: ["runway", "ball"] },
-        { id: "bundle", label: "JS bundle", note: "~281 kB gzipped, nearly all of it the hero's paths." },
+        { id: "bundle", label: "Page weight", note: "Nearly all of it is the hero's paths." },
         { id: "deck", label: "Episode deck", note: "Five cards that deal from a real pile and turn over as they land." },
-        { id: "runway", label: "Pinned window", note: "240svh of scroll that the scroll-out is measured over." },
+        { id: "runway", label: "Pinned window", note: "The pinned stretch of scroll that the scroll-out is measured over." },
         { id: "ball", label: "Flaming ball", note: "The cricket ball that crosses the frame before the next section." },
         { id: "tees", label: "Tees", note: "One per league, each linking to its garment's own page." },
         { id: "lineup", label: "Line-up", note: "The leagues and caps, opening on where the reader is." },
@@ -289,24 +289,24 @@ export const animeSportsLeague: CaseStudy = {
       before: {
         label: "The first pass",
         steps: [
-          { text: "The poster as one flat frame", time: "1,732 paths" },
-          { text: "Card photos exported from Figma", time: "~3 MB PNG" },
-          { text: "Card chrome with the photo embedded in it", time: "780 kB" },
-          { text: "Flames flickering on every prop", time: "~80 tweens" },
-          { text: "Hotspots on the hero", time: "31 Aug" },
+          { text: "The poster as one flat frame" },
+          { text: "Hotspots pinned across the hero" },
+          { text: "Flames flickering on every prop" },
+          { text: "A burst and a spinning shuttlecock around the deal" },
+          { text: "Card art that took its time to arrive" },
         ],
-        total: "Heavy, and busy",
+        total: "Busy, and heavy on a phone",
       },
       after: {
         label: "What shipped",
         steps: [
-          { text: "Fifteen layers, each with its own depth", time: "15 layers" },
-          { text: "The six photos as WebP", time: "~310 kB" },
-          { text: "One chrome file for all six cards", time: "24 kB" },
-          { text: "Flames that hold still, one tween per prop", time: "4 tweens" },
-          { text: "No hotspots: the poster is the hero", time: "same day" },
+          { text: "Layers that part as you scroll, each with its own depth" },
+          { text: "No hotspots: the poster is the hero" },
+          { text: "Flames that hold still, so the scroll does the moving" },
+          { text: "A deal with room to be smooth" },
+          { text: "Light card art, ready when the deck deals" },
         ],
-        total: "Light enough to move",
+        total: "Calm enough to feel like a world",
       },
     },
     {
@@ -328,17 +328,18 @@ export const animeSportsLeague: CaseStudy = {
       id: "results",
       entry: "wipe",
       eyebrow: "Results",
-      title: "Lighter, and ==still moving==",
+      title: "What the site ==gives Decathlon==",
       body: [],
     },
     {
       type: "stats",
       quick: true,
+      note: "The site is still on Decathlon's test address, so this describes what it does, not live traffic.",
       items: [
-        { label: "Traced paths, cut into layers", value: "1,732 → 15", note: "The poster, split by paint order on one viewBox." },
-        { label: "Card photos", value: "3 MB → 310 kB", note: "Six photos, PNG as exported against WebP as shipped." },
-        { label: "Card chrome", value: "780 kB → 24 kB", note: "The embedded photo pruned; one file now serves all six cards." },
-        { label: "Flame tweens running", value: "~80 → 4", note: "One tween per flaming prop, with the flames held still." },
+        { label: "The poster", value: "Opens as you scroll", note: "The same art, moving without being redrawn." },
+        { label: "The leagues", value: "Dealt like a deck", note: "Five cards that turn over as they land." },
+        { label: "Every league", value: "Ends on its tee", note: "Each one links to its own garment page, tagged for the campaign." },
+        { label: "The credit", value: "On every footer", note: "Decathlon x Jolly Yun Shann, on the footer boards." },
       ],
     },
     {
@@ -346,8 +347,8 @@ export const animeSportsLeague: CaseStudy = {
       id: "outcomes",
       title: "Where it stands",
       body: [
-        "I built the site for Decathlon India. Since 21 September 2026 it has been served from Decathlon's test address, with page views, Web Vitals and UTM-tagged links to every product.",
-        "Next, it needs a lighter hero before the public launch.",
+        "I built the site for Decathlon India. Since 21 September 2026 it has been served from Decathlon's test address, with page views, Web Vitals and campaign-tagged links to every product.",
+        "Next, the hero needs to get lighter before the public launch.",
       ],
     },
   ],
