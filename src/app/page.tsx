@@ -1,38 +1,19 @@
-import Nav from "@/components/Nav";
-import MobileNav from "@/components/MobileNav";
-import AnimationsSwitch from "@/components/AnimationsSwitch";
-import Scrubber from "@/components/Scrubber";
-import Hero from "@/components/sections/Hero";
-import Projects from "@/components/sections/Projects";
-import WorkExperienceSection from "@/components/sections/WorkExperienceSection";
-import AboutMe from "@/components/sections/AboutMe";
-import MySpace from "@/components/sections/MySpace";
-import Contact from "@/components/sections/Contact";
+import type { Metadata } from "next";
+import { Home as Front } from "@/components/Home";
+import { RevealObserver } from "@/components/motion";
+import { SmoothScroll } from "@/components/SmoothScroll";
 
-const HOME_ITEMS = [
-  { id: "home", label: "Home" },
-  { id: "projects", label: "Projects" },
-  { id: "experience", label: "Experience" },
-  { id: "about-me", label: "About me" },
-  { id: "my-space", label: "My Space" },
-  { id: "contact", label: "Contact" },
-];
+export const metadata: Metadata = {
+  title: { absolute: "Syed Ali · Design engineer" },
+  description: "Syed Ali designs products and builds them in code. Case studies: Trace, Animation Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.",
+};
 
 export default function Home() {
   return (
     <>
-      <Nav />
-      <MobileNav />
-      <AnimationsSwitch />
-      <Scrubber items={HOME_ITEMS} />
-      <main className="flex flex-1 flex-col">
-        <Hero />
-        <Projects />
-        <WorkExperienceSection />
-        <AboutMe />
-        <MySpace />
-      </main>
-      <Contact />
+      <RevealObserver />
+      <SmoothScroll />
+      <Front />
     </>
   );
 }

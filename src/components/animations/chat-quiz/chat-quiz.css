@@ -29,6 +29,11 @@
   -webkit-font-smoothing: antialiased;
 }
 
+/* It draws its own focus rings: without this the site's outline shows too, and sits round the composer's field whenever it's in use. */
+.chat-quiz :focus-visible {
+  outline: none;
+}
+
 /* Shimmer sweep for the in-progress line. The gradient is clipped to the glyphs,
    so the highlight travels through the letterforms rather than behind them.
    --shim-base is set per element (the step's own tint). */

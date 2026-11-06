@@ -1,82 +1,45 @@
 import type { Metadata } from "next";
-import { Geist_Mono } from "next/font/google";
-import localFont from "next/font/local";
-import { ThemeProvider } from "next-themes";
-import { Agentation } from "agentation";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
-import SmoothScroll from "@/components/SmoothScroll";
-import PageTransition from "@/components/PageTransition";
-import ViewportEdgeBlur from "@/components/ViewportEdgeBlur";
+import { Geist, Geist_Mono, Libre_Baskerville } from "next/font/google";
+import { BackFade } from "@/components/PageLink";
+import { Sound } from "@/components/Sound";
 import "./globals.css";
 
-const segoeUI = localFont({
-  // Subsetted to the Latin + punctuation/arrow glyphs actually used on the
-  // site (see scripts this was generated with in the PR) and converted to
-  // woff2 — the original OTFs were full multi-script system font dumps
-  // (~900KB each, ~4.2MB total) that Next preloads on every page load
-  // regardless of which glyphs are ever painted; this subset is ~20KB each.
-  src: [
-    { path: "./fonts/segoe-ui-light.woff2", weight: "300", style: "normal" },
-    { path: "./fonts/segoe-ui-regular.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/segoe-ui-italic.woff2", weight: "400", style: "italic" },
-    { path: "./fonts/segoe-ui-semibold.woff2", weight: "600", style: "normal" },
-    { path: "./fonts/segoe-ui-bold.woff2", weight: "700", style: "normal" },
-  ],
-  variable: "--font-sans",
-});
+const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// The serif: Libre Baskerville, the face of the case studies Syed pointed at (Rachel Chen's), and sturdier than
+// Newsreader at heading sizes (checked in a rendered specimen beside Geist, Inter and Instrument Sans).
+const serif = Libre_Baskerville({ variable: "--font-baskerville", subsets: ["latin"], style: ["normal", "italic"] });
+
+const DESCRIPTION = "Case studies by Syed Ali, a product designer and design engineer in Bengaluru: Trace, Animation Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.";
 
 export const metadata: Metadata = {
-  title: "Syed Ali — Designing things, Building myself",
-  description:
-    "The guy who designs things and brings them to life, cuz why not. Engineering taught me to do things the unconventional way.",
-  openGraph: {
-    title: "Syed Ali — Designing things, Building myself",
-    description:
-      "The guy who designs things and brings them to life, cuz why not. Engineering taught me to do things the unconventional way.",
-    siteName: "Syed Ali",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Syed Ali — Designing things, Building myself",
-    description:
-      "The guy who designs things and brings them to life, cuz why not. Engineering taught me to do things the unconventional way.",
-  },
+  metadataBase: new URL("https://syedali.app"),
+  title: { default: "Syed Ali · Design engineer", template: "%s · Syed Ali" },
+  description: DESCRIPTION,
+  // What a shared link shows. The picture is opengraph-image.png beside this file.
+  openGraph: { title: "Syed Ali · Design engineer", description: DESCRIPTION, url: "/", siteName: "Syed Ali", type: "website" },
+  twitter: { card: "summary_large_image", title: "Syed Ali · Design engineer", description: DESCRIPTION },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${segoeUI.variable} ${geistMono.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
-      <body className="min-h-full flex flex-col overflow-x-hidden bg-background text-foreground">
-        {/* Nav portals its fixed header in here — a sibling of PageTransition,
-            so it never sits inside that wrapper's animated transform (see
-            Nav.tsx for why that matters). */}
-        <div id="nav-root" />
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <ViewportEdgeBlur />
-          <SmoothScroll>
-            <PageTransition>{children}</PageTransition>
-          </SmoothScroll>
-        </ThemeProvider>
-        {process.env.NODE_ENV === "development" && (
-          <Agentation endpoint="http://localhost:4747" />
-        )}
-        <Analytics />
-        <SpeedInsights />
+    <html lang="en" data-scroll-behavior="smooth" className={`${geist.variable} ${geistMono.variable} ${serif.variable}`} suppressHydrationWarning>
+      <head>
+        {/* Before first paint: lets the scroll reveals hide their content only when JS is there to show it, puts back
+            the theme the reader chose (light unless they picked dark), so the page never flashes the other one, and on
+            the first full load of the home page in a visit holds its content back for the scaffold reveal (Preloader.tsx). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "var d=document.documentElement;d.classList.add('js');try{if(localStorage.getItem('theme')==='dark')d.dataset.theme='dark';if(location.pathname==='/'&&!sessionStorage.getItem('boot')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('boot','1');d.classList.add('boot')}}catch(e){}",
+          }}
+        />
+      </head>
+      <body className="min-h-svh overflow-x-clip">
+        {children}
+        <Sound />
+        <BackFade />
       </body>
     </html>
   );

@@ -1,8 +1,7 @@
-import DynamicInfoCard from "@/components/DynamicInfoCard";
-import ScratchCard from "@/components/ScratchCard";
+import DynamicInfoCard from "./DynamicInfoCard";
+import ScratchCard from "./ScratchCard";
 
-// Same pairing as the real My Space Archive tab: scratch the foil off, then
-// hover what's revealed underneath — the hover-expand notch card.
+/** Scratch the foil off, then point at what's under it: the notch card. */
 export default function ScratchCardDemo() {
   return (
     <div className="mx-auto w-full max-w-[420px]">

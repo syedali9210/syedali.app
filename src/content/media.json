@@ -1,0 +1,1046 @@
+{
+ "/animations/profile-avatar.webp": [
+  136,
+  136
+ ],
+ "/animations/scratch/brush-grunge.png": [
+  938,
+  510
+ ],
+ "/animations/scratch/foil-dots.png": [
+  960,
+  540
+ ],
+ "/animations/scratch/noise.png": [
+  256,
+  256
+ ],
+ "/archive/chat-quiz.webp": [
+  1000,
+  800
+ ],
+ "/archive/hello.webp": [
+  1000,
+  800
+ ],
+ "/archive/maze-walk.webp": [
+  1000,
+  800
+ ],
+ "/archive/nav-scrubber.webp": [
+  1000,
+  800
+ ],
+ "/archive/notch-card.webp": [
+  1000,
+  800
+ ],
+ "/archive/scratch-card.webp": [
+  1000,
+  800
+ ],
+ "/archive/tab-hop.webp": [
+  1000,
+  800
+ ],
+ "/case-studies/animation-engine/artist.webp": [
+  2560,
+  1600
+ ],
+ "/case-studies/animation-engine/card-poster.webp": [
+  960,
+  540
+ ],
+ "/case-studies/animation-engine/engine-launch-poster.webp": [
+  1920,
+  1080
+ ],
+ "/case-studies/animation-engine/films.webp": [
+  2560,
+  4464
+ ],
+ "/case-studies/animation-engine/home.webp": [
+  2560,
+  3174
+ ],
+ "/case-studies/animation-engine/lab.webp": [
+  2560,
+  2614
+ ],
+ "/case-studies/animation-engine/library.webp": [
+  1920,
+  8430
+ ],
+ "/case-studies/animation-engine/screen-builder.webp": [
+  2560,
+  1600
+ ],
+ "/case-studies/animation-engine/search.webp": [
+  2560,
+  1600
+ ],
+ "/case-studies/animation-engine/studio.webp": [
+  2560,
+  1600
+ ],
+ "/case-studies/animation-engine/templates.webp": [
+  2560,
+  1600
+ ],
+ "/case-studies/anime-sports-league/card-apex-kick.webp": [
+  125,
+  160
+ ],
+ "/case-studies/anime-sports-league/card-crick-stryke.webp": [
+  125,
+  160
+ ],
+ "/case-studies/anime-sports-league/card-rim-crush.webp": [
+  128,
+  160
+ ],
+ "/case-studies/anime-sports-league/card-sky-smash.webp": [
+  125,
+  160
+ ],
+ "/case-studies/anime-sports-league/card-spin-ignite.webp": [
+  125,
+  160
+ ],
+ "/case-studies/anime-sports-league/episodes.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/anime-sports-league/footer.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/anime-sports-league/ground.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/anime-sports-league/hero-phone.webp": [
+  1170,
+  2532
+ ],
+ "/case-studies/anime-sports-league/hero.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/anime-sports-league/lineup.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/anime-sports-league/tees.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/kiprun/card-poster.webp": [
+  960,
+  540
+ ],
+ "/case-studies/kiprun/essentials.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/kiprun/film.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/kiprun/hero-phone.webp": [
+  1170,
+  2532
+ ],
+ "/case-studies/kiprun/hero.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/kiprun/layers.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/kiprun/range-rows.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/kiprun/range.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/kiprun/shoe-kipcore.webp": [
+  160,
+  70
+ ],
+ "/case-studies/kiprun/shoe-kipride-gravel.webp": [
+  160,
+  79
+ ],
+ "/case-studies/kiprun/shoe-kipride-max.webp": [
+  160,
+  78
+ ],
+ "/case-studies/kiprun/shoe-kipride.webp": [
+  160,
+  79
+ ],
+ "/case-studies/kiprun/shoe-kipstorm.webp": [
+  160,
+  79
+ ],
+ "/case-studies/kiprun/site-film-poster.webp": [
+  1920,
+  1080
+ ],
+ "/case-studies/kodex/kodex-screenshot.png": [
+  1894,
+  964
+ ],
+ "/case-studies/kodex/kx-hero-image.png": [
+  1277,
+  707
+ ],
+ "/case-studies/kodex/kx-nav-frame1.png": [
+  520,
+  546
+ ],
+ "/case-studies/kodex/kx-nav-frame2.png": [
+  600,
+  486
+ ],
+ "/case-studies/kodex/kx-nav-image9.png": [
+  1276,
+  447
+ ],
+ "/case-studies/kodex/kx-story-image10.png": [
+  1332,
+  681
+ ],
+ "/case-studies/kodex/kx-story-image11.png": [
+  1318,
+  517
+ ],
+ "/case-studies/kodex/kx-trust-chart.png": [
+  238,
+  190
+ ],
+ "/case-studies/kodex/kx-trust-frame1.png": [
+  313,
+  78
+ ],
+ "/case-studies/kodex/kx-trust-frame2.png": [
+  246,
+  88
+ ],
+ "/case-studies/kodex/kx-trust-frame3.png": [
+  313,
+  75
+ ],
+ "/case-studies/trace/canvas-board.webp": [
+  3200,
+  1800
+ ],
+ "/case-studies/trace/card-poster.webp": [
+  960,
+  540
+ ],
+ "/case-studies/trace/case-study.webp": [
+  3200,
+  1800
+ ],
+ "/case-studies/trace/home-cover.webp": [
+  2880,
+  1800
+ ],
+ "/case-studies/trace/home.webp": [
+  2880,
+  6674
+ ],
+ "/case-studies/trace/launch-poster.webp": [
+  2560,
+  1440
+ ],
+ "/case-studies/trace/projects.webp": [
+  3840,
+  2160
+ ],
+ "/case-studies/trace/screens.webp": [
+  3840,
+  2160
+ ],
+ "/case-studies/trace/timeline.webp": [
+  2260,
+  1260
+ ],
+ "/case-studies/trace/todo.webp": [
+  3200,
+  1800
+ ],
+ "/case-studies/trace/trace-ui-poster.webp": [
+  1920,
+  1080
+ ],
+ "/case-studies/uniqkey/uk-feature-frame1.png": [
+  1246,
+  756
+ ],
+ "/case-studies/uniqkey/uk-feature-frame2.png": [
+  346,
+  243
+ ],
+ "/case-studies/uniqkey/uk-feature-frame3.png": [
+  1976,
+  4096
+ ],
+ "/case-studies/uniqkey/uk-feature-frame4.png": [
+  332,
+  753
+ ],
+ "/case-studies/uniqkey/uk-hero-image.png": [
+  938,
+  661
+ ],
+ "/case-studies/uniqkey/uk-risk-frame1.png": [
+  1017,
+  420
+ ],
+ "/case-studies/uniqkey/uk-risk-frame2.png": [
+  443,
+  421
+ ],
+ "/case-studies/uniqkey/uk-risk-frame3.png": [
+  566,
+  421
+ ],
+ "/case-studies/uniqkey/uk-trust-image1.png": [
+  260,
+  310
+ ],
+ "/case-studies/uniqkey/uk-trust-image2.png": [
+  301,
+  344
+ ],
+ "/case-studies/uniqkey/uniqkey-screenshot.png": [
+  1898,
+  966
+ ],
+ "/experience/basenine.jpeg": [
+  200,
+  200
+ ],
+ "/stamps/animation-engine-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/animation-engine-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/animation-engine-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/animation-engine-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/animation-engine-shadow.webp": [
+  240,
+  300
+ ],
+ "/stamps/animation-engine-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/animation-engine.webp": [
+  768,
+  962
+ ],
+ "/stamps/anime-sports-league-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/anime-sports-league-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/anime-sports-league-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/anime-sports-league-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/anime-sports-league-shadow.webp": [
+  240,
+  300
+ ],
+ "/stamps/anime-sports-league-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/anime-sports-league.webp": [
+  768,
+  962
+ ],
+ "/stamps/dome-dark.webp": [
+  640,
+  819
+ ],
+ "/stamps/dome-light.webp": [
+  640,
+  819
+ ],
+ "/stamps/field-animation-engine.webp": [
+  1840,
+  1144
+ ],
+ "/stamps/field-anime-sports-league.webp": [
+  2720,
+  1128
+ ],
+ "/stamps/field-kiprun.webp": [
+  2720,
+  1128
+ ],
+ "/stamps/field-kodex.webp": [
+  1840,
+  1144
+ ],
+ "/stamps/field-trace.webp": [
+  1840,
+  1144
+ ],
+ "/stamps/field-uniqkey.webp": [
+  1840,
+  1144
+ ],
+ "/stamps/kiprun-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/kiprun-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/kiprun-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/kiprun-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/kiprun-shadow.webp": [
+  240,
+  300
+ ],
+ "/stamps/kiprun-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/kiprun.webp": [
+  768,
+  962
+ ],
+ "/stamps/kodex-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/kodex-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/kodex-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/kodex-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/kodex-shadow.webp": [
+  240,
+  300
+ ],
+ "/stamps/kodex-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/kodex.webp": [
+  768,
+  962
+ ],
+ "/stamps/paper-grain-dark.webp": [
+  180,
+  180
+ ],
+ "/stamps/paper-grain.webp": [
+  180,
+  180
+ ],
+ "/stamps/paper-vellum-dark.webp": [
+  360,
+  360
+ ],
+ "/stamps/paper-vellum.webp": [
+  360,
+  360
+ ],
+ "/stamps/piece-about-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-about-icon.webp": [
+  216,
+  271
+ ],
+ "/stamps/piece-about-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-about-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-about-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-about-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-about.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-animation-engine-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-animation-engine-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-animation-engine-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-animation-engine-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-animation-engine-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-animation-engine.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-anime-sports-league-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-anime-sports-league-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-anime-sports-league-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-anime-sports-league-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-anime-sports-league-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-anime-sports-league.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-archive-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-archive-icon.webp": [
+  216,
+  271
+ ],
+ "/stamps/piece-archive-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-archive-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-archive-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-archive-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-archive.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-back.webp": [
+  216,
+  271
+ ],
+ "/stamps/piece-chat-quiz-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-chat-quiz-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-chat-quiz-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-chat-quiz-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-chat-quiz-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-chat-quiz.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-engine-launch-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-engine-launch-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-engine-launch-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-engine-launch-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-engine-launch-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-engine-launch.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-experience-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-experience-icon.webp": [
+  216,
+  271
+ ],
+ "/stamps/piece-experience-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-experience-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-experience-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-experience-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-experience.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-hello-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-hello-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-hello-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-hello-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-hello-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-hello.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-film-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-film-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-film-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-film-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-film-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-kiprun-film.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kiprun-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-kiprun.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kodex-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kodex-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kodex-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kodex-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-kodex-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-kodex.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-maze-walk-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-maze-walk-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-maze-walk-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-maze-walk-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-maze-walk-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-maze-walk.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-menu.webp": [
+  216,
+  271
+ ],
+ "/stamps/piece-nav-scrubber-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-nav-scrubber-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-nav-scrubber-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-nav-scrubber-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-nav-scrubber-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-nav-scrubber.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-notch-card-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-notch-card-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-notch-card-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-notch-card-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-notch-card-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-notch-card.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-scratch-card-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-scratch-card-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-scratch-card-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-scratch-card-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-scratch-card-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-scratch-card.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-tab-hop-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-tab-hop-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-tab-hop-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-tab-hop-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-tab-hop-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-tab-hop.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-launch-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-launch-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-launch-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-launch-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-launch-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-trace-launch.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-trace-ui-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-ui-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-ui-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-ui-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace-ui-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-trace-ui.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-trace.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-uniqkey-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-uniqkey-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-uniqkey-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-uniqkey-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/piece-uniqkey-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/piece-uniqkey.webp": [
+  768,
+  962
+ ],
+ "/stamps/trace-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/trace-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/trace-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/trace-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/trace-shadow.webp": [
+  240,
+  300
+ ],
+ "/stamps/trace-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/trace.webp": [
+  768,
+  962
+ ],
+ "/stamps/uniqkey-a.webp": [
+  768,
+  962
+ ],
+ "/stamps/uniqkey-m.webp": [
+  768,
+  962
+ ],
+ "/stamps/uniqkey-n.webp": [
+  768,
+  962
+ ],
+ "/stamps/uniqkey-r.webp": [
+  768,
+  962
+ ],
+ "/stamps/uniqkey-shadow.webp": [
+  240,
+  300
+ ],
+ "/stamps/uniqkey-sm.webp": [
+  512,
+  641
+ ],
+ "/stamps/uniqkey.webp": [
+  768,
+  962
+ ]
+}
