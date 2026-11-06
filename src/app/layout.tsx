@@ -11,9 +11,15 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 // Newsreader at heading sizes (checked in a rendered specimen beside Geist, Inter and Instrument Sans).
 const serif = Libre_Baskerville({ variable: "--font-baskerville", subsets: ["latin"], style: ["normal", "italic"] });
 
+const DESCRIPTION = "Case studies by Syed Ali, a product designer and design engineer in Bengaluru: Trace, Animation Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://syedali.app"),
   title: { default: "Syed Ali · Design engineer", template: "%s · Syed Ali" },
-  description: "Case studies by Syed Ali, a product designer and design engineer in Bengaluru: Trace, Animation Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.",
+  description: DESCRIPTION,
+  // What a shared link shows. The picture is opengraph-image.png beside this file.
+  openGraph: { title: "Syed Ali · Design engineer", description: DESCRIPTION, url: "/", siteName: "Syed Ali", type: "website" },
+  twitter: { card: "summary_large_image", title: "Syed Ali · Design engineer", description: DESCRIPTION },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

@@ -6,6 +6,14 @@ const config: NextConfig = {
   // Screenshots are full of small UI text: serve them at quality 90, not the default 75, and up to 4K wide.
   // Optimised copies keep for a week: they only change when a picture is replaced.
   images: { qualities: [90], deviceSizes: [640, 828, 1080, 1280, 1600, 1920, 2560, 3840], minimumCacheTTL: 604800 },
+  // The old site's addresses, for the links to them already out there. Airtribe and Khaata aren't on this site, so that one isn't for good.
+  async redirects() {
+    return [
+      { source: "/projects/:slug(kodex|uniqkey)", destination: "/work/:slug", permanent: true },
+      { source: "/projects/:slug", destination: "/#work", permanent: false },
+      { source: "/animations/:path*", destination: "/archive", permanent: true },
+    ];
+  },
   // public/ is served with max-age=0 by default, so every stone, map and film was asked after again on every load and every return to a page.
   // Good for a day, and for a month after that the old copy shows at once while the new one is fetched behind it, so a re-baked stone still gets through.
   async headers() {

@@ -11,7 +11,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/work/[slug]">): Promise<Metadata> {
   const study = getCaseStudy((await params).slug);
-  return study ? { title: study.title, description: study.summary, openGraph: { images: [study.cover.src] } } : {};
+  return study ? { title: study.title, description: study.summary, openGraph: { title: study.title, description: study.summary, images: [study.cover.src] } } : {};
 }
 
 export default async function Page({ params }: PageProps<"/work/[slug]">) {
