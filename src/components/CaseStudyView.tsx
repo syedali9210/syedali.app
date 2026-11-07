@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { nextAfter, sizeOf } from "@/content";
 import type { Block, CaseStudy } from "@/content/types";
 import { BlockView } from "./Blocks";
+import { EARLY } from "./early";
 import { FullFrame } from "./FullFrame";
 import { Hero } from "./Hero";
 import { PageLink } from "./PageLink";
@@ -143,7 +144,7 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
             </p>
             <PageLink href={`/work/${next.slug}`} data-cursor="View project" data-stone={next.slug} className="group mx-auto block max-w-[460px]">
               <span className="work-media block aspect-[16/10]" data-fly="screen" style={{ "--tint": next.theme.mid } as CSSProperties}>
-                <Image quality={90} src={next.cover.src} alt="" {...sizeOf(next.cover)} sizes="460px" className="work-shot" />
+                <Image quality={90} src={next.cover.src} alt="" {...sizeOf(next.cover)} sizes="460px" className="work-shot" {...EARLY} />
               </span>
               <span className="mt-caption flex items-baseline gap-note text-copy">
                 <span className="text-ink">{next.title}</span>

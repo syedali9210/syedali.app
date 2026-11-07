@@ -16,7 +16,7 @@ export const animeSportsLeague: CaseStudy = {
   meta: [
     { label: "Role", value: "Web Design, Motion, Development" },
     { label: "Client", value: "Decathlon India" },
-    { label: "Timeline", value: "Aug 24 – Sep 21, 2026" },
+    { label: "Timeline", value: "Aug 24 – Sep 2, 2026" },
   ],
   takeaways: [
     "Traced art breaks when half of something moves, and a broken detail reads worse than a still one. So the football stays still.",
@@ -167,7 +167,7 @@ export const animeSportsLeague: CaseStudy = {
           kind: "box",
           title: "Hand it over",
           text: "Page views and Web Vitals were wired in, then the site went to Decathlon's test address.",
-          made: "served from Decathlon's test address on 21 September 2026",
+          made: "served from Decathlon's test address",
         },
       ],
     },
@@ -347,7 +347,7 @@ export const animeSportsLeague: CaseStudy = {
       id: "outcomes",
       title: "Where it stands",
       body: [
-        "I built the site for Decathlon India. Since 21 September 2026 it has been served from Decathlon's test address, with page views, Web Vitals and campaign-tagged links to every product.",
+        "I built the site for Decathlon India. It's served from Decathlon's test address, with page views, Web Vitals and campaign-tagged links to every product.",
         "Next, the hero needs to get lighter before the public launch.",
       ],
     },

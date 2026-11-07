@@ -5,6 +5,7 @@ import { PLACES } from "@/content/places";
 import { Contact } from "./Contact";
 import { Cursor } from "./Cursor";
 import { Dome } from "./Dome";
+import { EARLY } from "./early";
 import { InkWord } from "./InkWord";
 import { PageLink } from "./PageLink";
 import { Loop } from "./Loop";
@@ -50,7 +51,7 @@ function Work({ slug, side, win }: (typeof ROWS)[number]) {
         {/* eslint-disable-next-line @next/next/no-img-element -- hard-edged dots, a few kB, shown as they were baked */}
         <img className="wk-field" src={`/stamps/field-${slug}.webp`} alt="" loading="lazy" decoding="async" draggable={false} />
         <div className="wk-window" data-fly="screen" style={{ "--x": `${win[0]}%`, "--y": `${win[1]}%`, "--w": `${win[2]}%`, aspectRatio: study.card ? "16 / 9" : `${shot.width} / ${shot.height}` } as CSSProperties}>
-          {study.card ? <Loop src={study.card.video} poster={study.card.poster} className="wk-shot" /> : <Image quality={90} src={study.cover.src} alt="" {...shot} sizes="(min-width: 1024px) 44vw, 70vw" className="wk-shot" />}
+          {study.card ? <Loop src={study.card.video} poster={study.card.poster} className="wk-shot" /> : <Image quality={90} src={study.cover.src} alt="" {...shot} sizes="(min-width: 1024px) 44vw, 70vw" className="wk-shot" {...EARLY} />}
         </div>
       </div>
       {side.startsWith("wide") && <p className="wk-claim font-serif">{line}</p>}

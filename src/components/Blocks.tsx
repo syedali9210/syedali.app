@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
 import { sizeOf } from "@/content";
 import type { Block, Card, Picture, Wire, WireItem } from "@/content/types";
+import { EARLY } from "./early";
 import { Icon } from "./Icon";
 import { Immersive } from "./Immersive";
 import { Rich, RichWords, RiseWords } from "./Rich";
@@ -13,7 +14,7 @@ const i = (n: number) => ({ "--i": n }) as CSSProperties;
 const MAIN = "(min-width: 816px) 744px, 100vw";
 
 function Pic({ picture, sizes = MAIN, className, style, priority }: { picture: Picture; sizes?: string; className?: string; style?: CSSProperties; priority?: boolean }) {
-  return <Image quality={90} src={picture.src} alt={picture.alt} {...sizeOf(picture)} sizes={sizes} className={className} style={style} priority={priority} />;
+  return <Image quality={90} src={picture.src} alt={picture.alt} {...sizeOf(picture)} sizes={sizes} className={className} style={style} priority={priority} {...(priority ? {} : EARLY)} />;
 }
 
 

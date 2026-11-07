@@ -17,7 +17,8 @@ export function Experience() {
           <li key={role.title} className="card xp" data-fly-scope style={{ "--i": n } as CSSProperties}>
             <p className="card-top">
               <span>
-                {role.start} — {role.end ?? "Now"} · {duration(role.start, role.end)}
+                {role.start}
+                {role.end === role.start ? "" : ` — ${role.end ?? "Now"}`} · {role.length ?? duration(role.start, role.end)}
               </span>
               <b>{String(n + 1).padStart(4, "0")}</b>
             </p>

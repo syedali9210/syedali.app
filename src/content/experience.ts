@@ -8,6 +8,8 @@ export type Role = {
   type: string;
   start: string;
   end?: string;
+  /** How long it took, when that's shorter than the months show ("1w", "10d"). */
+  length?: string;
   points: string[];
   skills: string[];
   /** The case study here, if there is one. */
@@ -52,13 +54,14 @@ export const experience: Employer[] = [
         title: "KIPRUN campaign page",
         type: "Freelance",
         start: "09.2026",
-        end: "10.2026",
+        end: "09.2026",
+        length: "1w",
         href: "/work/kiprun",
         stones: [{ slug: "kiprun", title: "KIPRUN" }],
         points: [
           "Designed and built the campaign page for KIPRUN, Decathlon's running brand, live inside decathlon.in.",
           "Served under Decathlon's own address through its proxy, with every price, weight and rating read from decathlon.in.",
-          "A range where each colour shows its shoe and opens its own product, with the women's fits added a month after launch.",
+          "A range where each colour shows its shoe and opens its own product, with the women's fits added after launch.",
           "Loaded about 970,000 times in its last month, according to Vercel's CDN logs.",
         ],
         skills: ["HTML", "CSS", "JavaScript", "Vercel", "Figma"],
@@ -68,6 +71,7 @@ export const experience: Employer[] = [
         type: "Freelance",
         start: "08.2026",
         end: "09.2026",
+        length: "10d",
         href: "/work/anime-sports-league",
         stones: [{ slug: "anime-sports-league", title: "Anime Sports League" }],
         points: [

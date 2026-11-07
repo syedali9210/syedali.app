@@ -17,7 +17,7 @@ export const kiprun: CaseStudy = {
   meta: [
     { label: "Role", value: "Web Design, Motion, Development" },
     { label: "Client", value: "Decathlon India" },
-    { label: "Timeline", value: "Sep 22 – Oct 21, 2026" },
+    { label: "Timeline", value: "Sep 22 – Sep 28, 2026" },
   ],
   takeaways: [
     "A campaign page has seconds per section: one shoe, big, with the motion coming from the scroll. The floating-shoe stage was gone the day it was built.",
@@ -136,7 +136,7 @@ export const kiprun: CaseStudy = {
       eyebrow: "Design process",
       title: "From the shoes to ==the store==, then a women's row",
       body: [
-        "Each stage had one job, starting with the product and ending at Decathlon's address. Here is how it came together, and what came a month later.",
+        "Each stage had one job, starting with the product and ending at Decathlon's address. Here is how it came together, and what came after launch.",
       ],
     },
     {
@@ -173,7 +173,7 @@ export const kiprun: CaseStudy = {
         {
           phase: "Iterate",
           kind: "screen",
-          title: "A month later: the women's row",
+          title: "After launch: the women's row",
           text: "The range got a women's row of five cards, with each colour linking to its own product, and a cleaner render of the Kipride.",
           made: "men and women, five cards each",
         },
@@ -354,7 +354,7 @@ export const kiprun: CaseStudy = {
       id: "outcomes",
       title: "Where it stands",
       body: [
-        "The page has been live on decathlon.in since 25 September 2026, under Decathlon's own address. The women's row came a month later without touching the rest.",
+        "The page has been live on decathlon.in since 25 September 2026, under Decathlon's own address. The women's row came after launch without touching the rest.",
         "The logs also show where attention goes. The three Kipride colour films were requested more often than the page itself, so making them lighter is the next job.",
       ],
     },
