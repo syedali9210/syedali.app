@@ -26,7 +26,7 @@ export const experience: Employer[] = [
     current: true,
     roles: [
       {
-        title: "Product Designer Intern",
+        title: "Product Design Intern",
         type: "Intern",
         start: "02.2026",
         stones: [
@@ -62,7 +62,7 @@ export const experience: Employer[] = [
           "Designed and built the campaign page for KIPRUN, Decathlon's running brand, live inside decathlon.in.",
           "Served under Decathlon's own address through its proxy, with every price, weight and rating read from decathlon.in.",
           "A range where each colour shows its shoe and opens its own product, with the women's fits added after launch.",
-          "Loaded about 970,000 times in its last month, according to Vercel's CDN logs.",
+          "About 970,000 page requests in a month, from Vercel's CDN logs.",
         ],
         skills: ["HTML", "CSS", "JavaScript", "Vercel", "Figma"],
       },

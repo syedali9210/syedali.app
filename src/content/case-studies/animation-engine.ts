@@ -6,37 +6,37 @@ const dir = "/case-studies/animation-engine";
 export const animationEngine: CaseStudy = {
   slug: "animation-engine",
   title: "Animation Engine",
-  tagline: "Why go to someone else for a film of ==your own product==?",
+  tagline: "A launch film of your product, ==made from its own code==.",
   theme: { deep: "#2563eb", mid: "#9a8cf2", light: "#ffc2e6", highlight: "#ffcfeb" },
   hero: { frame: "screen", picture: { src: `${dir}/home.webp`, alt: "The Animation Engine's home: What are we making?" } },
   kind: "Product",
   year: "2026",
   summary:
-    "Animation Engine makes the whole product film for you. Ask for one in a sentence and it reads your screens, words and colours, then writes, directs and renders the film. The fun part is the taste: every film you keep or pass teaches it what you like, so it evolves with you.",
+    "Animation Engine makes a product's launch film from the product itself. Ask in one sentence and it opens the running app, reads its screens, words and colours, then writes, directs and renders the film. The film is made of the real interface, so it never drifts from the product, and every scene stays editable.",
   meta: [
     { label: "Role", value: "Product Design, Motion, Development" },
-    { label: "Made for", value: "Anyone with a product and no motion team" },
+    { label: "Made for", value: "Product teams with no motion designer" },
     { label: "Built with", value: "Vite, React 19, three.js, Motion, GSAP" },
   ],
   takeaways: [
-    "A product film shouldn't depend on someone else's calendar. One sentence should be enough to get a first cut.",
-    "Generic films come from missing decisions. The engine fills them with your taste instead of a safe default.",
-    "A template is only worth starting from if it's measured off a film I'd actually make. The generic ones made every film read generic.",
+    "A film made from the product's own code can't drift from the product. A screen recording starts going stale the day it's made.",
+    "One sentence should be enough for a first cut. The final call stays with the person whose product it is.",
+    "Generic templates make generic films, so every template is measured off a launch film I studied.",
     "The device is half of every shot. CSS faces never looked real; three.js models at Apple's dimensions do.",
   ],
   quick: {
     problem:
-      "A product film used to mean paying someone else, doing it all by hand, or accepting the look everyone gets from AI tools. I wanted the idea to stay mine and the slow part to go away.",
+      "A product film used to mean paying someone else, recording and editing it all by hand, or accepting the look everyone gets from AI tools. And every film went stale as soon as the product changed.",
     approach:
-      "I built a studio that reads a product, then writes, directs and renders its film from one sentence. Every film you keep or pass teaches it your taste.",
+      "I built a studio that opens a running product and makes its launch film from one sentence, out of the real interface, with every scene still editable.",
     result:
-      "A launch film of any codebase in one call, every scene still editable, from a studio that learns your taste.",
+      "Three product launch films made with it so far, Trace's from a single call. A 15-second film renders in about a minute and a half on a laptop.",
   },
   status: {
-    title: "Animation Engine, live and in daily use",
+    title: "Animation Engine, in daily use",
     live: true,
     facts: [
-      { label: "The idea", value: "The taste that evolves with you" },
+      { label: "The idea", value: "A launch film made from your product's own code" },
       { label: "Makes", value: "Launch films, product demos, teasers, brand films and social cuts" },
     ],
     sections: [
@@ -86,10 +86,10 @@ export const animationEngine: CaseStudy = {
     {
       type: "section",
       id: "why",
-      title: "Why ==I made it==",
+      title: "The bet: film the ==real product==",
       body: [
-        "I wanted two things that usually fight each other. I wanted the original idea of a film to stay mine, and I wanted the whole process of making it automated.",
-        "So the engine takes the slow parts: reading the product, writing the story, directing the shots and rendering the film. The idea, the taste and the final call stay with the person whose product it is. And like a good collaborator, it should get better at this the longer you work together.",
+        "Most product films are recordings of a product, and a recording starts going stale the day it's made. So the engine doesn't record anything. It opens the running app, at the device's own size, and builds the film out of the real interface.",
+        "That one choice decides the rest. The engine takes the slow parts: reading the product, writing the story, directing the shots and rendering. The idea and the final call stay with the person whose product it is, and when the product changes, the film can simply be made again.",
       ],
     },
     {
@@ -200,25 +200,10 @@ export const animationEngine: CaseStudy = {
     {
       type: "section",
       id: "taste",
-      title: "The fun part: it ==learns your taste==",
+      title: "The next film starts from ==what you kept==",
       body: [
-        "Most tools treat every film as the first one. The engine keeps track. The take you use, the ones you pass over and every film you export all teach it what you like, and it leans that way next time while still trying new things.",
-        "You can also tell it why. Say a film has too much going on, and that reason becomes a rule for the next one. Show it a film you love, and it takes that film apart into moves it can reuse. Over time the defaults stop being anyone else's and start being yours.",
+        "Most tools treat every film as the first one. The engine keeps track: the take you use, the ones you pass over and the reasons you give all shape the next draft. Say a film has too much going on, and that becomes a rule for the next one.",
       ],
-    },
-    {
-      type: "section",
-      id: "lab",
-      title: "It studies ==while you sleep==",
-      body: [
-        "Every night the Lab studies reference films and proposes new templates and effects, following a written rulebook. Nothing reaches the engine until you review it. You keep or pass each proposal and give a reason, and those reasons shape the next night's work.",
-      ],
-    },
-    {
-      type: "illustration",
-      src: "/illustrations/lighttable.html",
-      title: "Frames on a light table",
-      note: "Point at the glass and the frames near the pointer rise, the way the Lab lifts out the frames worth keeping from a film.",
     },
     {
       type: "section",
@@ -279,8 +264,8 @@ export const animationEngine: CaseStudy = {
       items: [
         {
           title: "Where the templates come from",
-          chose: "Templates rebuilt from my own reference films, with their measured cuts, framing and palette.",
-          why: "A template is only worth starting from if it's measured off a film I would actually make.",
+          chose: "Templates rebuilt from launch films I studied, with their cuts, framing and palette measured.",
+          why: "A template is only worth starting from if it's measured off a film worth making.",
           considered: [
             { option: "The generic built-in templates", why: "They read as generic, so every film made from them did too." },
           ],
@@ -306,7 +291,7 @@ export const animationEngine: CaseStudy = {
     {
       type: "media",
       picture: { src: `${dir}/films.webp`, alt: "Films: launch films of a product, live on every screen" },
-      caption: "Films: every launch film I've made of a product, playing live.",
+      caption: "Films: launch films made with the engine, playing live.",
     },
     {
       type: "section",
@@ -358,7 +343,6 @@ export const animationEngine: CaseStudy = {
         { id: "animations", label: "Animations", note: "A folder each, with a meta file, which the library picks up automatically.", moves: ["library", "devices"] },
         { id: "kit", label: "Product kit", note: "A codebase read for its screens, words, colours and logo.", moves: ["templates", "artist", "canvas"] },
         { id: "taste", label: "Your taste", note: "The takes you use, the ones you pass and your reasons, weighed into every next draft.", moves: ["templates", "artist"] },
-        { id: "lab", label: "The Lab", note: "Nightly runs that study films and propose template changes you keep or pass.", moves: ["templates"] },
         { id: "library", label: "Library", note: "Every animation, live, searchable by kind." },
         { id: "devices", label: "Device frames", note: "Each device an isolated iframe at its true viewport, with a bridge for parameters and frame timing.", moves: ["studio", "canvas"] },
         { id: "templates", label: "Templates", note: "Films that take a product's own device, screens and words.", moves: ["artist", "studio"] },
@@ -383,10 +367,10 @@ export const animationEngine: CaseStudy = {
       type: "stats",
       quick: true,
       items: [
-        { label: "To get a film of a product", value: "One sentence", note: "Trace's first launch film came from a single make_video call." },
-        { label: "Who has the final call", value: "You", note: "Every scene, title and cut stays editable after the draft." },
+        { label: "A 15-second film", value: "~90 s", note: "From one sentence to a finished MP4, on a laptop." },
+        { label: "Product launch films made", value: "3", note: "Trace's, from a single call; provider-guard's, 46 s; and the engine's own, 57 s." },
         { label: "To change one scene", value: "One re-render", note: "Scenes that didn't change come straight from the cache." },
-        { label: "What each new film starts from", value: "Your taste", note: "The takes you used, the ones you passed and the reasons you gave." },
+        { label: "Animations ready to film", value: "35", note: "Each running live in an exact device frame." },
       ],
     },
     {
@@ -394,7 +378,7 @@ export const animationEngine: CaseStudy = {
       id: "outcomes",
       title: "Where it stands",
       body: [
-        "The engine now makes its own films. Its launch film came out of its own Studio, and Trace's first launch film came from one call. Each film it drafts for me now starts from what I've already kept and passed.",
+        "The engine now makes real launch films. Its own came out of its own Studio, provider-guard's was built from that product's own interface code, and Trace's came from one call. Each new draft starts from what I've already kept and passed.",
         "Next, I want to add music for films, and local models for private work.",
       ],
     },

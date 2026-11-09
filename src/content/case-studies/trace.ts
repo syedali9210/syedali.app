@@ -30,14 +30,14 @@ export const trace: CaseStudy = {
     approach:
       "I built Trace to capture work from those tools, write the changelog by rules from what actually changed, walk the running app, and serve one memory to people and to agents.",
     result:
-      "A design memory I use every day. Agents and teammates now start with the history, the decisions and the reasons already in hand.",
+      "A design memory in daily use. Agents start with the history, the decisions and the reasons already in hand, and a full walk of a running app dropped from 15 minutes to under 3.",
   },
   status: {
-    title: "Trace, live and in daily use",
+    title: "Trace, in daily use",
     live: true,
     facts: [
       { label: "Recent Updates", value: "Each change now carries its explanation, and a check re-walks what it touched" },
-      { label: "Integrations", value: "Figma, Claude, GitHub, Local file, Cursor, Claude Code." },
+      { label: "Integrations", value: "Figma, GitHub, local folders and links. Memory from Claude Code, Codex, Cursor, Antigravity, Copilot, and Claude and ChatGPT exports." },
     ],
     sections: [
       { label: "Problem", href: "#opening" },
@@ -205,6 +205,7 @@ export const trace: CaseStudy = {
       title: "The app, walked while it runs",
       body: [
         "A change in code is a change in design too, but a diff can't show you that. So Trace opens the running app in headless Edge and walks it: tabs, sheets, menus and the theme, up to two clicks deep.",
+        "The first walk was too slow to use: 15 minutes for one app. Exploring first, then capturing screens in parallel batches, brought it to 2 minutes 47 seconds, and it found more on the way, 37 screens instead of 28. After a commit, only the screens that change touched are walked again.",
       ],
     },
     {
@@ -354,10 +355,10 @@ export const trace: CaseStudy = {
       type: "stats",
       quick: true,
       items: [
-        { label: "A new session", value: "Starts briefed", note: "Agents read the brief, the decisions and what was undone before they touch anything." },
-        { label: "The changelog", value: "Writes itself", note: "Written by rules from the diff, so every line can be checked." },
-        { label: "A code change", value: "Arrives as a picture", note: "The running app is walked, so a change shows up as screens." },
-        { label: "Every AI's memory", value: "In one place", note: "Claude Code, Codex, Antigravity, Cursor, Copilot and exported chats." },
+        { label: "A full walk of an app", value: "15 min → 2 min 47 s", note: "And it found more: 37 screens instead of 28." },
+        { label: "Re-walk after a one-file change", value: "32 s", note: "Only the 4 of 17 screens that file touches. With nothing changed, 1 s." },
+        { label: "Reading a 500 MB agent chat", value: "~5 s, then instant", note: "Each session is read once and cached by its size and time." },
+        { label: "AI tools it reads memory from", value: "6", note: "Claude Code, Codex, Antigravity, Cursor, Copilot and exported Claude and ChatGPT chats." },
       ],
     },
     {
@@ -365,7 +366,7 @@ export const trace: CaseStudy = {
       id: "outcomes",
       title: "Where it stands",
       body: [
-        "Trace now runs every day on my own projects. Each change is captured, written up from its diff and filed with the reasoning behind it, and agents read that history before they touch the work.",
+        "Trace runs every day on real work. Each change is captured, written up from its diff and filed with the reasoning behind it, and agents read that history before they touch the work. Every feature in its PRD is built, 15 of 15.",
         "Next, I want to open it up to teams.",
       ],
     },

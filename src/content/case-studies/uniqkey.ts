@@ -42,6 +42,7 @@ export const uniqkey: CaseStudy = {
       { label: "Problem", href: "#challenge" },
       { label: "Process", href: "#process" },
       { label: "Redesign", href: "#hero-experience" },
+      { label: "Decisions", href: "#decisions" },
       { label: "Before & after", href: "#shift" },
       { label: "Results", href: "#outcomes" },
     ],
@@ -94,7 +95,7 @@ export const uniqkey: CaseStudy = {
       items: [
         { goal: "Sell to decision makers, not specialists", design: "Why it matters comes first, in plain words, before how it works.", signal: "Visitors who read on past the hero." },
         { goal: "Urgency without fear", design: "The cost of a breach, shown as structured content and visuals.", signal: "Visitors who reach the features after the risk section." },
-        { goal: "Trust for a security vendor", design: "Testimonials and certifications before the call to action.", signal: "Demo requests after the proof." },
+        { goal: "Trust for a security vendor", design: "Security proof, like encryption and zero-knowledge architecture in plain words, before the call to action.", signal: "Demo requests after the proof." },
       ],
     },
     {
@@ -217,7 +218,7 @@ export const uniqkey: CaseStudy = {
       id: "features",
       title: "What does it do?",
       body: [
-        "The features used to be buried in long blocks of copy. I rebuilt them as modular cards with icons and short lines, so they can be scanned and compared.",
+        "The features used to be buried in long blocks of copy. I rebuilt them as cards, each pairing a short line with the product screen it describes: who's affected, what leaked for each person, and which domains are being watched.",
       ],
     },
     {
@@ -235,7 +236,7 @@ export const uniqkey: CaseStudy = {
       id: "trust",
       title: "Who else ==trusts== it?",
       body: [
-        "Testimonials and certifications come before the call to action, so the proof lands before the ask.",
+        "A security buyer has to trust the vendor before the feature. So the proof comes before the call to action: military-grade encryption and a zero-knowledge architecture, each said in plain words on its own card.",
       ],
     },
     {
@@ -244,6 +245,35 @@ export const uniqkey: CaseStudy = {
       pictures: [
         { src: `${dir}/uk-trust-image1.png`, alt: "A card on military-grade encryption" },
         { src: `${dir}/uk-trust-image2.png`, alt: "A card on zero-knowledge architecture" },
+      ],
+    },
+    {
+      type: "section",
+      id: "decisions",
+      title: "Two decisions about ==what comes first==",
+      body: [
+        "The page has one scroll to work with, so the hardest calls were about order and tone.",
+      ],
+    },
+    {
+      type: "decisions",
+      items: [
+        {
+          title: "What the page opens on",
+          chose: "Why a breach matters to the business, in plain words.",
+          why: "The person who signs needs a reason before a mechanism.",
+          considered: [
+            { option: "How monitoring works", why: "The old page opened there, and non-specialist buyers stopped reading before they reached the point." },
+          ],
+        },
+        {
+          title: "How to make the risk feel real",
+          chose: "Put a cost on it, through structured content and visuals: detect, respond, document.",
+          why: "Urgency without fear: a buyer who feels scared leaves, one who sees the cost acts.",
+          considered: [
+            { option: "Alarming numbers and red warnings", why: "It reads as a scare tactic, and a security vendor can't afford to look like one." },
+          ],
+        },
       ],
     },
     {
@@ -307,8 +337,8 @@ export const uniqkey: CaseStudy = {
       id: "learned",
       title: "What I learned",
       body: [
-        "Designing for cybersecurity taught me that people don't need every technical detail upfront. They need to understand, quickly, why the product matters to them.",
-        "This project made me better at simplifying a complex topic while keeping it accurate, and at writing pages that explain first and ask second.",
+        "On a technical page, the order of the questions does more than any visual. Once the page followed the buyer's four questions, most of the design decisions made themselves.",
+        "And tone is a design choice. The same breach can be shown as a scare or as a cost, and only one of those makes a buyer trust the vendor telling them.",
       ],
     },
   ],

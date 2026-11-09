@@ -15,11 +15,12 @@ export const kodex: CaseStudy = {
   summary:
     "Kodex is a B2B compliance platform that helps organisations build regulatory workflows into the systems they already use. At Basenine, I redesigned its marketing site so it feels as trustworthy and as easy to evaluate as the product actually is.",
   meta: [
-    { label: "Role", value: "Web Design" },
+    { label: "Role", value: "Web Design, Motion, Front-end" },
     { label: "Studio", value: "Basenine, 2026" },
   ],
   takeaways: [
     "A mature product can still look unready. Kodex's maturity had to come through the site alone: its hierarchy, its proof and its paths.",
+    "A workflow is easier to believe when you can watch it work. So the integration flow runs on the site as a working product mockup, built in code.",
     "Products, industries and integrations were three ways in. They became one navigation built around what a visitor came for.",
     "Every journey needs an end. Here there are two: a demo for the buyer, the documentation for the evaluator.",
   ],
@@ -42,6 +43,7 @@ export const kodex: CaseStudy = {
       { label: "Problem", href: "#challenge" },
       { label: "Process", href: "#process" },
       { label: "Redesign", href: "#hero-experience" },
+      { label: "Decisions", href: "#decisions" },
       { label: "Before & after", href: "#shift" },
       { label: "Results", href: "#outcomes" },
     ],
@@ -237,6 +239,15 @@ export const kodex: CaseStudy = {
     },
     {
       type: "section",
+      id: "integration",
+      title: "The integration flow, ==shown working==",
+      body: [
+        "The hardest thing to explain was how Kodex fits into the systems a company already runs. A diagram or a paragraph asks the buyer to imagine it.",
+        "So I designed the integration flow section and built its product mockup in code, motion included, instead of handing over a static spec. It runs on the live site, so a buyer watches a request move through Kodex rather than reading about it, and what shipped is exactly what was approved.",
+      ],
+    },
+    {
+      type: "section",
       id: "trust",
       title: "Proof before ==the ask==",
       body: [
@@ -251,6 +262,36 @@ export const kodex: CaseStudy = {
         { src: `${dir}/kx-trust-frame1.png`, alt: "A trust badge row" },
         { src: `${dir}/kx-trust-frame3.png`, alt: "A trust badge row" },
         { src: `${dir}/kx-trust-frame2.png`, alt: "A trust badge" },
+      ],
+    },
+    {
+      type: "section",
+      id: "decisions",
+      title: "Two decisions that ==shaped the site==",
+      body: [
+        "Both had an easier option that the old site had already taken.",
+      ],
+    },
+    {
+      type: "decisions",
+      items: [
+        {
+          title: "How visitors find the products",
+          chose: "One menu, grouped by what a visitor came to do.",
+          why: "People arrive with a question, and they shouldn't need a sitemap to answer it.",
+          considered: [
+            { option: "Products, industries and integrations as three separate ways in", why: "That was the old site, and exploring it felt like work." },
+          ],
+        },
+        {
+          title: "How the integration flow is explained",
+          chose: "A working product mockup, built in code with its motion, running on the live site.",
+          why: "A compliance workflow is easier to believe when you can watch it work.",
+          considered: [
+            { option: "A static diagram and a paragraph", why: "It asks the buyer to imagine the flow instead of seeing it." },
+            { option: "A spec handed to developers", why: "Motion and timing get lost between the approved design and what ships." },
+          ],
+        },
       ],
     },
     {
@@ -324,7 +365,7 @@ export const kodex: CaseStudy = {
       items: [
         { label: "What Kodex does", value: "Said up front", note: "The hero explains the platform before anything else." },
         { label: "Ways into the products", value: "One menu", note: "Products, industries and integrations, organised by why people came." },
-        { label: "Long workflows", value: "Read in pieces", note: "Product pages in modules, one idea at a time." },
+        { label: "The integration flow", value: "Runs live", note: "A product mockup built in code, with its motion, on the live site." },
         { label: "Every path", value: "Ends somewhere", note: "A demo for the buyer, the documentation for the evaluator." },
       ],
     },
@@ -333,8 +374,8 @@ export const kodex: CaseStudy = {
       id: "learned",
       title: "What I learned",
       body: [
-        "Working on Kodex taught me that designing for B2B goes beyond clean interfaces. The real work is simplifying complex ideas and saying them clearly.",
-        "I also learned how to balance stakeholder feedback, business goals and technical constraints, and still end up with something that feels simple to use.",
+        "The biggest lever on a B2B site turned out to be order, not decoration: what a buyer sees first, what proof comes before the ask, and where every path ends.",
+        "And showing beats describing. The integration flow said more as a working mockup than any paragraph about it could, which is why I build that kind of thing in code myself.",
       ],
     },
   ],

@@ -29,7 +29,7 @@ export const animeSportsLeague: CaseStudy = {
     approach:
       "I cut the poster into layers that part as you scroll, built a deck of league cards that deals itself, and ended every league on its own tee.",
     result:
-      "A campaign site where the poster opens up around you and every league leads to its tee, built for Decathlon India.",
+      "A campaign site where the poster opens up around you and every league leads to its tee: 1,734 visitors so far, 89% of them on a phone.",
   },
   status: {
     title: "Built for Decathlon India",
@@ -101,7 +101,7 @@ export const animeSportsLeague: CaseStudy = {
       id: "constraints",
       title: "Someone else's art, ==on a mid-range phone==",
       body: [
-        "I couldn't redraw the art, and all of it had to run on the phones people actually own.",
+        "I couldn't redraw the art, and all of it had to run on the phones people actually own. That turned out to matter: 89% of visitors came on a phone, most of them on Android.",
       ],
     },
     {
@@ -217,7 +217,7 @@ export const animeSportsLeague: CaseStudy = {
     {
       type: "section",
       id: "decisions",
-      title: "Three decisions about ==what moves==",
+      title: "Four decisions about ==what moves==",
       body: [
         "Traced art is unforgiving. The hardest decisions on this project were about what to leave still.",
       ],
@@ -239,6 +239,14 @@ export const animeSportsLeague: CaseStudy = {
           why: "Traced art breaks when half of something moves, and a broken detail reads worse than a still one.",
           considered: [
             { option: "Moving the football with the kick", why: "Its panels are merged with the leg in the trace, so half a ball would move." },
+          ],
+        },
+        {
+          title: "How the title cards play",
+          chose: "The scroll only starts the sequence, then it plays on its own clock in about seven seconds.",
+          why: "Tied to the scroll, its speed was the reader's speed: a flick threw the cards past in a frame, and a slow drag left a word hanging.",
+          considered: [
+            { option: "Scrubbing it with the scroll", why: "Its timing became whatever the trackpad did, and at full length it held the reader for twice as long." },
           ],
         },
         {
@@ -334,12 +342,12 @@ export const animeSportsLeague: CaseStudy = {
     {
       type: "stats",
       quick: true,
-      note: "The site is still on Decathlon's test address, so this describes what it does, not live traffic.",
+      note: "From Vercel Web Analytics on Decathlon's test address, over the three months to 4 November 2026.",
       items: [
-        { label: "The poster", value: "Opens as you scroll", note: "The same art, moving without being redrawn." },
-        { label: "The leagues", value: "Dealt like a deck", note: "Five cards that turn over as they land." },
+        { label: "Visitors", value: "1,734", note: "2,554 page views, 98% of them from India." },
+        { label: "On a phone", value: "89%", note: "62% on Android, which is why the art had to stay light." },
+        { label: "Sent from decathlon.in", value: "196", note: "Visitors who arrived from Decathlon's own site." },
         { label: "Every league", value: "Ends on its tee", note: "Each one links to its own garment page, tagged for the campaign." },
-        { label: "The credit", value: "On every footer", note: "Decathlon x Jolly Yun Shann, on the footer boards." },
       ],
     },
     {
@@ -347,8 +355,8 @@ export const animeSportsLeague: CaseStudy = {
       id: "outcomes",
       title: "Where it stands",
       body: [
-        "I built the site for Decathlon India. It's served from Decathlon's test address, with page views, Web Vitals and campaign-tagged links to every product.",
-        "Next, the hero needs to get lighter before the public launch.",
+        "I built the site for Decathlon India. It's served from Decathlon's test address, with page views, Web Vitals and campaign-tagged links to every product, and it has already had 1,734 visitors, nine in ten of them on a phone.",
+        "Its mobile experience score was 54 in early November, on a small sample, so the hero needs to get lighter before the public launch.",
       ],
     },
   ],

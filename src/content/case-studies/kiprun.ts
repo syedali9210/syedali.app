@@ -31,7 +31,7 @@ export const kiprun: CaseStudy = {
     approach:
       "I designed and built a page that runs from the series to the range, a film on the road, a shoe taken apart layer by layer and the kit, with every price and weight read from decathlon.in.",
     result:
-      "Live since 25 September 2026, and loaded about 970,000 times in its last month.",
+      "Live on decathlon.in since 25 September 2026, with about 970,000 page requests in a month, by Vercel's CDN logs.",
   },
   status: {
     title: "KIPRUN Live",
@@ -153,7 +153,7 @@ export const kiprun: CaseStudy = {
           phase: "Data",
           kind: "cards",
           title: "The truth",
-          text: "Prices moved from pounds to decathlon.in's rupees, and the type and layout were audited across screen sizes.",
+          text: "Prices moved from pounds to decathlon.in's rupees. Then I audited the page at nine screen widths, which caught a sideways scroll at 1920, series pills clipped on iPhone and a font quietly falling back to Arial.",
           made: "real prices, shared scales, analytics and speed insights",
         },
         {
@@ -343,10 +343,10 @@ export const kiprun: CaseStudy = {
       type: "stats",
       quick: true,
       items: [
-        { label: "Page loads in a month", value: "~970K", note: "Requests for the page itself, 3 October to 2 November 2026." },
-        { label: "Fresh visits, roughly", value: "~680K", note: "Loads that fetched the page's script anew; a returning browser keeps it." },
-        { label: "Where it lives", value: "decathlon.in", note: "Under Decathlon's own address, as part of the store." },
+        { label: "Page requests in a month", value: "~970K", note: "Requests for the page itself in Vercel's CDN logs, 3 October to 2 November 2026. Requests, not unique people." },
+        { label: "Screen widths audited", value: "9", note: "From a phone to a 1920 monitor, upright and sideways, before launch." },
         { label: "Prices on the page", value: "All real", note: "Every price, weight and rating read from decathlon.in." },
+        { label: "Where it lives", value: "decathlon.in", note: "Under Decathlon's own address, as part of the store." },
       ],
     },
     {
@@ -356,6 +356,7 @@ export const kiprun: CaseStudy = {
       body: [
         "The page has been live on decathlon.in since 25 September 2026, under Decathlon's own address. The women's row came after launch without touching the rest.",
         "The logs also show where attention goes. The three Kipride colour films were requested more often than the page itself, so making them lighter is the next job.",
+        "Sales happen on decathlon.in's side, so I can't see what the page sold. The next number I'd want is the one the page was built for: clicks from each card to its product page.",
       ],
     },
   ],
