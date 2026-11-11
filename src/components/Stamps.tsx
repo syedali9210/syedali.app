@@ -637,16 +637,21 @@ export function Stamps({ items }: { items: StampItem[] }) {
         <button type="button" className="stamp-close" aria-label="Put it back" onClick={() => hide.current()}>
           ×
         </button>
+        {/* Empty until a stone is first tapped: before that, a crawler or a screen reader found only a heading with nothing in it and a link to nowhere. */}
         <div ref={sheet} className="stamp-sheet">
-          <h2 className="stamp-sheet-name font-serif">{words?.title}</h2>
-          <p className="stamp-sheet-kind">
-            {words?.kind} · {words?.year}
-            {words?.who ? ` · ${words.who}` : ""}
-          </p>
-          <p className="stamp-sheet-text">{words?.summary}</p>
-          <PageLink href={words ? `/work/${words.slug}` : "/"} className="stamp-go" tabIndex={words ? undefined : -1} data-stone={words?.slug}>
-            Read the case study <span aria-hidden="true">→</span>
-          </PageLink>
+          {words && (
+            <>
+              <h2 className="stamp-sheet-name font-serif">{words.title}</h2>
+              <p className="stamp-sheet-kind">
+                {words.kind} · {words.year}
+                {words.who ? ` · ${words.who}` : ""}
+              </p>
+              <p className="stamp-sheet-text">{words.summary}</p>
+              <PageLink href={`/work/${words.slug}`} className="stamp-go" data-stone={words.slug}>
+                Read the case study <span aria-hidden="true">→</span>
+              </PageLink>
+            </>
+          )}
         </div>
       </div>
     </>

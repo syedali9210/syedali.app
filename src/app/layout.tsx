@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Libre_Baskerville } from "next/font/google";
 import { BackFade } from "@/components/PageLink";
 import { Sound } from "@/components/Sound";
+import { HOME_TITLE, NAME, SITE, ld, siteLd } from "@/content/seo";
 import "./globals.css";
 
 const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
@@ -15,12 +16,14 @@ const serif = Libre_Baskerville({ variable: "--font-baskerville", subsets: ["lat
 const DESCRIPTION = "Case studies by Syed Ali, a product designer and design engineer in Bengaluru: Trace, Animation Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://syedali.app"),
-  title: { default: "Syed Ali · Design engineer", template: "%s · Syed Ali" },
+  metadataBase: new URL(SITE),
+  title: { default: HOME_TITLE, template: `%s · ${NAME}` },
   description: DESCRIPTION,
-  // What a shared link shows. The picture is opengraph-image.png beside this file.
-  openGraph: { title: "Syed Ali · Design engineer", description: DESCRIPTION, url: "/", siteName: "Syed Ali", type: "website" },
-  twitter: { card: "summary_large_image", title: "Syed Ali · Design engineer", description: DESCRIPTION },
+  authors: [{ name: NAME, url: SITE }],
+  creator: NAME,
+  // What a shared link shows when a page doesn't say: each page sets its own (pageMeta, content/seo.ts). The picture is opengraph-image.png beside this file.
+  openGraph: { title: HOME_TITLE, description: DESCRIPTION, url: "/", siteName: NAME, type: "website" },
+  twitter: { card: "summary_large_image", title: HOME_TITLE, description: DESCRIPTION },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -36,6 +39,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               "var d=document.documentElement;d.classList.add('js');try{if(localStorage.getItem('theme')==='dark')d.dataset.theme='dark';if(location.pathname==='/'&&!sessionStorage.getItem('boot')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('boot','1');d.classList.add('boot')}}catch(e){}",
           }}
         />
+        {/* Who made the site, for search engines and AI agents (content/seo.ts). */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(siteLd) }} />
       </head>
       <body className="min-h-svh overflow-x-clip">
         {children}

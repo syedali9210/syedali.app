@@ -9,7 +9,8 @@
     "media": "node scripts/media.mjs",
     "illustrations": "node scripts/illustrations.mjs",
     "stamps": "python scripts/stamps/bake.py",
-    "fields": "python scripts/stamps/fields.py"
+    "fields": "python scripts/stamps/fields.py",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

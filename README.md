@@ -107,3 +107,12 @@ The archive's animations came from [syedali.app](https://github.com/syedali9210/
 The pages' own stones are pieces too: `npm run stamps -- pieces archive experience about`, and so is the way back from a case study on a phone: `pieces back`. Each also leaves a small `-icon` picture, which sits beside its word in the menu and flies to its page when pressed.
 
 A new project needs a rock (a motif in `motifs.js`, a stone in `bake.py`, a place in `Stamps.tsx`, a material in `stamp.worker.ts`, a voice in `voices.ts`), a field in `fields.py` and a row in `ROWS` in `Home.tsx`.
+
+## Search engines and AI agents
+
+- `src/content/seo.ts` holds where the site lives (`SITE`: www.syedali.app, which the bare syedali.app redirects to), each page's title, canonical address and share card (`pageMeta`), and the schema.org structured data: who Syed is on every page, a profile on About, and what each case study is and who made it.
+- `/robots.txt` (`src/app/robots.ts`) lets every crawler in, AI agents included, and points at `/sitemap.xml` (`src/app/sitemap.ts`), which lists every page.
+- `/llms.txt` (`src/app/llms.txt/route.ts`) is the site in plain words for AI agents, written at build time from the case studies, the experience and `src/content/about.ts`, which the About page reads too. It also says the site before November 2026 was a different portfolio.
+- After a deploy that changes pages, `npm run indexnow` asks Bing (which ChatGPT search and Copilot read from) and the other IndexNow engines to fetch them again. The key file in `public/` proves the site is ours; it isn't a secret.
+- Google and Bing need the sitemap once, by hand: add `https://www.syedali.app/sitemap.xml` in Google Search Console and in Bing Webmaster Tools.
+

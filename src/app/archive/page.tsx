@@ -4,11 +4,13 @@ import { RevealObserver } from "@/components/motion";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { sizeOf } from "@/content";
 import { ARCHIVE_KINDS, archive } from "@/content/archive";
+import { pageMeta } from "@/content/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Archive",
   description: "Animations, films, sites and products by Syed Ali, each cut in its own stone.",
-};
+  path: "/archive",
+});
 
 export default function Page() {
   const nodes = archive.map((it) => {
