@@ -12,6 +12,8 @@ const month = (mmyyyy: string) => {
   return `${MONTHS[Number(m) - 1]} ${y}`;
 };
 /** "1w" as "1 week", "10d" as "10 days". */
+/** A role's kind as words: "Intern" alone read like a job title. */
+const KIND: Record<string, string> = { Intern: "internship", Freelance: "freelance" };
 const span = (s: string) => s.replace(/^(\d+)([wd])$/, (_, n, u) => `${n} ${u === "w" ? "week" : "day"}${n === "1" ? "" : "s"}`);
 
 /**
@@ -29,7 +31,7 @@ export function GET() {
     co.roles.map((r) => {
       const when = r.end ? (r.end === r.start ? month(r.start) : `${month(r.start)} to ${month(r.end)}`) : `${month(r.start)} to now`;
       const work = r.href ? ` [Case study](${SITE}${r.href}).` : r.stones.length ? ` Case studies: ${r.stones.map((s) => `[${s.title}](${SITE}/work/${s.slug})`).join(", ")}.` : "";
-      return `- ${r.title}, ${orgName(co.name)} (${r.type}, ${when}${r.length ? `, ${span(r.length)}` : ""}). ${r.points.join(" ")}${work}`;
+      return `- ${r.title}, ${orgName(co.name)} (${KIND[r.type] ?? r.type.toLowerCase()}, ${when}${r.length ? `, ${span(r.length)}` : ""}). ${r.points.join(" ")}${work}`;
     }),
   );
   const text = [
@@ -39,7 +41,7 @@ export function GET() {
     "",
     `Now: ${ABOUT.now} ${ABOUT.open}.`,
     "",
-    `This is Syed's current portfolio, at ${SITE}. Until November 2026, syedali.app showed an earlier portfolio, with case studies such as Airtribe and Khaata that aren't part of it any more. Anything describing syedali.app with those projects is describing the old site.`,
+    `This is Syed's current portfolio. syedali.app and ${SITE} are the same site: the first redirects to the second. Before November 2026 that address showed an earlier portfolio, with case studies such as Airtribe and Khaata that aren't part of it any more, so anything describing syedali.app with those projects is describing the earlier version.`,
     "",
     "## Case studies",
     "",
@@ -51,7 +53,7 @@ export function GET() {
     "",
     "## About",
     "",
-    `- ${ABOUT.story}`,
+    `- In Syed's words: "${ABOUT.story}"`,
     `- What Syed does: ${ABOUT.does.join("; ")}.`,
     `- What Syed builds with: ${ABOUT.uses.join("; ")}.`,
     "",
@@ -62,7 +64,7 @@ export function GET() {
     `- [About](${SITE}/about)`,
     `- [Archive](${SITE}/archive): animations, films, sites and products`,
     "",
-    "## Elsewhere",
+    "## Contact",
     "",
     `- [GitHub](${GITHUB})`,
     `- [LinkedIn](${LINKEDIN})`,
