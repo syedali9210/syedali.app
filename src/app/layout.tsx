@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Libre_Baskerville } from "next/font/google";
 import { BackFade } from "@/components/PageLink";
@@ -40,6 +41,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {children}
         <Sound />
         <BackFade />
+        {/* Vercel Web Analytics: page views and where visitors come from, cookieless. Only reports from the deployed site. */}
+        <Analytics />
       </body>
     </html>
   );
