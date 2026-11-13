@@ -19,8 +19,12 @@ export function About() {
             </span>
             <b>{num(1)}</b>
           </p>
-          <p className="ab-lead font-serif">{ABOUT.lead}</p>
-          <p className="card-note ab-note">{ABOUT.story}</p>
+          <p className="ab-lead font-serif">{ABOUT.lead},</p>
+          <ul className="xp-points ab-list ab-nights">
+            {ABOUT.nights.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
           <p className="card-note ab-note">
             Root-cause fixes, never <em className="font-serif text-accent">jugaad</em> <span className="text-label">(the quick hack that holds till Monday).</span>
           </p>

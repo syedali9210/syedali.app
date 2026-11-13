@@ -53,7 +53,7 @@ export function GET() {
     "",
     "## About",
     "",
-    `- In Syed's words: "${ABOUT.story}"`,
+    `- By night, in Syed's words: ${ABOUT.nights.join("; ")}.`,
     `- What Syed does: ${ABOUT.does.join("; ")}.`,
     `- What Syed builds with: ${ABOUT.uses.join("; ")}.`,
     "",
