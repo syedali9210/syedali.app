@@ -2,6 +2,7 @@
 
 import { type CSSProperties, type RefObject, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
+import { type Hero, HEROES } from "@/content/heroes";
 import { landed, PageLink } from "./PageLink";
 import { onScrollFrame, still } from "./scroll";
 import { hammer } from "./Sound";
@@ -10,19 +11,24 @@ import { warmEffects } from "./warm";
 export type StampItem = { slug: string; title: string; kind: string; year: string; summary: string; who?: string };
 
 /**
- * Where each stamp lies, in the "Staggered studio" (Figma 73:932): the products then the sites along a top row, two more under it.
- * x, y: its centre, % of the field under the line (measured on the 1092 × 614 field of the 1482 × 884 frame). rot: its turn. z: which lies on which.
+ * Where each stamp lies, in each arrangement of the first screen (content/heroes.ts), measured from its Figma frame (1482 × 884).
+ * at: per arrangement, its centre (x, y, % of the field it sits in: the studio's field is the 1092 × 614 box under the line, the orbit's
+ * the 962 × 758 ring between the side columns, the others the whole screen) and its width there in the frame's px (s). The CSS turns these
+ * into a place and a size for whichever arrangement is up. rot: its turn, the same in all four. z: which lies on which.
  * mx, my, mrot: on a phone, an arc up from the left, fanned about a point below it: its centre as fractions of the frame's width, from the field's top.
  * rx, rr: where it sits and how it's turned when they're lined up in a row.
  */
-const LAY: Record<string, { x: number; y: number; rot: number; z: number; mx: number; my: number; mrot: number; mz: number; rx: number; rr: number }> = {
-  "animation-engine": { x: 10.1, y: 22.8, rot: -16, z: 6, mx: 0.199, my: 0.326, mrot: -54, mz: 8, rx: 0.277, rr: 3 },
-  trace: { x: 35.7, y: 28.5, rot: 14, z: 7, mx: 0.15, my: 0.413, mrot: -68, mz: 9, rx: 0.576, rr: 4.5 },
-  kiprun: { x: 61.4, y: 22.8, rot: -38, z: 4, mx: 0.449, my: 0.169, mrot: -10, mz: 5, rx: 0.145, rr: -11.5 },
-  "anime-sports-league": { x: 84.2, y: 31.8, rot: -24, z: 4, mx: 0.549, my: 0.164, mrot: 4, mz: 4, rx: 0.863, rr: -4.5 },
-  kodex: { x: 74.2, y: 71.7, rot: -14, z: 6, mx: 0.268, my: 0.253, mrot: -39, mz: 7, rx: 0.709, rr: 14 },
-  uniqkey: { x: 46.7, y: 71.7, rot: 6, z: 5, mx: 0.353, my: 0.2, mrot: -25, mz: 6, rx: 0.43, rr: -5 },
+type Lay = { at: Record<Hero, [x: number, y: number, s: number]>; rot: number; z: number; mx: number; my: number; mrot: number; mz: number; rx: number; rr: number };
+const LAY: Record<string, Lay> = {
+  "animation-engine": { at: { studio: [10.1, 22.8, 187], orbit: [12.5, 23, 155.2], diagonal: [12.1, 49.8, 159], gallery: [12.1, 35.1, 196.4] }, rot: -16, z: 6, mx: 0.199, my: 0.326, mrot: -54, mz: 8, rx: 0.277, rr: 3 },
+  trace: { at: { studio: [35.7, 28.5, 187], orbit: [49.9, 15.1, 155.2], diagonal: [27, 69, 159], gallery: [27.7, 27.7, 159] }, rot: 14, z: 7, mx: 0.15, my: 0.413, mrot: -68, mz: 9, rx: 0.576, rr: 4.5 },
+  kiprun: { at: { studio: [61.4, 22.8, 187], orbit: [87.3, 22.9, 155.2], diagonal: [47.3, 79.2, 159], gallery: [41.2, 43.5, 177.7] }, rot: -38, z: 4, mx: 0.449, my: 0.169, mrot: -10, mz: 5, rx: 0.145, rr: -11.5 },
+  "anime-sports-league": { at: { studio: [84.2, 31.8, 187], orbit: [87.4, 69.1, 155.2], diagonal: [87.7, 32.8, 159], gallery: [40.5, 81.4, 134.6] }, rot: -24, z: 4, mx: 0.549, my: 0.164, mrot: 4, mz: 4, rx: 0.863, rr: -4.5 },
+  kodex: { at: { studio: [74.2, 71.7, 187], orbit: [49.9, 83.6, 155.2], diagonal: [81, 58.8, 159], gallery: [28.3, 63.4, 145.9] }, rot: -14, z: 6, mx: 0.268, my: 0.253, mrot: -39, mz: 7, rx: 0.709, rr: 14 },
+  uniqkey: { at: { studio: [46.7, 71.7, 187], orbit: [12.5, 69.1, 155.2], diagonal: [65.5, 72.4, 159], gallery: [13.5, 70.2, 205.7] }, rot: 6, z: 5, mx: 0.353, my: 0.2, mrot: -25, mz: 6, rx: 0.43, rr: -5 },
 };
+/** A stone's place in every arrangement at once, as custom properties; the CSS picks the set for the one that's up. */
+const places = (l: Lay) => Object.fromEntries(HEROES.flatMap((h) => [[`--x-${h}`, l.at[h][0]], [`--y-${h}`, l.at[h][1]], [`--s-${h}`, l.at[h][2]]]));
 
 const LIFT = 1.3, STRAIGHTEN = 0.38;
 
@@ -611,7 +617,7 @@ export function Stamps({ items }: { items: StampItem[] }) {
       <ul ref={host} className="stamps">
         {items.map((s) => {
           const l = LAY[s.slug];
-          const style = { "--x": l.x, "--y": l.y, "--rot": l.rot, "--z": l.z, "--mx": l.mx, "--my": l.my, "--mrot": l.mrot, "--mz": l.mz } as CSSProperties;
+          const style = { ...places(l), "--rot": l.rot, "--z": l.z, "--mx": l.mx, "--my": l.my, "--mrot": l.mrot, "--mz": l.mz } as CSSProperties;
           return (
             <li key={s.slug} className="stamp" style={style} data-slug={s.slug} data-rx={l.rx} data-rr={l.rr} data-fly-scope>
               <span className="stamp-rest" data-fly="stone" data-land-from={`/work/${s.slug}`} aria-hidden="true">
