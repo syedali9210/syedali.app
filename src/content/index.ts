@@ -8,7 +8,7 @@ import { uniqkey } from "./case-studies/uniqkey";
 import { animeSportsLeague } from "./case-studies/anime-sports-league";
 
 /** In the order they're read; each page links on to the next. */
-export const caseStudies: CaseStudy[] = [trace, animationEngine, kiprun, kodex, uniqkey, animeSportsLeague];
+export const caseStudies: CaseStudy[] = [animationEngine, trace, kiprun, kodex, uniqkey, animeSportsLeague];
 
 export const getCaseStudy = (slug: string) => caseStudies.find((c) => c.slug === slug);
 

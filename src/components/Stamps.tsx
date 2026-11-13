@@ -10,18 +10,18 @@ import { warmEffects } from "./warm";
 export type StampItem = { slug: string; title: string; kind: string; year: string; summary: string; who?: string };
 
 /**
- * Where each stamp lies, as Bill Guo's are scattered: a pile of three, one off the right edge, two low down.
- * x, y: its centre, % of the first screen. rot: its turn. z: which lies on which.
+ * Where each stamp lies, in the "Staggered studio" (Figma 73:932): the products then the sites along a top row, two more under it.
+ * x, y: its centre, % of the field under the line (measured on the 1092 × 614 field of the 1482 × 884 frame). rot: its turn. z: which lies on which.
  * mx, my, mrot: on a phone, an arc up from the left, fanned about a point below it: its centre as fractions of the frame's width, from the field's top.
  * rx, rr: where it sits and how it's turned when they're lined up in a row.
  */
 const LAY: Record<string, { x: number; y: number; rot: number; z: number; mx: number; my: number; mrot: number; mz: number; rx: number; rr: number }> = {
-  "animation-engine": { x: 51.5, y: 57.3, rot: -16, z: 6, mx: 0.199, my: 0.326, mrot: -54, mz: 8, rx: 0.277, rr: 3 },
-  trace: { x: 61.2, y: 52.6, rot: 14, z: 7, mx: 0.15, my: 0.413, mrot: -68, mz: 9, rx: 0.576, rr: 4.5 },
-  kiprun: { x: 47.6, y: 70.6, rot: -38, z: 4, mx: 0.449, my: 0.169, mrot: -10, mz: 5, rx: 0.145, rr: -11.5 },
-  "anime-sports-league": { x: 93.6, y: 52, rot: -24, z: 4, mx: 0.549, my: 0.164, mrot: 4, mz: 4, rx: 0.863, rr: -4.5 },
-  kodex: { x: 72, y: 86, rot: -14, z: 6, mx: 0.268, my: 0.253, mrot: -39, mz: 7, rx: 0.709, rr: 14 },
-  uniqkey: { x: 64.5, y: 92.5, rot: 6, z: 5, mx: 0.353, my: 0.2, mrot: -25, mz: 6, rx: 0.43, rr: -5 },
+  "animation-engine": { x: 10.1, y: 22.8, rot: -16, z: 6, mx: 0.199, my: 0.326, mrot: -54, mz: 8, rx: 0.277, rr: 3 },
+  trace: { x: 35.7, y: 28.5, rot: 14, z: 7, mx: 0.15, my: 0.413, mrot: -68, mz: 9, rx: 0.576, rr: 4.5 },
+  kiprun: { x: 61.4, y: 22.8, rot: -38, z: 4, mx: 0.449, my: 0.169, mrot: -10, mz: 5, rx: 0.145, rr: -11.5 },
+  "anime-sports-league": { x: 84.2, y: 31.8, rot: -24, z: 4, mx: 0.549, my: 0.164, mrot: 4, mz: 4, rx: 0.863, rr: -4.5 },
+  kodex: { x: 74.2, y: 71.7, rot: -14, z: 6, mx: 0.268, my: 0.253, mrot: -39, mz: 7, rx: 0.709, rr: 14 },
+  uniqkey: { x: 46.7, y: 71.7, rot: 6, z: 5, mx: 0.353, my: 0.2, mrot: -25, mz: 6, rx: 0.43, rr: -5 },
 };
 
 const LIFT = 1.3, STRAIGHTEN = 0.38;

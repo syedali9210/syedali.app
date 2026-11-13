@@ -27,8 +27,8 @@ const b = (n: number) => ({ "--b": n }) as CSSProperties;
  * under it. win: its screen or film on the field: centre x, centre y and width, % of the field.
  */
 const ROWS: { slug: string; side: "r" | "l" | "wide-r" | "wide-l"; win: [number, number, number] }[] = [
-  { slug: "trace", side: "r", win: [50, 50, 74] },
-  { slug: "animation-engine", side: "l", win: [50, 50, 74] },
+  { slug: "animation-engine", side: "r", win: [50, 50, 74] },
+  { slug: "trace", side: "l", win: [50, 50, 74] },
   { slug: "kiprun", side: "wide-r", win: [50, 50, 46] },
   { slug: "kodex", side: "r", win: [50, 50, 74] },
   { slug: "uniqkey", side: "l", win: [50, 50, 74] },
@@ -116,10 +116,11 @@ function Chip({ slug, children }: { slug: string; children: ReactNode }) {
 }
 
 /**
- * The portfolio's front page. The first screen is on Bill Guo's grid: the name and what he does, the menu and how to reach
- * him, then far to the right the stamps' switch, a profile and what's on now; the line set big at the foot; and every project
- * a perforated stamp scattered at depth (Stamps), that lifts and turns to metal when pointed at. The work follows as rows of
- * screens on dithered fields beside their details. The archive, the experience and the about have their own pages. The page is paper (Paper), the pointer is drawn in the
+ * The portfolio's front page. The first screen is the "Staggered studio" (Figma 4x5ipL3dTlhJBwMzLpXCe1, node 73:932): a column
+ * down the left with the name and what he does, the menu, how to reach him, a profile and the stamps' switch at its foot; the line
+ * set big across the top of the rest, the Work card facing it; and under them every project a carved stone (Stamps) in two
+ * staggered rows, products first, that lifts and is hammered when pointed at, with what's on now under the first. The work follows
+ * as rows of screens on dithered fields beside their details. The archive, the experience and the about have their own pages. The page is paper (Paper), the pointer is drawn in the
  * accent (Cursor), and the first screen loads as its own scaffold (Preloader). On a phone the first screen runs name, line, profile and
  * now down the page, then the stones in an arc beside the Work card, and the menu is a stone in the corner (StoneMenu).
  */
@@ -133,7 +134,7 @@ export function Home() {
 
       <main className="relative z-[2]">
         <StoneMenu />
-        {/* The first screen, on Bill Guo's grid. */}
+        {/* The first screen: the left column in reading order (name, menu, contact, profile, stamps), the line and Now on the right. */}
         <section id="top" className="hero relative">
           <div className="hero-top">
             <div data-boot style={b(0)} className="hero-id">
@@ -148,21 +149,11 @@ export function Home() {
                 <Menu />
               </div>
             </div>
-            <div data-boot style={b(1)} className="hero-contact">
+            <div data-boot style={b(2)} className="hero-contact">
               <p className={`${label} text-label/60`}>Contact</p>
-              <Contact className="flex flex-col items-start gap-note" linkClass={`${label} inline-flex items-center gap-label text-fg underline-offset-4 hover:underline`} />
+              <Contact className="flex flex-col items-start gap-note lg:mt-note" linkClass={`${label} inline-flex items-center gap-label text-fg underline-offset-4 hover:underline`} />
             </div>
-            <div data-boot style={b(2)} className="hero-stamps">
-              <p className={`${label} text-label/60`}>Stamps</p>
-              <div className="mt-caption max-lg:mt-note">
-                <StampTrigger />
-              </div>
-              <div className="mt-lead flex gap-note max-lg:mt-0 max-lg:ml-auto">
-                <SoundToggle className="hero-toggle" />
-                <ThemeToggle plain className="hero-toggle" />
-              </div>
-            </div>
-            <h1 data-boot style={b(2)} className="hero-line font-serif text-fg">
+            <h1 data-boot style={b(0)} className="hero-line font-serif text-fg">
               <span>Designing products,</span> <span>and building them down</span> <span>to the last frame.</span>
             </h1>
             <div data-boot style={b(3)} className="hero-profile">
@@ -175,7 +166,17 @@ export function Home() {
                 <Chip slug="kiprun">Decathlon</Chip> and <Chip slug="kodex">Basenine&apos;s clients</Chip>.
               </p>
             </div>
-            <div data-boot style={b(4)} className="hero-now">
+            <div data-boot style={b(4)} className="hero-stamps">
+              <p className={`${label} text-label/60`}>Stamps</p>
+              <div className="mt-caption max-lg:mt-note">
+                <StampTrigger />
+              </div>
+              <div className="mt-lead flex gap-note max-lg:mt-0 max-lg:ml-auto">
+                <SoundToggle className="hero-toggle" />
+                <ThemeToggle plain className="hero-toggle" />
+              </div>
+            </div>
+            <div data-boot style={b(3)} className="hero-now">
               <p className={`${label} text-label/60`}>Now</p>
               <p className="mt-caption text-small text-body max-lg:mt-note">Building Trace and Animation Engine.</p>
               <p className="mt-text flex items-center gap-note text-small text-body max-lg:mt-note">
@@ -188,7 +189,7 @@ export function Home() {
             </div>
           </div>
 
-          <div data-boot style={b(4)} className="hero-field">
+          <div data-boot style={b(2)} className="hero-field">
             <Stamps items={caseStudies.map(({ slug, title, kind, year, summary, meta }) => ({ slug, title, kind, year, summary, who: meta.find((m) => m.label === "Client" || m.label === "Studio")?.value.split(",")[0] }))} />
             <p className={`${label} hero-tag hero-tag-products text-label/60`} aria-hidden="true">
               Products
@@ -200,7 +201,7 @@ export function Home() {
               Scroll <span>↓</span> for work
             </p>
             <a href="#work" className="hero-card">
-              <span className="font-mono text-[9px] leading-none tracking-[0.08em] text-label uppercase">View all →</span>
+              <span className="font-mono text-[9px] leading-none tracking-[0.08em] text-label uppercase lg:block">View all →</span>
               <span className="mt-note block font-serif text-[72px] leading-[1.1] tracking-[-0.02em] text-fg">Work</span>
               <span className="mt-label block max-w-[170px] text-[12px] leading-[1.35] text-body">Six projects: two tools of my own and four client sites.</span>
             </a>
