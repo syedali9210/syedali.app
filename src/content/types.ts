@@ -109,8 +109,8 @@ export type CaseStudy = {
     facts: Fact[];
     /** Section anchors, drawn with the growing hairline. */
     sections: { label: string; href: string }[];
-    /** Live links, drawn with ↗. Only ones that are public. */
-    links: { label: string; href: string }[];
+    /** Live links, drawn with ↗. Only ones that are public. `site`: the product itself, drawn as a button in the hero. */
+    links: { label: string; href: string; site?: boolean }[];
   };
   cover: Picture;
   /** A short silent loop for the work card on the front page (cut from the launch film), and its first frame. */

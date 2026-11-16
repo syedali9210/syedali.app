@@ -1,18 +1,18 @@
 import { engineWires } from "../wireframes";
 import type { CaseStudy } from "../types";
 
-const dir = "/case-studies/animation-engine";
+const dir = "/case-studies/video-engine";
 
-export const animationEngine: CaseStudy = {
-  slug: "animation-engine",
-  title: "Animation Engine",
+export const videoEngine: CaseStudy = {
+  slug: "video-engine",
+  title: "Video Engine",
   tagline: "A launch film of your product, ==made from its own code==.",
   theme: { deep: "#2563eb", mid: "#9a8cf2", light: "#ffc2e6", highlight: "#ffcfeb" },
-  hero: { frame: "screen", picture: { src: `${dir}/home.webp`, alt: "The Animation Engine's home: What are we making?" } },
+  hero: { frame: "screen", picture: { src: `${dir}/home.webp`, alt: "Video Engine's home: What are we making?" } },
   kind: "Product",
   year: "2026",
   summary:
-    "Animation Engine makes a product's launch film from the product itself. Ask in one sentence and it opens the running app, reads its screens, words and colours, then writes, directs and renders the film. The film is made of the real interface, so it never drifts from the product, and every scene stays editable.",
+    "Video Engine makes a product's launch film from the product itself. Ask in one sentence and it opens the running app, reads its screens, words and colours, then writes, directs and renders the film. The film is made of the real interface, so it never drifts from the product, and every scene stays editable.",
   meta: [
     { label: "Role", value: "Product Design, Motion, Development" },
     { label: "Made for", value: "Product teams with no motion designer" },
@@ -33,7 +33,7 @@ export const animationEngine: CaseStudy = {
       "Three product launch films made with it so far, Trace's from a single call. A 15-second film renders in about a minute and a half on a laptop.",
   },
   status: {
-    title: "Animation Engine, in daily use",
+    title: "Video Engine, in daily use",
     live: true,
     facts: [
       { label: "The idea", value: "A launch film made from your product's own code" },
@@ -47,9 +47,12 @@ export const animationEngine: CaseStudy = {
       { label: "Decisions", href: "#decisions" },
       { label: "Results", href: "#results" },
     ],
-    links: [{ label: "Source on GitHub", href: "https://github.com/syedali9210/animation-engine" }],
+    links: [
+      { label: "Visit the site", href: "https://video-engine-tau.vercel.app", site: true },
+      { label: "Source on GitHub", href: "https://github.com/syedali9210/video-engine" },
+    ],
   },
-  cover: { src: `${dir}/home.webp`, alt: "The Animation Engine's home: What are we making?" },
+  cover: { src: `${dir}/home.webp`, alt: "Video Engine's home: What are we making?" },
   card: { video: `${dir}/card.mp4`, poster: `${dir}/card-poster.webp` },
   closing: [
     "That's enough of my own tools for now.",

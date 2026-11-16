@@ -1,14 +1,14 @@
 import media from "./media.json";
 import type { CaseStudy, Picture } from "./types";
 import { trace } from "./case-studies/trace";
-import { animationEngine } from "./case-studies/animation-engine";
+import { videoEngine } from "./case-studies/video-engine";
 import { kiprun } from "./case-studies/kiprun";
 import { kodex } from "./case-studies/kodex";
 import { uniqkey } from "./case-studies/uniqkey";
 import { animeSportsLeague } from "./case-studies/anime-sports-league";
 
 /** In the order they're read; each page links on to the next. */
-export const caseStudies: CaseStudy[] = [animationEngine, trace, kiprun, kodex, uniqkey, animeSportsLeague];
+export const caseStudies: CaseStudy[] = [videoEngine, trace, kiprun, kodex, uniqkey, animeSportsLeague];
 
 export const getCaseStudy = (slug: string) => caseStudies.find((c) => c.slug === slug);
 

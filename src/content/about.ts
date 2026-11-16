@@ -8,7 +8,7 @@ export const ABOUT = {
   lead: "I am a designer by day and whatnot by night",
   /** The whatnot: the About page lists these under the lead, one point each. */
   nights: ["Reading books", "Making origami", "Listening to music", "And I love my vanilla hazelnut coffee"],
-  now: "Building Trace, a design memory, and Animation Engine, a film studio that learns your taste.",
+  now: "Building Trace, a design memory, and Video Engine, a film studio that learns your taste.",
   open: "Open to design engineer roles",
   does: ["Product design, from the real problem up", "Design engineering", "Motion and launch films", "Design systems"],
   uses: ["Figma", "React and Next.js", "Three.js and WebGL", "Claude Code"],

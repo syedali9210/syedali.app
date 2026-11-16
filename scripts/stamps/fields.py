@@ -19,7 +19,7 @@ BAYER = np.array([[0, 32, 8, 40, 2, 34, 10, 42], [48, 16, 56, 24, 50, 18, 58, 26
 # Each project: its ground and inks from dark to light (its theme's colours), and its field's size.
 FIELDS = {
     "trace": dict(ground="#060a2c", inks=["#1b2f9e", "#2f5bea", "#8db0ff", "#eef1ff"], size=(1840, 1150), seed=5),
-    "animation-engine": dict(ground="#0c0a26", inks=["#2a2a9c", "#6a5fe0", "#9a8cf2", "#ffc2e6"], size=(1840, 1150), seed=11),
+    "video-engine": dict(ground="#0c0a26", inks=["#2a2a9c", "#6a5fe0", "#9a8cf2", "#ffc2e6"], size=(1840, 1150), seed=11),
     "kiprun": dict(ground="#0a0d3c", inks=["#232c94", "#3643ba", "#7d88ff", "#d6e78b"], size=(2720, 1130), seed=17),
     "kodex": dict(ground="#0a123c", inks=["#22389e", "#3550c8", "#87abff", "#d3e6a2"], size=(1840, 1150), seed=23),
     "uniqkey": dict(ground="#031517", inks=["#0c3a3f", "#14686a", "#56c79a", "#a8eccb"], size=(1840, 1150), seed=29),

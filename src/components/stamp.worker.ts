@@ -27,7 +27,7 @@ const BODY = 170; // the rock's body at its highest, px (bake.py BODY)
 // Each stone's chips and its dust, in mid tones: dust paler than the page would vanish against it.
 const STONES: Record<string, { chip: number[]; dust: number[] }> = {
   trace: { chip: [0.36, 0.37, 0.39], dust: [0.6, 0.6, 0.59] },
-  "animation-engine": { chip: [0.53, 0.4, 0.27], dust: [0.72, 0.61, 0.47] },
+  "video-engine": { chip: [0.53, 0.4, 0.27], dust: [0.72, 0.61, 0.47] },
   kiprun: { chip: [0.19, 0.21, 0.24], dust: [0.44, 0.45, 0.48] },
   kodex: { chip: [0.66, 0.65, 0.62], dust: [0.72, 0.71, 0.68] },
   uniqkey: { chip: [0.27, 0.33, 0.29], dust: [0.53, 0.58, 0.53] },

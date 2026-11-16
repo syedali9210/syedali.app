@@ -16,7 +16,8 @@ export function Hero({ study }: { study: CaseStudy }) {
   const phone = frame === "phone";
   const lead = plain(study.tagline);
   const lede = study.summary.startsWith(lead) ? study.summary.slice(lead.length).trim() : study.summary;
-  const live = study.status.links[0];
+  const site = study.status.links.find((l) => l.site);
+  const live = study.status.links.find((l) => !l.site);
   const link = "out-link inline-flex h-9 items-center gap-note text-copy text-ink underline-offset-4 hover:underline";
 
   return (
@@ -56,6 +57,18 @@ export function Hero({ study }: { study: CaseStudy }) {
           ))}
         </dl>
         <div className="mt-lead flex flex-wrap items-center gap-x-lead gap-y-label">
+          {site && (
+            <a
+              href={site.href}
+              target="_blank"
+              rel="noopener"
+              className="out-link inline-flex h-11 items-center gap-note rounded-full bg-ink px-5 text-copy text-sheet transition-[scale,opacity] duration-150 ease-out hover:opacity-90 active:scale-[0.97] sm:h-10"
+            >
+              {site.label}
+              <Icon name="arrow-up-right" size={14} className="out-arrow" />
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          )}
           {live && (
             <a href={live.href} target="_blank" rel="noopener" className={link}>
               {live.label}

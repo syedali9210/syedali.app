@@ -292,7 +292,7 @@ const MOTIFS = {
 
   // Animation Engine: the oldest exercise in animation, a ball bouncing, its keys round and full, its in-betweens as onion
   // skins, squashed where it lands and stretched as it falls, along its arc.
-  "animation-engine": {
+  "video-engine": {
     fit: { k: 0.62, cx: 339, cy: 412, x: 338, y: 442 },
     draw() {
       const out = [];
@@ -921,7 +921,7 @@ function paintPiece(d, n) {
     ];
   else if (d.subject === "figure") subject = [{ kind: "figure", src: d.src, x: C[0], y: C[1] - 6, w: 372 }];
   else if (d.film === "trace") subject = filmFrame(fitted("trace", 0.5));
-  else if (d.film === "animation-engine") subject = filmFrame(fitted("animation-engine", 0.62));
+  else if (d.film === "video-engine") subject = filmFrame(fitted("video-engine", 0.62));
   else if (d.film === "kiprun") subject = filmFrame([{ kind: "shoe", x: C[0], y: C[1] + 6, w: 262 }]);
   else if (d.film === "timeline")
     subject = filmFrame([

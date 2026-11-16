@@ -16,7 +16,7 @@ export type StampItem = { slug: string; title: string; kind: string; year: strin
  * rx, rr: where it sits and how it's turned when they're lined up in a row.
  */
 const LAY: Record<string, { x: number; y: number; rot: number; z: number; mx: number; my: number; mrot: number; mz: number; rx: number; rr: number }> = {
-  "animation-engine": { x: 10.1, y: 22.8, rot: -16, z: 6, mx: 0.199, my: 0.326, mrot: -54, mz: 8, rx: 0.277, rr: 3 },
+  "video-engine": { x: 10.1, y: 22.8, rot: -16, z: 6, mx: 0.199, my: 0.326, mrot: -54, mz: 8, rx: 0.277, rr: 3 },
   trace: { x: 35.7, y: 28.5, rot: 14, z: 7, mx: 0.15, my: 0.413, mrot: -68, mz: 9, rx: 0.576, rr: 4.5 },
   kiprun: { x: 61.4, y: 22.8, rot: -38, z: 4, mx: 0.449, my: 0.169, mrot: -10, mz: 5, rx: 0.145, rr: -11.5 },
   "anime-sports-league": { x: 84.2, y: 31.8, rot: -24, z: 4, mx: 0.549, my: 0.164, mrot: 4, mz: 4, rx: 0.863, rr: -4.5 },

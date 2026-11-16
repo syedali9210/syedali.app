@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 // Newsreader at heading sizes (checked in a rendered specimen beside Geist, Inter and Instrument Sans).
 const serif = Libre_Baskerville({ variable: "--font-baskerville", subsets: ["latin"], style: ["normal", "italic"] });
 
-const DESCRIPTION = "Case studies by Syed Ali, a product designer and design engineer in Bengaluru: Trace, Animation Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.";
+const DESCRIPTION = "Case studies by Syed Ali, a product designer and design engineer in Bengaluru: Trace, Video Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),

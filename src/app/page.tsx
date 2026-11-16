@@ -5,7 +5,7 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import { pageMeta } from "@/content/seo";
 
 export const metadata: Metadata = pageMeta({
-  description: "Syed Ali designs products and builds them in code. Case studies: Trace, Animation Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.",
+  description: "Syed Ali designs products and builds them in code. Case studies: Trace, Video Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.",
   path: "/",
 });
 

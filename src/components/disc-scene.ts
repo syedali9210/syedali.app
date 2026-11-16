@@ -201,7 +201,7 @@ const COVERS: Record<string, (a: Art, d: Disc, F: Fonts) => void> = {
   },
   // SA–002 Animation Engine: a play mark built out of speed, between two strips of film; caught mid-move in a
   // chromatic echo, its edge in chrome foil.
-  "animation-engine"(a, d, F) {
+  "video-engine"(a, d, F) {
     const c = a.c, r = rng(23);
     c.fillStyle = "#0d0c17";
     c.fillRect(0, 0, N, N);
@@ -522,7 +522,7 @@ function paintLabel(d: Disc, n: number, F: Fonts) {
   if (d.slug === "trace") {
     ring(R0, R1, "#1c2d92");
     clear(3.7 * cm, 4.5 * cm);
-  } else if (d.slug === "animation-engine") {
+  } else if (d.slug === "video-engine") {
     const g = c.createConicGradient(0, 0, 0);
     g.addColorStop(0, t.light);
     g.addColorStop(0.5, t.mid);
@@ -578,7 +578,7 @@ function paintLabel(d: Disc, n: number, F: Fonts) {
 // The spine's paper, read up the left edge: catalogue number, title, the label.
 function paintSpine(d: Disc, n: number, F: Fonts) {
   const cv = sheet(64, 1024), c = cv.getContext("2d")!;
-  const ground = { trace: "#1c2d92", "animation-engine": "#0d0c17", kiprun: "#2a36a8", kodex: "#e9eedc", uniqkey: "#0b3237", "anime-sports-league": d.theme.deep }[d.slug] ?? d.theme.deep;
+  const ground = { trace: "#1c2d92", "video-engine": "#0d0c17", kiprun: "#2a36a8", kodex: "#e9eedc", uniqkey: "#0b3237", "anime-sports-league": d.theme.deep }[d.slug] ?? d.theme.deep;
   const ink = d.slug === "kodex" ? d.theme.deep : "#ffffff";
   c.fillStyle = ground;
   c.fillRect(0, 0, 64, 1024);

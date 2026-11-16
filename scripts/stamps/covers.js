@@ -185,7 +185,7 @@ const COVERS = {
     },
     // SA–002 Animation Engine: a play mark built out of speed, between two strips of film; caught mid-move in a
     // chromatic echo, its edge in chrome foil.
-    "animation-engine"(a, d, F) {
+    "video-engine"(a, d, F) {
         const c = a.c, r = rng(23);
         c.fillStyle = "#0d0c17";
         c.fillRect(0, 0, N, N);
@@ -495,7 +495,7 @@ const COVERS = {
 // A stamp is taller than a cover: under the picture, a band in the cover's own ink with its number, its line and its label.
 const BANDS = {
   trace: ["#0a1350", "#eef1ff"],
-  "animation-engine": ["#0d0c17", "#ffffff"],
+  "video-engine": ["#0d0c17", "#ffffff"],
   kiprun: ["#1a2272", "#ffffff"],
   kodex: ["#e9eedc", "#3550c8"],
   uniqkey: ["#04181b", "#9ce9c3"],

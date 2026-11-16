@@ -42,8 +42,8 @@ export const archive: ArchiveItem[] = [
   fig("scratch-card", "Scratch Card", "A foil card to scratch off, after Framer University's Image Scratch."),
   fig("nav-scrubber", "Nav Scrubber", "A nav you hold and drag, one place at a time."),
   fig("chat-quiz", "Chat Quiz", "An AI composer that asks its questions before it helps."),
-  film("trace-launch", "Trace launch film", "Made with Animation Engine.", "trace", "launch", "/work/trace"),
-  film("engine-launch", "Animation Engine launch film", "Exported from its own Studio.", "animation-engine", "engine-launch", "/work/animation-engine"),
+  film("trace-launch", "Trace launch film", "Made with Video Engine.", "trace", "launch", "/work/trace"),
+  film("engine-launch", "Video Engine launch film", "Exported from its own Studio.", "video-engine", "engine-launch", "/work/video-engine"),
   film("kiprun-film", "KIPRUN launch film", "48 seconds, made for the page.", "kiprun", "site-film", "/work/kiprun"),
   film("trace-ui", "Trace, recorded", "A project's timeline, its screens and its checks.", "trace", "trace-ui", "/work/trace"),
   ...caseStudies.map((c) => ({

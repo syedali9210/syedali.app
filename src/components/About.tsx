@@ -53,7 +53,7 @@ export function About() {
           <div className="xp-body">
             <div className="xp-stones" data-n={2}>
               <Rock slug="trace" title="Trace" rot={-9} />
-              <Rock slug="animation-engine" title="Animation Engine" rot={8} />
+              <Rock slug="video-engine" title="Video Engine" rot={8} />
             </div>
             <div className="xp-text">
               <p className="ab-lead ab-now font-serif">{ABOUT.now}</p>

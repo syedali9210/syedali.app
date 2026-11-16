@@ -27,7 +27,7 @@ const b = (n: number) => ({ "--b": n }) as CSSProperties;
  * under it. win: its screen or film on the field: centre x, centre y and width, % of the field.
  */
 const ROWS: { slug: string; side: "r" | "l" | "wide-r" | "wide-l"; win: [number, number, number] }[] = [
-  { slug: "animation-engine", side: "r", win: [50, 50, 74] },
+  { slug: "video-engine", side: "r", win: [50, 50, 74] },
   { slug: "trace", side: "l", win: [50, 50, 74] },
   { slug: "kiprun", side: "wide-r", win: [50, 50, 46] },
   { slug: "kodex", side: "r", win: [50, 50, 74] },
@@ -162,7 +162,7 @@ export function Home() {
                 I&apos;m Syed Ali <span className="font-serif text-[15px] whitespace-nowrap text-label italic">/sai-yed&ensp;ah-lee/</span>, a product designer and design engineer.
               </p>
               <p className="mt-text text-small text-body max-lg:mt-note">
-                I start from the problem, design the product and build it in code: tools of my own, like <Chip slug="trace">Trace</Chip> and <Chip slug="animation-engine">Animation Engine</Chip>, and sites for{" "}
+                I start from the problem, design the product and build it in code: tools of my own, like <Chip slug="trace">Trace</Chip> and <Chip slug="video-engine">Video Engine</Chip>, and sites for{" "}
                 <Chip slug="kiprun">Decathlon</Chip> and <Chip slug="kodex">Basenine&apos;s clients</Chip>.
               </p>
             </div>
@@ -178,7 +178,7 @@ export function Home() {
             </div>
             <div data-boot style={b(3)} className="hero-now">
               <p className={`${label} text-label/60`}>Now</p>
-              <p className="mt-caption text-small text-body max-lg:mt-note">Building Trace and Animation Engine.</p>
+              <p className="mt-caption text-small text-body max-lg:mt-note">Building Trace and Video Engine.</p>
               <p className="mt-text flex items-center gap-note text-small text-body max-lg:mt-note">
                 <span className="live-dot relative size-1.5 shrink-0 rounded-full bg-live" aria-hidden="true" />
                 Open to design engineer roles

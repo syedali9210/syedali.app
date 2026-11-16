@@ -13,6 +13,9 @@ const config: NextConfig = {
       { source: "/projects/:slug(kodex|uniqkey)", destination: "/work/:slug", permanent: true },
       { source: "/projects/:slug", destination: "/#work", permanent: true },
       { source: "/animations/:path*", destination: "/archive", permanent: true },
+      // The Video Engine case study was Animation Engine until the app was renamed.
+      { source: "/work/animation-engine", destination: "/work/video-engine", permanent: true },
+      { source: "/case-studies/animation-engine/:path*", destination: "/case-studies/video-engine/:path*", permanent: true },
     ];
   },
   // public/ is served with max-age=0 by default, so every stone, map and film was asked after again on every load and every return to a page.

@@ -18,7 +18,7 @@ from scipy.ndimage import gaussian_filter as blur
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 OUT = ROOT / "public/stamps"
-SLUGS = ["trace", "animation-engine", "kiprun", "kodex", "uniqkey", "anime-sports-league"]
+SLUGS = ["trace", "video-engine", "kiprun", "kodex", "uniqkey", "anime-sports-league"]
 
 # The shadow's ink, and its two blurs in px on the 512 picture (a tight one close under the rock, a wide one that spreads).
 INK = (20, 26, 40)

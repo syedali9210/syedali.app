@@ -42,7 +42,7 @@ export const hz = (note: string) => 440 * 2 ** (("C D EF G A B".indexOf(note[0])
 export const VOICES: Record<string, Voice> = {
   // The projects, on the first screen. Lined up in their row (left to right, as here) their first notes climb the scale.
   kiprun: v("A5 B5 D6", "basalt"),
-  "animation-engine": v("B5 F#6 E6", "sandstone"),
+  "video-engine": v("B5 F#6 E6", "sandstone"),
   uniqkey: v("D6 A5 B5", "jade"),
   trace: v("E6 F#6 A6", "granite"),
   kodex: v("F#6 E6 D6", "marble"),
@@ -50,7 +50,7 @@ export const VOICES: Record<string, Voice> = {
 
   // Their pieces in the archive: the same tune, an octave down.
   "piece-kiprun": v("A4 B4 D5", "basalt"),
-  "piece-animation-engine": v("B4 F#5 E5", "sandstone"),
+  "piece-video-engine": v("B4 F#5 E5", "sandstone"),
   "piece-uniqkey": v("D5 A4 B4", "jade"),
   "piece-trace": v("E5 F#5 A5", "granite"),
   "piece-kodex": v("F#5 E5 D5", "marble"),
@@ -82,4 +82,4 @@ export const VOICES: Record<string, Voice> = {
 };
 
 /** The row on the first screen, left to right. */
-export const ROW = ["kiprun", "animation-engine", "uniqkey", "trace", "kodex", "anime-sports-league"];
+export const ROW = ["kiprun", "video-engine", "uniqkey", "trace", "kodex", "anime-sports-league"];

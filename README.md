@@ -1,6 +1,6 @@
 # Syed Ali's portfolio
 
-Six case studies and the site around them, built from one Figma template ("Portfolio case study", the Trace frame, node `22:759`): Trace, Animation Engine, KIPRUN, Kodex, Uniqkey and Anime Sports League.
+Six case studies and the site around them, built from one Figma template ("Portfolio case study", the Trace frame, node `22:759`): Trace, Video Engine (formerly Animation Engine), KIPRUN, Kodex, Uniqkey and Anime Sports League.
 
 ## What it is
 
