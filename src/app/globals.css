@@ -541,8 +541,10 @@ section.hero { --fx: 36px; --fw: min(100vw, 620px); min-height: 100svh; }
   .hero-now { position: absolute; left: var(--main); top: calc(var(--field) + var(--fh) * 0.505); width: 207px; margin: 0; max-width: none; }
   .hero-field { position: absolute; left: var(--main); right: 0; top: var(--field); height: var(--fh); margin: 0; pointer-events: none; }
   .hero-field > * { pointer-events: auto; }
-  .stamps { container-type: size; }
-  .stamps .stamp { --sw: min(17.12cqw, 30.46cqh); }
+  /* A stone's place and size come from its row in LAY (Stamps.tsx) for the arrangement that's up: s is its width in the frame, where the
+     field measured --fw0 × --fh0, so it scales as far as the field's width and height both allow. */
+  .stamps { container-type: size; --fw0: 1092; --fh0: 614; }
+  .stamps .stamp { --x: var(--x-studio); --y: var(--y-studio); --s: var(--s-studio); --sw: min(calc(var(--s) * 100cqw / var(--fw0)), calc(var(--s) * 100cqh / var(--fh0))); }
   .stamps .stamp-link { border-radius: 42%; } /* as on a phone: the empty corners of a turned rock (under the Websites tag) don't wake it */
   .hero-tag { display: block; }
   .hero-tag-products { left: 0; top: 0; }
@@ -570,6 +572,84 @@ section.hero { --fx: 36px; --fw: min(100vw, 620px); min-height: 100svh; }
   .hero-card { width: 150px; }
   .hero-card > span:nth-child(2) { font-size: 52px; }
   .hero-card > span:nth-child(3) { display: none; }
+}
+
+/* The other three arrangements (content/heroes.ts), each from its 1482 × 884 Figma frame, from 1280 × 720 up; a smaller screen keeps the
+   studio. They share a top bar: the name on the left, the menu in a row from 31% across, contact on the right. Everything else hangs from
+   the side the frame hangs it from: the left column from the left edge, the right column from the right, the foot from the foot, the rest
+   as a share of the screen. */
+@media (min-width: 1280px) and (min-height: 720px) {
+  :root:not([data-hero="studio"]) .hero-top { display: block; padding: 0; }
+  :root:not([data-hero="studio"]) :is(.hero-id, .hero-menu, .hero-contact, .hero-profile, .hero-stamps) { position: absolute; margin: 0; }
+  :root:not([data-hero="studio"]) .hero-id { left: 48px; top: 40px; }
+  :root:not([data-hero="studio"]) .hero-id p { display: block; }
+  :root:not([data-hero="studio"]) .hero-menu { left: 31.04%; top: 40px; }
+  :root:not([data-hero="studio"]) .hero-menu nav { flex-flow: row nowrap; column-gap: 30px; }
+  :root:not([data-hero="studio"]) .hero-contact { top: 40px; }
+  :root:not([data-hero="studio"]) .hero-field { inset: 0; height: auto; }
+  :root:not([data-hero="studio"]) .stamps { --fw0: 1482; --fh0: 884; }
+  /* In the diagonal and the gallery the card lies on its side: Work, and the line beside it. */
+  :root:is([data-hero="diagonal"], [data-hero="gallery"]) .hero-card { display: grid; grid-template: 12px auto / 240px auto; width: max-content; }
+  :root:is([data-hero="diagonal"], [data-hero="gallery"]) .hero-card > span:first-child { grid-column: 1 / -1; justify-self: start; }
+  :root:is([data-hero="diagonal"], [data-hero="gallery"]) .hero-card > span:nth-child(3) { align-self: end; margin: 0 0 15px; max-width: 230px; }
+
+  /* 09 — Orbital poetry (node 74:2): the stones in a ring round the line, between a left column (profile, stamps) and a right one (Work, Now).
+     The ring's field is the 962 × 758 box between the columns; the line is as big as the ring allows (40 at the frame's size). */
+  :root[data-hero="orbit"] .hero-contact { left: calc(100% - 292px); }
+  :root[data-hero="orbit"] .hero-field { inset: 96px 260px 30px; }
+  :root[data-hero="orbit"] .stamps { --fw0: 962; --fh0: 758; }
+  :root[data-hero="orbit"] .stamps .stamp { --x: var(--x-orbit); --y: var(--y-orbit); --s: var(--s-orbit); }
+  :root[data-hero="orbit"] .hero-line {
+    --fs: min(calc((100vw - 520px) * 0.04158), calc((100svh - 126px) * 0.05277));
+    left: 0; right: 0; top: calc(96px + (100% - 126px) * 0.483 - var(--fs) * 1.8); width: max-content; margin-inline: auto;
+    font-size: var(--fs); line-height: 1.2; text-align: center;
+  }
+  :root[data-hero="orbit"] .hero-profile { left: 48px; top: calc(100% - 384px); }
+  :root[data-hero="orbit"] .hero-stamps { left: 48px; top: calc(100% - 134px); }
+  :root[data-hero="orbit"] .hero-now { left: calc(100% - 242px); top: 58.82%; }
+  /* These four hang from the ring's field. */
+  :root[data-hero="orbit"] .hero-tag-products { left: 4.16%; top: 41.42%; }
+  :root[data-hero="orbit"] .hero-tag-sites { left: 84.2%; top: 41.42%; }
+  :root[data-hero="orbit"] .hero-tag-scroll { left: calc(100% - 32px); top: calc(100% - 34px); }
+  :root[data-hero="orbit"] .hero-card { left: calc(100% + 18px); top: calc((100% + 126px) * 0.3394 - 96px); }
+
+  /* 10 — Diagonal manifesto (node 74:128): the line steps down to the right a row at a time (58 at the frame's size), and the stones
+     run in a wave under it from the profile up to the top right. */
+  :root[data-hero="diagonal"] .hero-contact { left: calc(100% - 332px); }
+  :root[data-hero="diagonal"] .stamps .stamp { --x: var(--x-diagonal); --y: var(--y-diagonal); --s: var(--s-diagonal); }
+  :root[data-hero="diagonal"] .hero-stamps { left: 48px; top: 180px; }
+  :root[data-hero="diagonal"] .hero-line { left: 18.89%; top: 15.84%; font-size: min(3.914vw, 6.561svh); line-height: 1.172; }
+  :root[data-hero="diagonal"] .hero-line > span + span { margin-top: 0.81em; }
+  :root[data-hero="diagonal"] .hero-line > span:nth-child(2) { margin-left: 2.414em; }
+  :root[data-hero="diagonal"] .hero-line > span:nth-child(3) { margin-left: 5.517em; }
+  :root[data-hero="diagonal"] .hero-profile { left: 48px; top: calc(100% - 284px); }
+  :root[data-hero="diagonal"] .hero-now { left: calc(100% - 312px); top: calc(100% - 194px); }
+  :root[data-hero="diagonal"] .hero-tag-products { left: 48px; top: 37.9%; }
+  :root[data-hero="diagonal"] .hero-tag-sites { left: 78.95%; top: 48.08%; } /* placed with the stones, so it stays under the Kodex stone's shadow, as in the frame */
+  :root[data-hero="diagonal"] .hero-tag-scroll { left: calc(100% - 382px); top: calc(100% - 34px); }
+  :root[data-hero="diagonal"] .hero-card { left: 320px; top: calc(100% - 114px); }
+
+  /* 12 — Collected gallery wall (node 74:380): the stones hung close on the left half at different sizes, the words in a column on the right. */
+  :root[data-hero="gallery"] .hero-contact { left: calc(100% - 332px); }
+  :root[data-hero="gallery"] .stamps .stamp { --x: var(--x-gallery); --y: var(--y-gallery); --s: var(--s-gallery); }
+  :root[data-hero="gallery"] .hero-card { left: 53.98%; top: max(14.71%, 120px); }
+  :root[data-hero="gallery"] .hero-card > span:nth-child(3) { max-width: 260px; }
+  /* The right column keeps the frame's places on a tall screen; on a short one each block stays clear of the one above and the foot. */
+  :root[data-hero="gallery"] .hero-line { left: 53.98%; top: max(30.54%, 14.71% + 140px, 260px); font-size: min(2.834vw, 4.751svh); line-height: 1.19; }
+  :root[data-hero="gallery"] :is(.hero-profile, .hero-now) { top: min(58.82%, 100% - 324px); }
+  :root[data-hero="gallery"] .hero-profile { left: 53.98%; }
+  :root[data-hero="gallery"] .hero-now { left: calc(53.98% + 320px); }
+  :root[data-hero="gallery"] .hero-stamps { left: calc(53.98% + 320px); top: max(calc(min(58.82%, 100% - 324px) + 171px), calc(100% - 164px)); }
+  :root[data-hero="gallery"] .hero-tag-products { left: 48px; top: max(19.23%, 148px); }
+  :root[data-hero="gallery"] .hero-tag-sites { left: 48px; top: 84.84%; }
+  :root[data-hero="gallery"] .hero-tag-scroll { left: 53.98%; top: calc(100% - 74px); }
+}
+
+/* A diagonal under 840 tall: the stamps' switch and the toggles share a row, so the Products tag below them stays clear. */
+@media (min-width: 1280px) and (min-height: 720px) and (max-height: 839px) {
+  :root[data-hero="diagonal"] .hero-stamps { display: grid; grid-template-columns: auto auto; align-items: center; column-gap: var(--spacing-lead); }
+  :root[data-hero="diagonal"] .hero-stamps > p { grid-column: 1 / -1; }
+  :root[data-hero="diagonal"] .hero-stamps > div { margin-top: var(--spacing-caption); }
 }
 
 /* Contact (Contact.tsx): the address in its own case, not the labels' capitals, and a button that copies it. */

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Libre_Baskerville } from "next/font/google";
 import { BackFade } from "@/components/PageLink";
 import { Sound } from "@/components/Sound";
+import { PICK_HERO } from "@/content/heroes";
 import { HOME_TITLE, NAME, SITE, ld, siteLd } from "@/content/seo";
 import "./globals.css";
 
@@ -28,15 +29,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${geist.variable} ${geistMono.variable} ${serif.variable}`} suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" data-hero="studio" className={`${geist.variable} ${geistMono.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
-        {/* Before first paint: lets the scroll reveals hide their content only when JS is there to show it, puts back
-            the theme the reader chose (light unless they picked dark), so the page never flashes the other one, and on
-            the first full load of the home page in a visit holds its content back for the scaffold reveal (Preloader.tsx). */}
+        {/* Before first paint: lets the scroll reveals hide their content only when JS is there to show it, picks which
+            arrangement of the first screen is up (content/heroes.ts), puts back the theme the reader chose (light unless they
+            picked dark), so the page never flashes the other one, and on the first full load of the home page in a visit holds
+            its content back for the scaffold reveal (Preloader.tsx). */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "var d=document.documentElement;d.classList.add('js');try{if(localStorage.getItem('theme')==='dark')d.dataset.theme='dark';if(location.pathname==='/'&&!sessionStorage.getItem('boot')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('boot','1');d.classList.add('boot')}}catch(e){}",
+              "var d=document.documentElement;d.classList.add('js');try{" +
+              PICK_HERO +
+              "if(localStorage.getItem('theme')==='dark')d.dataset.theme='dark';if(location.pathname==='/'&&!sessionStorage.getItem('boot')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('boot','1');d.classList.add('boot')}}catch(e){}",
           }}
         />
         {/* Who made the site, for search engines and AI agents (content/seo.ts). */}
