@@ -12,7 +12,7 @@ import type { CaseStudy } from "./types";
 export const SITE = "https://www.syedali.app";
 export const NAME = "Syed Ali";
 export const HOME_TITLE = `${NAME} · Product designer & design engineer`;
-const CARD = { url: "/opengraph-image.png", width: 1200, height: 630, alt: `${NAME}, design engineer` };
+const CARD = { url: "/opengraph-image.jpg", width: 1200, height: 630, alt: `${NAME}: "Shaping products, building myself." cut into a slab of stone` };
 
 /** An organisation's name as written in a sentence: "BASENINE" is set in capitals on the page. */
 export const orgName = (name: string) => (name === name.toUpperCase() ? name[0] + name.slice(1).toLowerCase() : name);
@@ -21,13 +21,13 @@ export const orgName = (name: string) => (name === name.toUpperCase() ? name[0] 
 export function pageMeta({ title, description, path, image, type = "website" }: { title?: string; description: string; path: string; image?: string; type?: "website" | "article" }): Metadata {
   const share = title ? `${title} · ${NAME}` : HOME_TITLE;
   // A page's own openGraph replaces the one it would inherit, picture and all, so one without a picture of its own names the site's card
-  // (opengraph-image.png and twitter-image.png, beside layout.tsx).
+  // (opengraph-image.jpg and twitter-image.jpg, beside layout.tsx; scripts/stamps/og.py bakes them).
   return {
     title: title ?? { absolute: HOME_TITLE },
     description,
     alternates: { canonical: path },
     openGraph: { title: share, description, url: path, siteName: NAME, type, images: [image ?? CARD] },
-    twitter: { card: "summary_large_image", title: share, description, images: [image ?? { ...CARD, url: "/twitter-image.png" }] },
+    twitter: { card: "summary_large_image", title: share, description, images: [image ?? { ...CARD, url: "/twitter-image.jpg" }] },
   };
 }
 

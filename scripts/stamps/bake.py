@@ -454,4 +454,5 @@ async def main():
         await b.close()
 
 
-asyncio.run(main())
+if __name__ == "__main__":  # og.py borrows the rock, the chisel and the light
+    asyncio.run(main())
