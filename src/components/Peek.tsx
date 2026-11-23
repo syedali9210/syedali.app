@@ -23,7 +23,9 @@ export function Peek() {
       if (t && !on) {
         on = true;
         [cx, cy] = [x, y];
-        setSrc(`/_next/image?url=${encodeURIComponent(t.dataset.peek!)}&w=640&q=90`);
+        // a product screen captured in both themes peeks in the site's (data-peek-dark)
+        const pic = (document.documentElement.dataset.theme === "dark" && t.dataset.peekDark) || t.dataset.peek!;
+        setSrc(`/_next/image?url=${encodeURIComponent(pic)}&w=640&q=90`);
         el.classList.add("on");
       } else if (!t && on) {
         on = false;

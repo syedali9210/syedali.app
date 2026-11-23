@@ -1,34 +1,116 @@
 import Image from "next/image";
 import type { CSSProperties, ReactNode } from "react";
-import { sizeOf } from "@/content";
-import type { Block, Card, Picture, Wire, WireItem } from "@/content/types";
+import { sizeOf, toneOf } from "@/content";
+import type { Block, Picture, Step, Wire, WireItem } from "@/content/types";
 import { EARLY } from "./early";
-import { Icon } from "./Icon";
 import { Immersive } from "./Immersive";
-import { Rich, RichWords, RiseWords } from "./Rich";
-import { System } from "./System";
-import { Tabs } from "./Tabs";
+import { Rich, RiseWords } from "./Rich";
+import { Versions } from "./Versions";
 import { Video } from "./Video";
+import { Zoom } from "./Zoom";
 
 const i = (n: number) => ({ "--i": n }) as CSSProperties;
 const MAIN = "(min-width: 816px) 744px, 100vw";
 
-function Pic({ picture, sizes = MAIN, className, style, priority }: { picture: Picture; sizes?: string; className?: string; style?: CSSProperties; priority?: boolean }) {
-  return <Image quality={90} src={picture.src} alt={picture.alt} {...sizeOf(picture)} sizes={sizes} className={className} style={style} priority={priority} {...(priority ? {} : EARLY)} />;
+/**
+ * A case study's pictures are served as they are: each one is already a WebP cut to the size it's shown at (2400 px wide at most), so it
+ * comes straight off the CDN instead of waiting on the image optimiser, which took about a second per picture after every deploy
+ * ("the assets are loading late"). Its own colour sits behind it until it lands. `quality` sends it through the optimiser instead.
+ *
+ * A screen captured in both of its product's themes (`dark`) draws both halves, and globals.css shows the one matching the site's.
+ * Both are lazy in the markup (the server can't know the reader's theme); ThemePairs loads the shown half with the page, and the hidden
+ * one isn't fetched until the theme switches to it. They're plain imgs, served as they are: the optimiser kept handing back its copy
+ * of an old home screen, and next/image flags the first screen's lazy half as the LCP, though eager there would fetch both halves at
+ * once, at high priority, and slow the one you see.
+ */
+export function Pic({ picture, sizes = MAIN, className, style, priority, quality, alt = picture.alt }: { picture: Picture; sizes?: string; className?: string; style?: CSSProperties; priority?: boolean; quality?: number; alt?: string }) {
+  const size = sizeOf(picture);
+  const toned = (src: string) => {
+    const tone = toneOf(src);
+    return tone ? { backgroundColor: tone, ...style } : style;
+  };
+  if (!picture.dark)
+    return <Image unoptimized={!quality} quality={quality} src={picture.src} alt={alt} {...size} sizes={sizes} className={className} style={toned(picture.src)} {...(priority ? { priority } : EARLY)} />;
+  return (
+    <>
+      {[
+        [picture.src, "pic-light"],
+        [picture.dark, "pic-dark"],
+      ].map(([src, theme]) => (
+        // eslint-disable-next-line @next/next/no-img-element -- a theme pair's half, as captured (see above)
+        <img key={src} src={src} alt={alt} {...size} loading="lazy" decoding="async" fetchPriority={priority ? "high" : "low"} className={`${className ?? ""} ${theme}`} style={{ color: "transparent", ...toned(src) }} />
+      ))}
+    </>
+  );
 }
 
-
+/** What a picture shows, in a line under it. */
 function Caption({ children }: { children?: string }) {
   if (!children) return null;
-  return <p className="caption mt-caption max-w-[var(--measure)] text-small text-label">{children}</p>;
+  return <p className="caption mx-auto mt-caption max-w-[var(--measure)] text-center text-small text-label">{children}</p>;
 }
 
-/** A picture on its plate (globals.css .plate): the screen inset on a soft field of the project's colour. */
-function Plate({ children, className = "" }: { children: ReactNode; className?: string }) {
+/** A component sized to what it shows: `w` keeps it at its own size, otherwise the column. */
+const sizesFor = (p: Picture) => (p.w ? `(min-width: ${p.w + 64}px) ${p.w}px, 100vw` : MAIN);
+
+/**
+ * One component on the page as itself (globals.css .ui): no plate or box around it, just its own corners and a soft lift off the
+ * paper. `open` pictures (cards on a transparent ground, a region that fades out) get neither.
+ */
+function Shot({ picture, children }: { picture: Picture; children: ReactNode }) {
   return (
-    <div data-reveal="clip" className={`plate ${className}`}>
-      <div className="shot">{children}</div>
+    <div data-reveal="clip" className={`ui mx-auto w-full ${picture.open ? "ui-open" : ""}`} style={picture.w ? { maxWidth: picture.w } : undefined}>
+      {children}
     </div>
+  );
+}
+
+const WIDE_SIZES = "(min-width: 987px) 923px, 100vw";
+const HALF_SIZES = "(min-width: 987px) 454px, (min-width: 640px) 50vw, 100vw";
+const PHONE_SIZES = "(min-width: 987px) 220px, (min-width: 640px) 25vw, 50vw";
+
+/** Which steps span the column: four run wide, two, wide; three run wide, then two; two pair up (unless a step says). */
+function spans(items: Step[]) {
+  const n = items.length;
+  return items.map((s, k) => s.wide ?? (n === 1 || (n >= 3 && (k === 0 || (n === 4 && k === 3)))));
+}
+
+/**
+ * A chapter told through its screens (Syed, 2026-11-22: "3-4 screens that belong to that part … explain about it as steps"):
+ * whole screens, never a lone component, each on the page as itself with its step under it, a number, what happened, one line.
+ */
+function Steps({ items, phones = false }: { items: Step[]; phones?: boolean }) {
+  const wide = phones ? items.map(() => false) : spans(items);
+  return (
+    <ol className="steps" data-phones={phones || undefined} style={{ "--n": items.length } as CSSProperties}>
+      {items.map((s, n) => {
+        const { width, height } = sizeOf(s.picture);
+        return (
+          <li key={s.picture.src} className="step" data-wide={wide[n] || undefined}>
+            <figure>
+              <div data-reveal="clip" className="ui" style={i(n)}>
+                {s.video ? (
+                  <Video src={s.video} poster={s.picture.src} width={width} height={height} label={s.picture.alt} />
+                ) : (
+                  <Zoom src={s.picture.src} dark={s.picture.dark} alt={s.picture.alt} width={width} height={height}>
+                    <Pic picture={s.picture} sizes={phones ? PHONE_SIZES : wide[n] ? WIDE_SIZES : HALF_SIZES} className="block h-auto w-full" />
+                  </Zoom>
+                )}
+              </div>
+              <figcaption className="step-cap">
+                <span className="step-n" aria-hidden="true">
+                  {String(n + 1).padStart(2, "0")}
+                </span>
+                <span>
+                  <span className="step-title">{s.title}</span>
+                  {s.text && <span className="step-text"> {s.text}</span>}
+                </span>
+              </figcaption>
+            </figure>
+          </li>
+        );
+      })}
+    </ol>
   );
 }
 
@@ -172,7 +254,7 @@ export function BlockView({ block, center = false }: { block: Block; center?: bo
           <div className={`mt-text flex flex-col gap-text empty:hidden ${center ? "mx-auto max-w-[560px]" : ""}`}>
             {block.body.map((p, n) => (
               <p key={n} data-reveal style={i(n + 1)} className="section-copy text-copy text-body">
-                {p}
+                <Rich text={p} />
               </p>
             ))}
           </div>
@@ -184,21 +266,13 @@ export function BlockView({ block, center = false }: { block: Block; center?: bo
       const { width, height } = sizeOf(block.picture);
       return (
         <figure>
-          {block.video ? (
-            <Plate className="zoom">
+          <Shot picture={block.picture}>
+            {block.video ? (
               <Video src={block.video} poster={block.picture.src} width={width} height={height} label={block.picture.alt} />
-            </Plate>
-          ) : block.tall ? (
-            <Plate>
-              <div tabIndex={0} className="pan aspect-[16/10]" style={{ "--pan": `${Math.min(14, (height / width) * 2.2)}s` } as CSSProperties}>
-                <Pic picture={block.picture} className="block w-full" />
-              </div>
-            </Plate>
-          ) : (
-            <Plate className="zoom">
-              <Pic picture={block.picture} className="block h-auto w-full" />
-            </Plate>
-          )}
+            ) : (
+              <Pic picture={block.picture} sizes={sizesFor(block.picture)} className="block h-auto w-full" />
+            )}
+          </Shot>
           <Caption>{block.caption}</Caption>
         </figure>
       );
@@ -217,28 +291,15 @@ export function BlockView({ block, center = false }: { block: Block; center?: bo
       );
     }
 
-    case "gallery": {
-      if (block.tabs) {
-        const contain = block.fit === "contain";
-        return (
-          <figure data-reveal>
-            <Tabs labels={block.tabs} contain={contain}>
-              {block.pictures.map((p) => (
-                // Sized by the plate and capped at the file: left to its intrinsic size, a picture comes out at about half on a 2× screen.
-                <Pic key={p.src} picture={p} className={contain ? "size-full object-contain" : "size-full object-cover object-top"} style={contain ? { maxWidth: sizeOf(p).width, maxHeight: sizeOf(p).height } : undefined} />
-              ))}
-            </Tabs>
-            <Caption>{block.caption}</Caption>
-          </figure>
-        );
-      }
+    case "gallery":
+      // Components side by side on the page, each as itself (no plate): a row shares one height, small ones keep their own size.
       return (
         <figure>
-          <div data-reveal className="plate bento" data-fit={block.fit}>
+          <div data-reveal className="bento" data-fit={block.fit}>
             {block.pictures.map((p) => {
               const { width, height } = sizeOf(p);
               return (
-                <div key={p.src} className="bento-cell" style={{ "--a": (width / height).toFixed(3), "--w": `${width}px`, maxWidth: width } as CSSProperties}>
+                <div key={p.src} className={`bento-cell ui ${p.open ? "ui-open" : ""}`} style={{ "--a": (width / height).toFixed(3), "--w": `${width}px`, maxWidth: width } as CSSProperties}>
                   <Pic picture={p} sizes="(min-width: 640px) 640px, 100vw" className="block h-auto w-full" />
                 </div>
               );
@@ -247,29 +308,10 @@ export function BlockView({ block, center = false }: { block: Block; center?: bo
           <Caption>{block.caption}</Caption>
         </figure>
       );
-    }
 
-    case "showcase":
-      return (
-        <figure className="flex flex-col items-center">
-          <h3 data-reveal className="text-center font-serif text-headline text-ink">
-            {block.title}
-          </h3>
-          <Plate className="zoom mt-lead w-full">
-            <Pic picture={block.picture} className="block h-auto w-full" />
-          </Plate>
-          <figcaption data-reveal className="mt-lead max-w-[520px] text-center font-serif text-[clamp(19px,17px+0.4vw,23px)] leading-snug text-body">
-            {block.caption}
-          </figcaption>
-        </figure>
-      );
-
-    case "image":
-      return (
-        <Plate>
-          <Pic picture={block.picture} className="block h-auto w-full" />
-        </Plate>
-      );
+    case "versions":
+      // Sizes are read here, on the server: the client part only gets the four films, not the whole of the content.
+      return <Versions items={block.items.map((v) => ({ ...v, ...sizeOf(v.poster) }))} />;
 
     case "wireframes":
       return (
@@ -286,24 +328,13 @@ export function BlockView({ block, center = false }: { block: Block; center?: bo
         </>
       );
 
-    case "illustration":
-      return (
-        <figure data-reveal className="mx-auto w-full max-w-[var(--measure)]">
-          <div className="diagram flex justify-center px-text pt-block pb-note">
-            <span className="diagram-name">“{block.title}”</span>
-            {/* Loaded with the page, not lazily: parsing it mid-scroll cost a dropped frame. Its loop sleeps until it's on screen. */}
-            <iframe src={block.src} title={block.title} className="aspect-[5/4] w-full max-w-[520px] border-0 bg-transparent" />
-          </div>
-          <figcaption className="mt-caption text-small text-label">{block.note}</figcaption>
-        </figure>
-      );
-
     case "cards": {
-      // The reference's grid of points: a name over its line, side by side, no boxes.
+      // The reference's grid of points: a name over its line, side by side, no boxes. A tag (a challenge's kind) sits above in mono.
       return (
-        <ul className="mx-auto grid w-full max-w-[var(--measure)] gap-x-group gap-y-lead sm:grid-cols-2">
+        <ul className="cards-grid mx-auto grid w-full max-w-[var(--measure)] gap-x-group gap-y-lead sm:grid-cols-2">
           {block.items.map((card, n) => (
-            <li key={card.title} data-reveal style={i(n)} className="flex flex-col gap-label">
+            <li key={card.title} data-reveal style={i(n)} className="flex flex-col gap-label border-t border-line pt-text">
+              {card.tag && <p className="font-mono text-[11px] leading-4 tracking-[0.1em] text-label uppercase">{card.tag}</p>}
               <p className="text-copy font-medium text-ink">{card.title}</p>
               {card.text && <p className="text-copy text-body">{card.text}</p>}
             </li>
@@ -311,14 +342,6 @@ export function BlockView({ block, center = false }: { block: Block; center?: bo
         </ul>
       );
     }
-
-    case "statement":
-      // A line set on its own, centred, as Bill Guo's case studies pause on a question: no band, no card.
-      return (
-        <p id={block.id} data-reveal className="mx-auto max-w-[560px] py-text text-center font-serif text-statement text-ink">
-          <RichWords text={block.text} />
-        </p>
-      );
 
     case "stats":
       return (
@@ -371,133 +394,75 @@ export function BlockView({ block, center = false }: { block: Block; center?: bo
       );
     }
 
-    case "compare": {
-      // Step n of the old way and step n of the new share a row, so each change reads straight across.
-      const { before, after } = block;
-      const cols = "sm:grid-cols-[minmax(0,1fr)_24px_minmax(0,1fr)] sm:gap-x-lead";
-      const Step = ({ s, now }: { s?: { text: string; time?: string }; now: boolean }) =>
-        s ? (
-          <div className="flex flex-col gap-label">
-            <span className={`sm:hidden text-tag ${now ? "text-fg" : "text-label"}`}>{now ? after.label : before.label}</span>
-            <span className={`text-copy ${now ? "text-ink" : "text-label"}`}>{s.text}</span>
-            {s.time && <span className="font-mono text-small text-label tabular-nums">{s.time}</span>}
-          </div>
-        ) : (
-          <div />
-        );
+    case "steps":
+      return <Steps items={block.items} phones={block.phones} />;
+
+    case "compare":
+      // Each tool reads straight across: what it is, what it's good at, where it fell short. Below sm each cell names its column.
       return (
-        <div>
-          <div className={`hidden pb-text sm:grid ${cols}`}>
-            <p className="flex items-center gap-note text-small font-medium text-label">
-              <span className="size-2 rounded-full bg-tick" aria-hidden="true" />
-              {before.label}
-            </p>
-            <span />
-            <p className="flex items-center gap-note text-small font-medium text-fg">
-              <span className="size-2 rounded-full bg-[var(--deep)]" aria-hidden="true" />
-              {after.label}
-            </p>
+        <div className="mx-auto w-full max-w-[var(--measure)]">
+          <div className="hidden grid-cols-[150px_1fr_1fr] gap-group pb-text text-small font-medium text-fg sm:grid">
+            <p>Tool</p>
+            <p>Good at</p>
+            <p>Where it fell short</p>
           </div>
           <ol>
-            {Array.from({ length: Math.max(before.steps.length, after.steps.length) }, (_, n) => (
-              <li key={n} data-reveal style={i(n)} className={`grid gap-caption border-t border-line py-text sm:items-start ${cols}`}>
-                <Step s={before.steps[n]} now={false} />
-                <Icon name="arrow-right" size={16} className="mt-label hidden text-label sm:block" />
-                <Step s={after.steps[n]} now />
+            {block.items.map((t, n) => (
+              <li key={t.name} data-reveal style={i(n)} className="grid gap-note border-t border-line py-text sm:grid-cols-[150px_1fr_1fr] sm:gap-group">
+                <p className="flex flex-col gap-label">
+                  <span className="text-copy font-medium text-ink">{t.name}</span>
+                  <span className="font-mono text-[11px] leading-4 tracking-[0.08em] text-label uppercase">{t.kind}</span>
+                </p>
+                <p className="text-copy text-body">
+                  <span className="font-medium text-fg sm:hidden">Good at: </span>
+                  {t.good}
+                </p>
+                <p className="text-copy text-body">
+                  <span className="font-medium text-fg sm:hidden">Fell short: </span>
+                  {t.short}
+                </p>
               </li>
             ))}
           </ol>
-          {(before.total || after.total) && (
-            <div data-reveal className={`grid gap-caption border-t border-fg/25 pt-lead ${cols}`}>
-              <p className="font-serif text-statement text-label">{before.total}</p>
-              <Icon name="arrow-right" size={20} className="mt-caption hidden text-ink sm:block" />
-              <p className="font-serif text-statement text-ink">{after.total}</p>
-            </div>
-          )}
         </div>
       );
-    }
 
-    case "system":
-      return <System title={block.title} note={block.note} parts={block.parts} />;
+    case "timeline":
+      // The story in order: when on the left in mono, what happened beside it, the moments joined by one hairline.
+      return (
+        <ol className="timeline mx-auto w-full max-w-[var(--measure)]">
+          {block.items.map((t, n) => (
+            <li key={t.title} data-reveal style={i(n)} className="timeline-item">
+              <p className="timeline-when">{t.when}</p>
+              <div>
+                <p className="font-serif text-[18px] leading-[1.45] text-ink">{t.title}</p>
+                <p className="mt-label text-copy text-body">{t.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      );
 
     case "tradeoffs":
+      // Each trade-off reads straight across: what I went with, then what it cost. Below sm each cell names its column.
       return (
-        <Table
-          head={["The limit", "How it shaped the work", "What it cost"]}
-          rows={block.items.map((t) => ({
-            key: t.constraint,
-            cells: [
-              <>
-                <span className="mb-label block font-sans text-small text-label">{t.kind}</span>
-                {t.constraint}
-              </>,
-              t.chose,
-              t.cost,
-            ],
-          }))}
-        />
-      );
-
-    case "decisions":
-      return (
-        <Table
-          head={["The decision", "What I chose", "What I ruled out"]}
-          rows={block.items.map((d) => ({
-            key: d.title,
-            cells: [
-              d.title,
-              <>
-                <span className="text-ink">{d.chose}</span> {d.why}
-              </>,
-              d.considered.map((o) => (
-                <span key={o.option} className="block">
-                  <span className="text-fg">{o.option}.</span> {o.why}
-                </span>
-              )),
-            ],
-          }))}
-        />
-      );
-
-    case "alignment":
-      return (
-        <Table
-          head={["What the business needed", "How the design answers it", "How we'd know"]}
-          rows={block.items.map((a) => ({ key: a.goal, cells: [a.goal, a.design, a.signal] }))}
-        />
+        <div className="mx-auto w-full max-w-[var(--measure)]">
+          <div className="hidden grid-cols-2 gap-group pb-text text-small font-medium text-fg sm:grid">
+            <p>I went with</p>
+            <p>What it cost</p>
+          </div>
+          <ol>
+            {block.items.map((t, n) => (
+              <li key={t.chose} data-reveal style={i(n)} className="grid gap-caption border-t border-line py-text sm:grid-cols-2 sm:gap-group">
+                <p className="font-serif text-[clamp(19px,17px+0.4vw,22px)] leading-snug text-ink">{t.chose}</p>
+                <p className="text-copy text-body">
+                  <span className="font-medium text-fg sm:hidden">What it cost: </span>
+                  {t.cost}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
       );
   }
-}
-
-/**
- * The business needs, the constraints and the decisions all read straight across one three-column table, one row each,
- * so a section of them stays short. Below sm the rows stack and each cell carries its column's name.
- */
-function Table({ head, rows }: { head: [string, string, string]; rows: { key: string; cells: [ReactNode, ReactNode, ReactNode] }[] }) {
-  const cols = "sm:grid-cols-[minmax(0,5fr)_minmax(0,6fr)_minmax(0,5fr)] sm:gap-group";
-  return (
-    <div>
-      <div className={`hidden pb-text text-small font-medium text-fg sm:grid ${cols}`}>
-        {head.map((h) => (
-          <p key={h}>{h}</p>
-        ))}
-      </div>
-      <ol>
-        {rows.map((r, n) => (
-          <li key={r.key} data-reveal style={i(n)} className={`grid gap-caption border-t border-line py-text ${cols}`}>
-            <div className="font-serif text-[clamp(19px,17px+0.4vw,22px)] leading-snug text-ink">{r.cells[0]}</div>
-            <div className="text-copy text-body">
-              <span className="font-medium text-fg sm:hidden">{head[1]}: </span>
-              {r.cells[1]}
-            </div>
-            <div className="text-small text-label">
-              <span className="font-medium text-fg sm:hidden">{head[2]}: </span>
-              {r.cells[2]}
-            </div>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
 }

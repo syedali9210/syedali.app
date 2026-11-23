@@ -1,6 +1,5 @@
-import Image from "next/image";
-import { sizeOf } from "@/content";
 import type { CaseStudy } from "@/content/types";
+import { Pic } from "./Blocks";
 import { Device } from "./Device";
 import { Icon } from "./Icon";
 import { ModeButton } from "./Panels";
@@ -8,8 +7,8 @@ import { plain, Rich } from "./Rich";
 
 /**
  * The entry, as in the reference (Rachel Chen's case studies): a plate across the wide column (the product's device in
- * a soft sky of the case study's own colours, square-cornered), then in the reading column the title, the summary,
- * the facts in a row (label over value), the ways in, and a hairline before the story starts.
+ * a soft sky of the case study's own colours, square-cornered: the one box on the page, kept on Syed's word), then in the
+ * reading column the title, the summary, the facts in a row (label over value), the ways in, and a hairline before the story starts.
  */
 export function Hero({ study }: { study: CaseStudy }) {
   const { frame, picture } = study.hero;
@@ -28,12 +27,12 @@ export function Hero({ study }: { study: CaseStudy }) {
           <div data-land="screen" className={`hero-device absolute left-1/2 z-[1] ${phone ? "top-[9%] w-[clamp(150px,26%,250px)]" : "top-[11%] w-[78%] sm:w-[68%]"}`}>
             <Device frame={frame}>
               {phone ? (
-                <Image quality={90} src={picture.src} alt="" {...sizeOf(picture)} sizes="(min-width: 1024px) 250px, 40vw" priority className="block h-auto w-full" />
+                <Pic picture={picture} alt="" quality={90} sizes="(min-width: 1024px) 250px, 40vw" priority className="block h-auto w-full" />
               ) : (
-                // A window onto the whole page: the reader scrolls it (wheel, trackpad, drag, keys); nothing moves on its own.
-                // At either end the scroll carries on to the page.
-                <div tabIndex={0} aria-label={`${picture.alt}. Scroll to look through it.`} className="screen-scroll relative aspect-[16/10] overflow-y-auto rounded-[5px] bg-white">
-                  <Image quality={90} src={picture.src} alt={picture.alt} {...sizeOf(picture)} sizes="(min-width: 1024px) 630px, 78vw" priority className="block min-h-full w-full object-cover object-top" />
+                // The product's screen, whole and still: no scrollbar, nothing to scroll (Syed, 2026-11-23). Filled from the top by
+                // absolute position, since Safari won't resolve a percentage height inside an aspect-ratio box.
+                <div className="relative aspect-[16/10] overflow-hidden rounded-[5px]">
+                  <Pic picture={picture} quality={90} sizes="(min-width: 1024px) 630px, 78vw" priority className="absolute inset-0 block size-full object-cover object-top" />
                 </div>
               )}
             </Device>
@@ -56,6 +55,24 @@ export function Hero({ study }: { study: CaseStudy }) {
             </div>
           ))}
         </dl>
+        {/* The result first, for someone scanning (Niklas Peterson's Impact card), on hairlines rather than in a box. */}
+        {study.impact && (
+          <section aria-label="Impact" className="impact mt-group">
+            <p className="impact-label">Impact</p>
+            <div className="impact-row">
+              <p className="impact-line">{study.impact.line}</p>
+              <dl className="impact-stats">
+                {study.impact.stats.map((s) => (
+                  <div key={s.label}>
+                    {/* the label leads in the markup (a dt before its dd); the number shows first */}
+                    <dt className="impact-what">{s.label}</dt>
+                    <dd className="impact-value">{s.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </section>
+        )}
         <div className="mt-lead flex flex-wrap items-center gap-x-lead gap-y-label">
           {site && (
             <a

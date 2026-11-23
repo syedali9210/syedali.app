@@ -36,15 +36,20 @@ const walk = (dir) =>
   readdirSync(dir).flatMap((f) => (statSync(join(dir, f)).isDirectory() ? walk(join(dir, f)) : [join(dir, f)]));
 
 if (process.argv[1].endsWith("media.mjs")) {
+  // A case study's pictures also get their own colour (sharp's dominant colour), painted behind each one while it loads, so a
+  // screen arrives on its own tone instead of a blank box. sharp comes with Next.
+  const { default: sharp } = await import("sharp");
+  const hex = ({ r, g, b }) => "#" + [r, g, b].map((v) => v.toString(16).padStart(2, "0")).join("");
   const out = {};
   for (const file of walk(root)) {
     if (![".png", ".webp", ".jpg", ".jpeg"].includes(extname(file).toLowerCase())) continue;
     const dims = size(readFileSync(file));
     assert(dims, `can't read the size of ${file}`);
-    out["/" + relative(root, file).replaceAll("\\", "/")] = dims;
+    const key = "/" + relative(root, file).replaceAll("\\", "/");
+    out[key] = key.startsWith("/case-studies/") ? [...dims, hex((await sharp(file).stats()).dominant)] : dims;
   }
   // Self-check against a picture whose size is known.
-  assert.deepEqual(out["/case-studies/trace/timeline.webp"], [2260, 1260]);
+  assert.deepEqual(out["/case-studies/trace/timeline.webp"].slice(0, 2), [2260, 1260]);
   writeFileSync("src/content/media.json", JSON.stringify(out, null, 1) + "\n");
   console.log(`media.json: ${Object.keys(out).length} pictures`);
 }

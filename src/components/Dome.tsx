@@ -20,11 +20,13 @@ export function Dome({ after = false }: { after?: boolean }) {
 
   useEffect(() => {
     if (after || still() || CSS.supports("animation-timeline: view()")) return;
+    // Held for the effect's life: React lets go of refs before it runs the cleanup, and a scroll frame can land in between.
+    const bandEl = band.current!, bodyEl = body.current!, footEl = foot.current!;
     const narrow = matchMedia("(max-width: 1023px)");
     let last = -1;
     return onScrollFrame(() => {
       if (narrow.matches) return;
-      const r = band.current!.getBoundingClientRect();
+      const r = bandEl.getBoundingClientRect();
       const vh = innerHeight;
       if (r.top > vh || r.bottom < -vh) return;
       const p = clamp01((vh - r.top - 0.2 * vh) / (1.4 * vh));
@@ -32,11 +34,11 @@ export function Dome({ after = false }: { after?: boolean }) {
       const k = Math.round(s * 1000) / 1000;
       if (k === last) return;
       last = k;
-      body.current!.style.transform = k >= 1 ? "none" : `scaleY(${k})`;
-      body.current!.style.visibility = k <= 0.012 ? "hidden" : ""; // not yet unrolling: edge-on it would only be a thin line sitting on the page
+      bodyEl.style.transform = k >= 1 ? "none" : `scaleY(${k})`;
+      bodyEl.style.visibility = k <= 0.012 ? "hidden" : ""; // not yet unrolling: edge-on it would only be a thin line sitting on the page
       // Its foot fades into the page while it's still unrolling. By 70% it's over the band's own colour and has no edge.
-      foot.current!.style.transform = `translate3d(0, ${(k * r.height).toFixed(1)}px, 0)`;
-      foot.current!.style.visibility = k > 0.012 && k < 0.7 ? "visible" : "hidden";
+      footEl.style.transform = `translate3d(0, ${(k * r.height).toFixed(1)}px, 0)`;
+      footEl.style.visibility = k > 0.012 && k < 0.7 ? "visible" : "hidden";
     });
   }, [after]);
 

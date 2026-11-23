@@ -224,14 +224,6 @@ html.js [data-reveal][data-in] .stat-value { transform: none; opacity: 1; }
 }
 @keyframes breathe { from { transform: scale(1); opacity: 0.55; } to { transform: scale(2.6); opacity: 0; } }
 
-/* A long page screenshot pans to its foot on hover: the picture moves, not its crop (compositor only). */
-.pan { container-type: size; }
-.pan img { height: auto !important; transform: translateY(0); transition: transform var(--pan, 6s) cubic-bezier(0.45, 0, 0.55, 1); will-change: transform; }
-@media (hover: hover) { .pan:hover img { transform: translateY(calc(-100% + 100cqh)); } }
-.pan:focus-visible img { transform: translateY(calc(-100% + 100cqh)); }
-
-.zoom img, .zoom video { transition: scale 0.7s var(--ease-out); }
-@media (hover: hover) and (pointer: fine) { .zoom:hover img, .zoom:hover video { scale: 1.015; } }
 
 /* ── The device and its wireframes ───────────────────────────────────────
    A real screen on a device, drawn in isometric (orthographic, the camera looking down), floating over the
@@ -271,6 +263,8 @@ html.js [data-reveal][data-in] .wire-tile { opacity: 1; transform: none; }
 
 /* ── Colour: the entry card's sky, the highlighter, the vivid panel ─────
    Each case study sets --deep, --mid, --light and --hl (its own colours, sampled from its screens) on the page. */
+/* The entry's box (Syed, 2026-11-22: "dont remove the bounding box from the top image"): the device stands in a plate of the case
+   study's own colours, square-cornered. */
 .sky {
   background:
     radial-gradient(60% 70% at 12% 0%, color-mix(in oklab, var(--mid) 78%, var(--mix)) 0%, transparent 72%),
@@ -289,11 +283,6 @@ html.js [data-reveal][data-in] .wire-tile { opacity: 1; transform: none; }
   animation: drift 16s ease-in-out infinite alternate;
 }
 @keyframes drift { from { transform: translate3d(-2%, -1%, 0) scale(1); } to { transform: translate3d(2%, 1.5%, 0) scale(1.06); } }
-/* The entry screen is a window the reader scrolls: a thin scrollbar that shows while the pointer is on it. */
-.screen-scroll { container-type: inline-size; scrollbar-width: thin; scrollbar-color: transparent transparent; transition: scrollbar-color 0.2s; }
-/* A short screenshot still fills the screen. In cqw, because Safari won't resolve a percentage height inside an aspect-ratio box and left a white band under it. */
-.screen-scroll img { min-height: 62.5cqw; }
-.screen-scroll:hover, .screen-scroll:focus-visible { scrollbar-color: rgb(0 0 0 / 0.28) transparent; }
 .hero-device { translate: -50% 0; animation: rise 1.1s var(--ease-out) 0.15s both; }
 
 /* The entry devices, drawn as the real things: metal bands with soft highlights, a black bezel, and a long, soft
@@ -332,12 +321,76 @@ html.js [data-reveal][data-in] .wire-tile { opacity: 1; transform: none; }
   .hero-device:has(.laptop) { top: 8%; width: min(68%, 70svh); }
 }
 
-/* A picture on its plate (Rachel Chen's grey plates, Bill Guo's tinted fields): the screen sits inset on a soft field
-   of the project's own colour, square-cornered, with a hairline and a low shadow under the screen. */
-.plate { position: relative; overflow: hidden; background: color-mix(in oklab, var(--mid, #8db0ff) 14%, var(--color-card)); padding: clamp(16px, 4%, 40px); }
-.plate > .shot { position: relative; overflow: hidden; border-radius: 3px; background: #fff; box-shadow: 0 0 0 1px rgb(50 64 79 / 0.08), 0 20px 36px -24px rgb(20 30 45 / 0.4); }
-/* Pictures that are cards in their own right, together on one plate. Each keeps its shape, and a row's pictures grow by their aspect ratios, so a row
-   shares one height and fills the plate. "row" is for small files: their own size, centred, and never stretched soft. */
+/* A component on the page as itself (Syed, 2026-11-22: "dont use a box container to put the screen shot in them"): no plate or
+   field around it, only the corners of the UI it came from and a soft lift off the paper. drop-shadow traces the picture's own
+   shape, so a dialog with transparent corners casts a rounded shadow. Open pictures (cards on a transparent ground, a region
+   that fades out at its edges) get neither. */
+.ui :is(img, video) { border-radius: 12px; filter: drop-shadow(0 1px 1.5px rgb(20 30 45 / 0.08)) drop-shadow(0 18px 30px rgb(20 30 45 / 0.13)); }
+.ui-open :is(img, video) { border-radius: 0; filter: none; }
+:root[data-theme="dark"] .ui:not(.ui-open) :is(img, video) { filter: drop-shadow(0 0 0.5px rgb(255 255 255 / 0.3)) drop-shadow(0 18px 30px rgb(0 0 0 / 0.45)); }
+/* A product screen captured in both of its themes (Pic, Zoom): the one matching the site's shows. The other is display: none and
+   lazy, so it isn't fetched until the theme switches to it. */
+:root[data-theme="dark"] .pic-light, :root:not([data-theme="dark"]) .pic-dark { display: none; }
+/* A film's versions: the one on show fades up when chosen; the row's thumbnails stay dim until picked. */
+.versions-in { animation: versions-in 0.5s var(--ease-out); }
+@keyframes versions-in { from { opacity: 0; } }
+.version-thumb { opacity: 0.55; box-shadow: 0 0 0 1px rgb(50 64 79 / 0.1); transition: opacity 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out); }
+@media (hover: hover) { .version:hover .version-thumb { opacity: 0.85; } }
+.version[aria-selected="true"] .version-thumb { opacity: 1; box-shadow: 0 0 0 2px var(--color-ink); }
+.version:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; border-radius: 10px; }
+/* Key words in a chapter's copy stand out for someone skimming. */
+.section-copy .hl { color: var(--color-ink); font-weight: 500; }
+/* A chapter told in screens (Niklas Peterson's case studies): whole screens, a wide one then pairs, each with its numbered step under
+   it. Pairs keep one row height by their own shapes, so a screen is never cropped. One column on a phone. */
+.steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spacing-group) var(--spacing-text); }
+.step[data-wide] { grid-column: 1 / -1; }
+.step figure { display: flex; flex-direction: column; gap: var(--spacing-caption); }
+.step-cap { display: flex; gap: var(--spacing-caption); align-items: baseline; max-width: var(--measure); font-size: var(--text-small); line-height: var(--text-small--line-height); }
+.step-n { flex: none; font: 500 11px/1 var(--font-mono); letter-spacing: 0.08em; color: var(--color-label); font-variant-numeric: tabular-nums; }
+.step-title { color: var(--color-ink); font-weight: 500; }
+.step-text { color: var(--color-body); }
+/* Phone screens: one row of them, a journey through the page on a phone; their corners are a phone's. Two to a row on a phone. */
+.steps[data-phones] { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); column-gap: var(--spacing-lead); }
+.steps[data-phones] .ui :is(img, video) { border-radius: 22px; }
+.steps[data-phones] .step-cap { flex-direction: column; gap: var(--spacing-label); }
+@media (max-width: 639px) {
+  .steps:not([data-phones]) { grid-template-columns: minmax(0, 1fr); row-gap: var(--spacing-lead); }
+  .steps[data-phones] { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--spacing-text); row-gap: var(--spacing-lead); }
+  .steps[data-phones] .ui :is(img, video) { border-radius: 16px; }
+}
+/* A step's screen opens full size on a press (Zoom.tsx): the page dims (no blur), the screen comes up sharp at its captured size. */
+.zoom-in { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 12px; transition: scale 0.16s var(--ease-out); }
+.zoom-in:active { scale: 0.99; }
+.zoom-in:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+.zoom-box { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: clamp(12px, 3vw, 40px); border: 0; background: transparent; overflow: hidden; }
+.zoom-box[open] { display: grid; place-items: center; }
+.zoom-box::backdrop { background: rgb(12 14 18 / 0.86); }
+.zoom-box img { width: auto; height: auto; max-width: min(100%, 2000px); max-height: 100%; border-radius: 10px; cursor: zoom-out; box-shadow: 0 30px 80px -30px rgb(0 0 0 / 0.7); }
+.zoom-box[open] img { animation: zoom-up 0.32s var(--ease-out); }
+.zoom-box[open]::backdrop { animation: zoom-dim 0.24s ease-out; }
+@keyframes zoom-up { from { opacity: 0; transform: scale(0.97); } }
+@keyframes zoom-dim { from { opacity: 0; } }
+.zoom-close { position: fixed; top: max(14px, env(safe-area-inset-top)); right: 14px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; color: #fff; background: rgb(255 255 255 / 0.12); transition: background-color 0.16s ease; }
+.zoom-close:hover { background: rgb(255 255 255 / 0.22); }
+@media (prefers-reduced-motion: reduce) { .zoom-box[open] img, .zoom-box[open]::backdrop { animation: none; } .zoom-in { transition: none; } }
+/* An odd number of points: the last one takes the whole row, so the grid never ends on a lone half. */
+@media (min-width: 640px) { .cards-grid > li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+/* The entry's Impact: the result in a line and two numbers, between hairlines (no box), read before anything else. */
+.impact { padding-block: var(--spacing-lead); border-block: 1px solid var(--color-line); }
+.impact-label { margin-bottom: var(--spacing-caption); font: 500 11px/16px var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-label); }
+.impact-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: var(--spacing-group); align-items: start; }
+.impact-line { font-size: var(--text-lead); line-height: var(--text-lead--line-height); color: var(--color-ink); text-wrap: pretty; }
+.impact-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--spacing-lead); }
+.impact-stats > div { display: flex; flex-direction: column; gap: var(--spacing-label); }
+.impact-value { order: -1; font-family: var(--font-serif); font-size: var(--text-statement); line-height: 1.1; color: var(--color-ink); font-variant-numeric: tabular-nums; }
+.impact-what { font-size: var(--text-small); line-height: var(--text-small--line-height); color: var(--color-label); }
+@media (max-width: 639px) { .impact-row { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-lead); } }
+/* The story in order: when on the left in mono, what happened on the right, the moments on one hairline. */
+.timeline-item { display: grid; grid-template-columns: 132px minmax(0, 1fr); gap: var(--spacing-group); padding-block: var(--spacing-text); border-top: 1px solid var(--color-line); }
+.timeline-when { padding-top: 5px; font: 500 11px/16px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-label); }
+@media (max-width: 639px) { .timeline-item { grid-template-columns: minmax(0, 1fr); gap: var(--spacing-label); } }
+/* Components side by side. Each keeps its shape, and a row's pictures grow by their aspect ratios, so a row shares one height
+   and fills the column. "row" is for small files: their own size, centred, and never stretched soft. */
 .bento { --row: 240px; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--spacing-text); }
 .bento-cell { flex: var(--a) 1 calc(var(--a) * var(--row)); min-width: 0; }
 .bento[data-fit="row"] .bento-cell { flex: 0 1 var(--w); }
@@ -350,26 +403,6 @@ html.js [data-reveal][data-in] .wire-tile { opacity: 1; transform: none; }
 .diagram { position: relative; background: var(--color-card); box-shadow: inset 0 0 0 1px rgb(50 64 79 / 0.06); }
 .diagram-name { position: absolute; top: 14px; left: 16px; font: 500 11px/16px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-label); }
 
-/* ── The system figure (System.tsx): parts as hairline pills, what a change moves as hairlines ─ */
-.sys-part {
-  border: 1px solid var(--color-wire); background: var(--color-sheet); color: var(--color-fg);
-  transition: color 0.2s, border-color 0.2s, background-color 0.2s, opacity 0.2s, scale 0.15s var(--ease-out);
-}
-.sys-part:active { scale: 0.97; }
-.sys-part:focus-visible { outline: 2px solid var(--deep); outline-offset: 2px; }
-.sys-part[data-state="on"] { background: var(--deep); border-color: var(--deep); color: #fff; }
-.sys-part[data-state="lit"] { border-color: var(--deep); color: color-mix(in oklab, var(--deep), var(--color-fg) 22%); }
-.sys-part[data-state="dim"] { opacity: 0.4; }
-.sys-link { fill: none; stroke: var(--color-wire); stroke-width: 1; stroke-dasharray: 1; transition: stroke 0.2s, opacity 0.2s; }
-.system:has([data-state="on"]) .sys-link:not([data-on]) { opacity: 0.3; }
-.sys-link[data-on] { stroke: var(--deep); }
-/* The lines draw in once, in order, the first time the figure is seen. */
-html.js .system:not([data-in]) .sys-link { stroke-dashoffset: 1; }
-html.js .system[data-in] .sys-link { transition: stroke-dashoffset 1.1s var(--ease-out) calc(var(--i, 0) * 45ms + 200ms), stroke 0.2s, opacity 0.2s; }
-/* What a change carries, running down the lit lines while the reader points at a part. */
-.sys-flow { fill: none; stroke: var(--deep); stroke-width: 1.5; stroke-dasharray: 0.03 0.05; stroke-linecap: round; animation: sys-flow 1.6s linear infinite; }
-@keyframes sys-flow { to { stroke-dashoffset: -0.16; } }
-
 /* A film on a portrait screen stays in the page, edge to edge, and grows out to the edges as it comes up to the middle of the screen. */
 @keyframes film-grow { from { transform: scale(0.9); } }
 @media (orientation: portrait) {
@@ -380,10 +413,6 @@ html.js .system[data-in] .sys-link { transition: stroke-dashoffset 1.1s var(--ea
     .film-media { animation: film-grow linear both; animation-timeline: view(); animation-range: cover 0% cover 50%; }
   }
 }
-
-/* Tabs: the pictures cross-fade; the one on show sits a hair forward. */
-.tab-pane { opacity: 0; transform: scale(1.015); transition: opacity 0.45s var(--ease-out), transform 0.6s var(--ease-out); }
-.tab-pane[data-on] { opacity: 1; transform: none; }
 
 
 /* ── Quick overview ──────────────────────────────────────────────────────
@@ -410,11 +439,9 @@ html[data-mode="quick"] .part p.section-copy { display: none; }
     opacity: 1; transform: none; transition: none;
   }
   .sky-glow, .hero-device { animation: none; }
-  html.js .system .sys-link { stroke-dashoffset: 0; transition: stroke 0.2s, opacity 0.2s; }
-  .sys-flow { display: none; }
-  .tab-pane { transform: none; transition: opacity 0.3s ease; }
   .live-dot::after { animation: none; }
-  .pan img, .zoom img, .zoom video { transition: none; }
+  .versions-in { animation: none; }
+  .version-thumb { transition: none; }
 }
 
 
@@ -831,25 +858,23 @@ a:hover > .menu-stone, a:focus-visible > .menu-stone, a:active > .menu-stone { o
 /* A phone on its side: the foot's left end is above the blur's line, so GitHub joins the switches in it. */
 @media (orientation: landscape) { .smenu-out { margin-right: 0; margin-left: auto; } }
 /* A case study's way round on a phone (Panels.tsx): a carved stone, and the stones' black tag grown into a bar. */
-.pnav-dock { position: fixed; z-index: 41; left: 10px; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom)); max-width: 620px; margin-inline: auto; display: flex; align-items: center; gap: var(--spacing-note); transition: opacity 0.22s var(--ease-out), translate 0.3s var(--ease-out); }
+.pnav-dock { position: fixed; z-index: 41; left: 0; right: 0; bottom: calc(12px + env(safe-area-inset-bottom)); width: fit-content; margin-inline: auto; display: flex; align-items: center; gap: var(--spacing-label); transition: opacity 0.22s var(--ease-out), translate 0.3s var(--ease-out); }
 html[data-immersive] .pnav-dock { opacity: 0; translate: 0 12px; pointer-events: none; }
-.pnav-back { flex: none; width: 52px; height: 65px; rotate: -6deg; filter: drop-shadow(-1px 3px 3px rgb(20 26 40 / 0.3)) drop-shadow(-3px 10px 14px rgb(20 26 40 / 0.22)); -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: scale 0.16s var(--ease-out); }
+.pnav-back { flex: none; width: 40px; height: 50px; rotate: -6deg; filter: drop-shadow(-1px 3px 3px rgb(20 26 40 / 0.3)) drop-shadow(-3px 10px 14px rgb(20 26 40 / 0.22)); -webkit-tap-highlight-color: transparent; touch-action: manipulation; transition: scale 0.16s var(--ease-out); }
 .pnav-back img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
 .pnav-back:active { scale: 0.92; }
 .pnav-back:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; border-radius: 40%; }
-.pnav-bar { --tag: #16181c; --tag-ink: #f5f5f7; --tick: #fb923c; position: relative; flex: 1; min-width: 0; height: 52px; overflow: hidden; border-radius: 999px; color: var(--tag-ink); background: var(--tag); box-shadow: 0 12px 26px -12px rgb(0 0 0 / 0.55); }
-:root[data-theme="dark"] .pnav-bar { --tag: #f5f5f7; --tag-ink: #16181c; --tick: #c2410c; }
-.pnav-strip { position: relative; display: flex; height: 100%; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; touch-action: pan-x; -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
-.pnav-strip::-webkit-scrollbar { display: none; }
-.pnav-strip::before, .pnav-strip::after { content: ""; flex: 0 0 50%; }
-.pnav-strip a { flex: none; display: flex; align-items: center; padding: 0 var(--spacing-caption) var(--spacing-note); scroll-snap-align: center; font: 400 12px/1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; opacity: 0.36; -webkit-tap-highlight-color: transparent; transition: opacity 0.22s var(--ease-out); }
-.pnav-strip a[aria-current] { opacity: 1; }
-.pnav-strip a:focus-visible { outline: 2px solid var(--tick); outline-offset: -8px; border-radius: 999px; }
-.pnav-ticks { position: absolute; left: 50%; bottom: 10px; display: flex; gap: var(--spacing-label); translate: -50% 0; pointer-events: none; }
-.pnav-ticks i { width: 9px; height: 2px; border-radius: 1px; background: currentColor; opacity: 0.2; transition: opacity 0.22s var(--ease-out), background-color 0.22s var(--ease-out); }
-.pnav-ticks i[data-past] { opacity: 0.5; }
-.pnav-ticks i[data-on] { opacity: 1; background: var(--tick); }
-.pnav-panel { position: fixed; z-index: 40; left: 16px; right: 12px; bottom: calc(76px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: flex-end; max-height: calc(100svh - 96px); overflow-y: auto; scrollbar-width: none; pointer-events: none; }
+.pnav-bar { --tag: #16181c; --tag-ink: #f5f5f7; position: relative; flex: none; width: 208px; height: 40px; overflow: hidden; border-radius: 999px; color: var(--tag-ink); background: var(--tag); box-shadow: 0 10px 22px -12px rgb(0 0 0 / 0.55); touch-action: pan-y; }
+:root[data-theme="dark"] .pnav-bar { --tag: #f5f5f7; --tag-ink: #16181c; }
+/* The names all start on one spot in the middle and are moved out to their places (place() in Panels.tsx): only the section you're
+   in is sharp; the one before and after sit blurred at the edges, which fade, so each is a hint of where you've been and where's next. */
+.pnav-strip { position: relative; height: 100%; -webkit-mask-image: linear-gradient(90deg, transparent 2%, #000 13%, #000 87%, transparent 98%); mask-image: linear-gradient(90deg, transparent 2%, #000 13%, #000 87%, transparent 98%); }
+.pnav-strip a { position: absolute; inset: 0 auto 0 50%; width: 104px; margin-left: -52px; display: flex; align-items: center; justify-content: center; font: 400 10.5px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; -webkit-tap-highlight-color: transparent; will-change: transform, filter, opacity; transition: transform 0.38s var(--ease-glide), filter 0.38s var(--ease-glide), opacity 0.3s var(--ease-out), scale 0.16s var(--ease-out); }
+.pnav-strip a:not([data-near]) { pointer-events: none; }
+.pnav-strip a[aria-current] { z-index: 1; }
+.pnav-strip a:active { scale: 0.96; }
+.pnav-strip a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: -6px; border-radius: 999px; }
+.pnav-panel { position: fixed; z-index: 40; left: 16px; right: 12px; bottom: calc(64px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; align-items: flex-end; max-height: calc(100svh - 96px); overflow-y: auto; scrollbar-width: none; pointer-events: none; }
 .pnav[data-open] .pnav-panel a, .pnav[data-open] .pnav-panel button { pointer-events: auto; }
 .pnav-list { display: flex; flex-direction: column; align-items: flex-end; flex: none; }
 .pnav-list a { display: inline-flex; align-items: center; min-height: 52px; font-size: clamp(30px, 8.6vw, 44px); line-height: 1.1; letter-spacing: -0.02em; color: var(--color-ink); opacity: 0.001; translate: 0 12px; will-change: opacity, translate; transition: opacity 0.22s ease-out, translate 0.28s var(--ease-glide); }
@@ -878,11 +903,15 @@ html[data-immersive] .pnav-dock { opacity: 0; translate: 0 12px; pointer-events:
   .pnav-panel { left: 50%; right: auto; width: min(620px, 100vw - 32px); translate: -50% 0; }
   .pnav-veil, .pnav-blur { mask-image: linear-gradient(to top, #000 40%, transparent 92%); }
 }
+/* Pointing at a neighbour brings it halfway into focus. (Its place is written on it, so this has to outrank that.) */
 @media (hover: hover) and (pointer: fine) {
-  .pnav-strip a:hover { opacity: 0.72; }
-  .pnav-strip a[aria-current]:hover { opacity: 1; }
+  .pnav-strip a[data-near]:not([aria-current]):hover { opacity: 0.85 !important; filter: blur(0.5px) !important; }
 }
-@media (prefers-reduced-motion: reduce) { .pnav-dock, .pnav-back, .pnav-veil, .pnav-blur, .pnav-panel, .pnav-list a, .pnav[data-open] .pnav-list a, .pnav-mode, .pnav-foot, .pnav-strip a, .pnav-ticks i { transition: none; } }
+/* Reduced motion: the names don't travel; the bar simply shows the new one. */
+@media (prefers-reduced-motion: reduce) {
+  .pnav-dock, .pnav-back, .pnav-veil, .pnav-blur, .pnav-panel, .pnav-list a, .pnav[data-open] .pnav-list a, .pnav-mode, .pnav-foot { transition: none; }
+  .pnav-strip a { transition: opacity 0.2s ease; }
+}
 
 /* The page's foot leaves room beside the phone's stone rather than a blank strip under itself. */
 @media (max-width: 1023px) { .home > footer { padding-right: 88px; } }

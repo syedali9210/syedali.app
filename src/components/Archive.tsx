@@ -4,6 +4,7 @@ import Image from "next/image";
 import { type CSSProperties, type MouseEvent, useEffect, useRef, useState } from "react";
 import { flushSync, createPortal } from "react-dom";
 import type { ArchiveItem, ArchiveKind } from "@/content/archive";
+import type { Picture } from "@/content/types";
 import { Cursor } from "./Cursor";
 import { landed, PageLink } from "./PageLink";
 import { Paper } from "./Paper";
@@ -253,7 +254,7 @@ function Stage({ open, onClosed }: { open: Open; onClosed: () => void }) {
             // Focused as it loads, so an animation that's steered by keys answers to them straight away.
             <iframe src={item.figure} title={item.title} onLoad={(e) => e.currentTarget.contentWindow?.focus()} className="size-full border-0 bg-sheet" />
           ) : (
-            <Image src={item.picture.src} alt={item.picture.alt} width={item.w} height={item.h} sizes="(min-width: 1100px) 960px, 88vw" className="size-full object-cover object-top" />
+            <Image src={themed(item.picture)} alt={item.picture.alt} width={item.w} height={item.h} sizes="(min-width: 1100px) 960px, 88vw" className="size-full object-cover object-top" />
           )}
         </div>
         <div className="stage-caption">
@@ -276,6 +277,9 @@ function Stage({ open, onClosed }: { open: Open; onClosed: () => void }) {
     document.body,
   );
 }
+
+/** A product screen captured in both themes, as the site's theme asks for it (only ever read in the browser). */
+const themed = (p: Picture) => (p.dark && document.documentElement.dataset.theme === "dark" ? p.dark : p.src);
 
 // Set up ahead of the pointer: the first screenful, on a desktop.
 const ROOM_AHEAD = 8;
@@ -313,7 +317,7 @@ export function Archive({ items, kinds }: { items: Node[]; kinds: { kind: Archiv
           if (!isIntersecting) continue;
           near.unobserve(target);
           const it = items[cards.indexOf(target)], im = document.createElement("img");
-          im.src = `/_next/image?url=${encodeURIComponent(it.picture.src)}&w=640&q=90`;
+          im.src = `/_next/image?url=${encodeURIComponent(themed(it.picture))}&w=640&q=90`;
           pictures.current.set(it.id, im);
         }
       },

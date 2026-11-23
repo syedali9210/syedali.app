@@ -109,7 +109,7 @@ function Menu() {
 function Chip({ slug, children }: { slug: string; children: ReactNode }) {
   const c = caseStudies.find((s) => s.slug === slug)!;
   return (
-    <PageLink href={`/work/${slug}`} data-peek={c.cover.src} data-stone={slug} className="chip" style={{ "--c": c.theme.mid } as CSSProperties}>
+    <PageLink href={`/work/${slug}`} data-peek={c.cover.src} data-peek-dark={c.cover.dark} data-stone={slug} className="chip" style={{ "--c": c.theme.mid } as CSSProperties}>
       {children}
     </PageLink>
   );

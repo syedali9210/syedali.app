@@ -1,9 +1,7 @@
-import Image from "next/image";
 import type { CSSProperties } from "react";
-import { nextAfter, sizeOf } from "@/content";
+import { nextAfter } from "@/content";
 import type { Block, CaseStudy } from "@/content/types";
-import { BlockView } from "./Blocks";
-import { EARLY } from "./early";
+import { BlockView, Pic } from "./Blocks";
 import { FullFrame } from "./FullFrame";
 import { Hero } from "./Hero";
 import { PageLink } from "./PageLink";
@@ -11,6 +9,7 @@ import { RevealObserver } from "./motion";
 import { Panels } from "./Panels";
 import { Paper } from "./Paper";
 import { SmoothScroll } from "./SmoothScroll";
+import { ThemePairs } from "./ThemePairs";
 
 type Group = { kind: "card" | "film" | "frame"; blocks: Block[] };
 
@@ -43,7 +42,7 @@ const tag = (b: Block) => (b.type === "section" ? {} : b.quick ? { "data-quick":
  */
 const TEXT = "col mx-auto w-full max-w-[calc(var(--measure)+2*var(--gutter))] px-[var(--gutter)]";
 const WIDE = "col mx-auto w-full max-w-[calc(var(--wide)+2*var(--gutter))] px-[var(--gutter)]";
-const PICTURES = ["media", "gallery", "showcase", "image", "system"];
+const PICTURES = ["media", "gallery", "versions", "steps"];
 const widthOf = (b: Block) => (PICTURES.includes(b.type) ? `${WIDE} enter` : TEXT);
 
 /**
@@ -60,6 +59,7 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
     <div style={theme} className="case min-h-svh overflow-x-clip bg-sheet">
       <Paper />
       <RevealObserver />
+      <ThemePairs />
       <SmoothScroll />
       <Panels status={study.status} />
 
@@ -144,7 +144,7 @@ export function CaseStudyView({ study }: { study: CaseStudy }) {
             </p>
             <PageLink href={`/work/${next.slug}`} data-cursor="View project" data-stone={next.slug} className="group mx-auto block max-w-[460px]">
               <span className="work-media block aspect-[16/10]" data-fly="screen" style={{ "--tint": next.theme.mid } as CSSProperties}>
-                <Image quality={90} src={next.cover.src} alt="" {...sizeOf(next.cover)} sizes="460px" className="work-shot" {...EARLY} />
+                <Pic picture={next.cover} alt="" quality={90} sizes="460px" className="work-shot" />
               </span>
               <span className="mt-caption flex items-baseline gap-note text-copy">
                 <span className="text-ink">{next.title}</span>

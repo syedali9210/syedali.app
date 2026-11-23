@@ -1,5 +1,4 @@
-import { aslWires } from "../wireframes";
-import type { CaseStudy } from "../types";
+import { chapters, type CaseStudy } from "../types";
 
 const dir = "/case-studies/anime-sports-league";
 
@@ -18,6 +17,13 @@ export const animeSportsLeague: CaseStudy = {
     { label: "Client", value: "Decathlon India" },
     { label: "Timeline", value: "Aug 24 – Sep 2, 2026" },
   ],
+  impact: {
+    line: "A flat poster turned into a world you scroll into, without redrawing a line of the artist's work, and every league ends on its tee.",
+    stats: [
+      { label: "visitors on Decathlon's test address", value: "1,734" },
+      { label: "of them on a phone", value: "89%" },
+    ],
+  },
   takeaways: [
     "Traced art breaks when half of something moves, and a broken detail reads worse than a still one. So the football stays still.",
     "A campaign site has to feel like a world and still sell the tee. So every league ends on its own garment page.",
@@ -26,10 +32,8 @@ export const animeSportsLeague: CaseStudy = {
   quick: {
     problem:
       "Decathlon's campaign turns five sports into five anime leagues, and it needed a site people would want to stay in. But the art arrived as one flat traced poster, and a poster with a scroll bar sells nothing.",
-    approach:
-      "I cut the poster into layers that part as you scroll, built a deck of league cards that deals itself, and ended every league on its own tee.",
-    result:
-      "A campaign site where the poster opens up around you and every league leads to its tee: 1,734 visitors so far, 89% of them on a phone.",
+    approach: "I cut the poster into layers that part as you scroll, built a deck of league cards that deals itself, and ended every league on its own tee.",
+    result: "A campaign site where the poster opens up around you and every league leads to its tee: 1,734 visitors so far, 89% of them on a phone.",
   },
   status: {
     title: "Built for Decathlon India",
@@ -38,21 +42,20 @@ export const animeSportsLeague: CaseStudy = {
       { label: "Artwork", value: "Jolly Yun Shann, illustrator and NFT artist" },
       { label: "Built with", value: "Vite, React 19, GSAP ScrollTrigger, Lenis, plain CSS" },
     ],
-    sections: [
-      { label: "Problem", href: "#opening" },
-      { label: "Process", href: "#process" },
-      { label: "The site", href: "#deck" },
-      { label: "Decisions", href: "#decisions" },
-      { label: "Results", href: "#results" },
-    ],
+    sections: chapters,
     links: [],
   },
   cover: { src: `${dir}/hero.webp`, alt: "The Anime Sports League poster" },
-  closing: [
-    "That's all six.",
-    "Thank you for reading this far. The next card takes you back to where it started.",
-  ],
+  closing: ["That's all six.", "Thank you for reading this far. The next card takes you back to where it started."],
   blocks: [
+    {
+      type: "section",
+      id: "problem",
+      entry: "rise",
+      eyebrow: "Problem",
+      title: "A poster ==with a scroll bar==",
+      body: ["Decathlon turned five sports into five anime leagues, each with a tee. The art arrived as ==one flat traced picture==: no layers, no names."],
+    },
     {
       type: "immersive",
       quick: true,
@@ -60,284 +63,124 @@ export const animeSportsLeague: CaseStudy = {
     },
     {
       type: "section",
-      id: "opening",
-      entry: "rise",
-      eyebrow: "The problem",
-      title: "A poster with ==a scroll bar==",
-      body: [
-        "Decathlon India's campaign turns five sports into five anime leagues, each with its own tee. The brief wanted a world you scroll into, where the scene parts, the leagues deal themselves out like cards, and every tee leads to its product. A sports campaign only gets a few seconds of anyone's attention, so the site had to earn those seconds and still end on something to buy.",
-        "The art is by Jolly Yun Shann, and it arrived as one flat traced picture, with no layers and no names. Left like that, the site would only be a poster with a scroll bar. So before anything else, I had to work out how to make a flat picture move without redrawing it.",
-      ],
+      id: "objective",
+      eyebrow: "Objective",
+      title: "Step inside, ==leave with a tee==",
+      body: ["Make the poster a world you scroll into, deal the five leagues like cards, and ==end every league on its tee==."],
     },
     {
-      type: "illustration",
-      src: "/illustrations/theatre.html",
-      title: "A picture, cut into layers",
-      note: "Move along it. The layers part as you go and the nearest one lights up, the way the poster was cut into layers that move on their own.",
-    },
-    {
-      type: "section",
-      id: "business",
-      title: "What Decathlon ==needed from it==",
-      body: [
-        "Under all the motion, the site still had three plain commercial jobs.",
-      ],
-    },
-    {
-      type: "alignment",
+      type: "steps",
+      quick: true,
+      phones: true,
       items: [
-        { goal: "Turn the campaign into tee and cap sales", design: "Every poster leads to its own tee, EXPLORE opens the garment's own page, and the caps got pages of their own.", signal: "Visits to the tee and cap pages from the campaign." },
-        { goal: "Know the visits came from the campaign", design: "Every product link, across the tees, the catalogue and the line-up, carries the campaign's UTM tags.", signal: "Campaign-tagged visits in Decathlon's analytics." },
-        { goal: "Credit the collaboration", design: "Decathlon x Jolly Yun Shann sits on the footer boards, and the art moves without being redrawn.", signal: "The credit appears on every footer." },
-      ],
-    },
-    {
-      type: "media",
-      picture: { src: `${dir}/ground.webp`, alt: "From the first step to the final whistle, the ground is yours" },
-      caption: "The ground: from the first step to the final whistle, the ground is yours.",
-    },
-    {
-      type: "section",
-      id: "constraints",
-      title: "Someone else's art, ==on a mid-range phone==",
-      body: [
-        "I couldn't redraw the art, and all of it had to run on the phones people actually own. That turned out to matter: 89% of visitors came on a phone, most of them on Android.",
-      ],
-    },
-    {
-      type: "tradeoffs",
-      items: [
-        {
-          kind: "Content",
-          constraint: "The art is Jolly Yun Shann's, and it arrived flat.",
-          chose: "I cut it by paint order into layers, and worked out which shapes were which before moving any.",
-          cost: "Whatever can't move cleanly stays still.",
-        },
-        {
-          kind: "Performance",
-          constraint: "Moving traced art on a mid-range phone.",
-          chose: "Layers sit on the GPU only while they move, and only the art that moves goes into the page.",
-          cost: "The hero is still the heaviest part of the page.",
-        },
+        { picture: { src: `${dir}/asl-m-poster.webp`, alt: "The poster on a phone, full screen, with The drop under it" }, title: "The poster opens the page.", text: "Jolly Yun Shann's art, full screen." },
+        { picture: { src: `${dir}/asl-m-deal.webp`, alt: "Welcome to the anime world: the league cards on a phone" }, title: "Pick your sport.", text: "Five leagues, dealt as cards." },
+        { picture: { src: `${dir}/asl-m-tees.webp`, alt: "The tees on a phone: Sky-Smash and Spin-Ignite black, at ₹799" }, title: "Then its tee.", text: "₹799, linked to its own page." },
+        { picture: { src: `${dir}/asl-m-caps.webp`, alt: "The line-up on a phone: Crick-Stryke caps" }, title: "And the rest of the kit.", text: "Caps and the line-up, stepped in by the scroll." },
       ],
     },
     {
       type: "section",
       id: "process",
       entry: "draw",
-      eyebrow: "Design process",
+      eyebrow: "Process",
       title: "The poster ==came first==",
-      body: [
-        "The first question was whether the poster could move at all, so that came before any section.",
-      ],
+      body: ["If the poster couldn't move, nothing else mattered. So that came before any section."],
     },
     {
-      type: "process",
-      steps: [
-        {
-          phase: "Prototype",
-          kind: "phone",
-          title: "Make the poster move",
-          text: "Before any section, the poster had to come apart and move.",
-          made: "the hero, the deck and the cursor",
-        },
-        {
-          phase: "Build",
-          kind: "screen",
-          title: "Build the world around it",
-          text: "The ground, the footer boards, a page-long gradient and the line-up.",
-          made: "every section of the page",
-        },
-        {
-          phase: "Refine",
-          kind: "notes",
-          title: "Take out what didn't hold",
-          text: "The burst, the hotspots and the spinning shuttlecock came out, so the deal had room to be smooth.",
-          made: "a calmer, lighter page",
-        },
-        {
-          phase: "Connect",
-          kind: "cards",
-          title: "Send people to the right product",
-          text: "Every tee, cap and poster links to its own garment page, tagged with the campaign's UTM parameters.",
-          made: "product links, prices and web analytics",
-        },
-        {
-          phase: "Ship",
-          kind: "box",
-          title: "Hand it over",
-          text: "Page views and Web Vitals were wired in, then the site went to Decathlon's test address.",
-          made: "served from Decathlon's test address",
-        },
-      ],
-    },
-    {
-      type: "media",
-      picture: { src: `${dir}/episodes.webp`, alt: "Welcome to the anime world: the five league cards, dealt" },
-    },
-    {
-      type: "section",
-      id: "deck",
-      entry: "focus",
-      eyebrow: "The site",
-      title: "The ==episode deck==",
-      body: [
-        "Five leagues are a lot to introduce at once, so they arrive as a deck. The cards start as a pile and deal themselves into a row, each turning over to reveal its league as it lands.",
-        "The section holds still while the deck deals. With reduced motion, it's simply dealt, face up.",
-      ],
-    },
-    {
-      type: "illustration",
-      src: "/illustrations/deck.html",
-      title: "Five cards, one in hand",
-      note: "Point at a card and it rises out of the fan while the others lean away, the way the site deals its five leagues.",
-    },
-    {
-      type: "section",
-      id: "timing",
-      title: "Timing, ==measured==",
-      body: [
-        "I didn't guess the scroll-out. I timed it off yesnowww.com, the site the frame was modelled on. It starts on the first pixel of scroll, runs linear, and plays as three overlapping beats.",
-      ],
-    },
-    {
-      type: "media",
-      picture: { src: `${dir}/lineup.webp`, alt: "The line-up, stepped by scroll" },
-      caption: "The line-up: the leagues and their caps, stepped by the scroll.",
-    },
-    {
-      type: "section",
-      id: "wireframes",
-      title: "The poster, on a phone",
-      body: [
-        "On a phone the poster keeps its frame, the deck becomes a row you swipe, and the line-up stacks the league names large enough to read.",
-      ],
-    },
-    { type: "wireframes", screens: aslWires, over: { src: `${dir}/hero-phone.webp`, alt: "The poster on a phone" } },
-    {
-      type: "section",
-      id: "decisions",
-      title: "Four decisions about ==what moves==",
-      body: [
-        "Traced art is unforgiving. The hardest decisions on this project were about what to leave still.",
-      ],
-    },
-    {
-      type: "decisions",
+      type: "timeline",
       items: [
-        {
-          title: "What goes into the code",
-          chose: "Only the art that moves, the hero's layers, goes in as live paths. The episode cards load as pictures.",
-          why: "Animating a path means it has to be in the page. Art that never moves doesn't.",
-          considered: [
-            { option: "Inlining all the art", why: "Simpler, but every visitor would pay for art that never moves." },
-          ],
-        },
-        {
-          title: "What moves",
-          chose: "Only what moves cleanly. The football stays still.",
-          why: "Traced art breaks when half of something moves, and a broken detail reads worse than a still one.",
-          considered: [
-            { option: "Moving the football with the kick", why: "Its panels are merged with the leg in the trace, so half a ball would move." },
-          ],
-        },
-        {
-          title: "How the title cards play",
-          chose: "The scroll only starts the sequence, then it plays on its own clock in about seven seconds.",
-          why: "Tied to the scroll, its speed was the reader's speed: a flick threw the cards past in a frame, and a slow drag left a word hanging.",
-          considered: [
-            { option: "Scrubbing it with the scroll", why: "Its timing became whatever the trackpad did, and at full length it held the reader for twice as long." },
-          ],
-        },
-        {
-          title: "The flames",
-          chose: "Flames that hold still, so the scroll does the moving.",
-          why: "The motion should come from the scroll and the deck, not from a flicker the phone pays for on every frame.",
-          considered: [
-            { option: "Flickering flames on every prop", why: "They looked lively, but they kept the phone busy on every single frame." },
-          ],
-        },
+        { when: "Prototype", title: "Made the poster move", text: "Cut the flat art into layers before building anything else." },
+        { when: "Built", title: "Built the world around it", text: "The ground, the footer boards, a page-long gradient and the line-up." },
+        { when: "Cut", title: "Took out what didn't hold", text: "The burst, the hotspots and the spinning shuttlecock went, so the deal had room to be smooth." },
+        { when: "Connected", title: "Sent people to the right tee", text: "Every tee, cap and poster links to its own page, tagged for the campaign." },
+        { when: "Shipped", title: "Handed it over", text: "With page views and Web Vitals wired in, on Decathlon's test address." },
+      ],
+    },
+    {
+      type: "steps",
+      items: [
+        { picture: { src: `${dir}/asl-ground.webp`, alt: "The ground: From the first step to the final whistle, the ground is yours, with the Sky-Smash art beside its tee" }, title: "The world around the poster.", text: "The ground: the art beside the tee it's printed on." },
+        { picture: { src: `${dir}/asl-rimcrush.webp`, alt: "The line-up: the Rim-Crush tee, stepped in by the scroll" }, title: "The line-up, one league at a time.", text: "Rim-Crush, stepped in by the scroll." },
+        { picture: { src: `${dir}/asl-footer.webp`, alt: "The footer board: Decathlon x Jolly Yun Shann" }, title: "Down to the last board.", text: "Decathlon and the artist, side by side." },
       ],
     },
     {
       type: "section",
-      id: "system",
-      title: "The art is ==the architecture==",
-      body: [
-        "The artwork decides everything downstream. Its split decides the layers, and the layers decide how the page loads and how it scrolls.",
+      id: "research",
+      entry: "focus",
+      eyebrow: "Research",
+      title: "I ==measured== the reference",
+      body: ["The frame was modelled on yesnowww.com, so I timed its scroll instead of guessing, and took the art apart ==before moving any of it==."],
+    },
+    {
+      type: "cards",
+      items: [
+        { title: "yesnowww.com's scroll-out", text: "It starts on the first pixel, runs linear, and plays as three overlapping beats. I matched it." },
+        { title: "The art, by paint order", text: "I split it into layers and worked out which shape was which before moving anything." },
+        { title: "The phones people own", text: "Traced art is heavy, and it had to move on a mid-range phone, not a dev laptop." },
       ],
     },
     {
-      type: "system",
-      title: "How the site's parts depend on each other",
-      note: "Point at a part, or tab to it, and what a change to it reaches lights up.",
-      parts: [
-        { id: "art", label: "Traced artwork", note: "The poster as one flat traced frame, and the card art beside it.", moves: ["assets"] },
-        { id: "products", label: "Prices and links", note: "Tees at 799, caps at 699; every link tagged with the campaign's UTM parameters.", moves: ["tees", "lineup"] },
-        { id: "assets", label: "Asset build", note: "Splits the art by paint order and cleans it up before it reaches the page.", moves: ["layers", "chrome"] },
-        { id: "layers", label: "Layers", note: "Stacked SVG layers on one viewBox, each with its own depth, inlined because they move.", moves: ["scroll", "bundle"] },
-        { id: "chrome", label: "Card chrome", note: "One shared frame for all the cards, with the photos kept out of it.", moves: ["deck"] },
-        { id: "scroll", label: "Scroll-out", note: "A linear relay of three overlapping beats, timed off yesnowww.com.", moves: ["runway", "ball"] },
-        { id: "bundle", label: "Page weight", note: "Nearly all of it is the hero's paths." },
-        { id: "deck", label: "Episode deck", note: "Five cards that deal from a real pile and turn over as they land." },
-        { id: "runway", label: "Pinned window", note: "The pinned stretch of scroll that the scroll-out is measured over." },
-        { id: "ball", label: "Flaming ball", note: "The cricket ball that crosses the frame before the next section." },
-        { id: "tees", label: "Tees", note: "One per league, each linking to its garment's own page." },
-        { id: "lineup", label: "Line-up", note: "The leagues and caps, opening on where the reader is." },
+      type: "steps",
+      items: [
+        { picture: { src: `${dir}/asl-parting.webp`, alt: "The poster parting as the scroll starts: the flags swinging out, the art dimming" }, title: "From the first pixel.", text: "The poster parts the moment you scroll, as the reference does.", wide: false },
+        { picture: { src: `${dir}/asl-dealing.webp`, alt: "The league cards being dealt from a pile: Spin-Ignite and Sky-Smash down, the rest falling in" }, title: "Dealt from a pile.", text: "The leagues land one by one, on timing taken from the reference.", wide: false },
+        { picture: { src: `${dir}/asl-dealt.webp`, alt: "Welcome to the anime world: five league cards dealt, Spin-Ignite, Sky-Smash, Crick-Stryke, Apex-Kick, Rim-Crush" }, title: "Five sports, five leagues.", text: "Spin-Ignite, Sky-Smash, Crick-Stryke, Apex-Kick, Rim-Crush.", wide: true },
       ],
     },
     {
       type: "section",
-      id: "shift",
-      title: "From the first pass to ==what shipped==",
+      id: "challenges",
+      eyebrow: "Challenges",
+      title: "Someone else's art, ==on a mid-range phone==",
       body: [],
     },
     {
-      type: "compare",
-      before: {
-        label: "The first pass",
-        steps: [
-          { text: "The poster as one flat frame" },
-          { text: "Hotspots pinned across the hero" },
-          { text: "Flames flickering on every prop" },
-          { text: "A burst and a spinning shuttlecock around the deal" },
-          { text: "Card art that took its time to arrive" },
-        ],
-        total: "Busy, and heavy on a phone",
-      },
-      after: {
-        label: "What shipped",
-        steps: [
-          { text: "Layers that part as you scroll, each with its own depth" },
-          { text: "No hotspots: the poster is the hero" },
-          { text: "Flames that hold still, so the scroll does the moving" },
-          { text: "A deal with room to be smooth" },
-          { text: "Light card art, ready when the deck deals" },
-        ],
-        total: "Calm enough to feel like a world",
-      },
-    },
-    {
-      type: "gallery",
-      pictures: [
-        { src: `${dir}/tees.webp`, alt: "The tees, one per league" },
-        { src: `${dir}/footer.webp`, alt: "Decathlon x Jolly Yun Shann" },
+      type: "cards",
+      items: [
+        { tag: "Stakeholder", title: "Someone else's art", text: "It's Jolly Yun Shann's work, so nothing could be redrawn. Only cut and moved." },
+        { tag: "Design", title: "Half a football", text: "The ball's panels were merged with the leg in the trace, so a kick would move half a ball. It stays still." },
+        { tag: "Tech", title: "Heavy art on a phone", text: "Layers sit on the GPU only while they move, and only the art that moves goes into the page." },
+        { tag: "Design", title: "Title cards at the reader's speed", text: "Tied to the scroll, a flick threw them past in a frame. Now the scroll starts them, and they play in about seven seconds." },
       ],
-      tabs: ["Tees", "Footer"],
     },
     {
-      type: "illustration",
-      src: "/illustrations/rail.html",
-      title: "A tee for every league",
-      note: "Point at a tee and it hangs straight and lifts, while the others lean away. Each of the five leagues has its own.",
+      type: "steps",
+      items: [
+        { picture: { src: `${dir}/asl-titles.webp`, alt: "The line-up's title cards: Crick-Stryke, Apex-Kick, Sky-Smash" }, title: "Title cards at reading speed.", text: "The scroll starts them; they play in about seven seconds." },
+        { picture: { src: `${dir}/asl-caps.webp`, alt: "Caps: Crick-Stryke, with a flaming ball and a racket traced from the art" }, title: "Traced art, still light.", text: "Only the art that moves goes into the page as code." },
+      ],
     },
     {
       type: "section",
-      id: "results",
+      id: "tradeoffs",
+      eyebrow: "Trade-offs",
+      title: "Still flames, ==smooth scroll==",
+      body: [],
+    },
+    {
+      type: "tradeoffs",
+      items: [
+        { chose: "Only what moves cleanly gets to move", cost: "Whatever can't, the football included, stays still." },
+        { chose: "Flames that hold still, so the scroll does the moving", cost: "Flickering flames looked lively, but kept the phone busy every frame." },
+        { chose: "Only the moving art goes into the page as code", cost: "The hero is still the heaviest part of the page." },
+      ],
+    },
+    {
+      type: "steps",
+      items: [
+        { picture: { src: `${dir}/asl-flames.webp`, alt: "The tees, with a flaming cricket ball and shuttlecock held still between them" }, title: "The flames hold still…", text: "The ball and the shuttlecock sit between the tees." },
+        { picture: { src: `${dir}/asl-prices.webp`, alt: "The tees and the cap at their prices, ₹699 and ₹799" }, title: "…so the scroll stays smooth.", text: "Every tee and cap, at its price, one tap from its page." },
+      ],
+    },
+    {
+      type: "section",
+      id: "outcomes",
       entry: "wipe",
-      eyebrow: "Results",
-      title: "What the site ==gives Decathlon==",
-      body: [],
+      eyebrow: "Outcomes",
+      title: "==1,734 visitors==, nine in ten on a phone",
+      body: ["The mobile score was 54 in early November, on a small sample, so the hero gets ==lighter before the public launch==."],
     },
     {
       type: "stats",
@@ -347,16 +190,7 @@ export const animeSportsLeague: CaseStudy = {
         { label: "Visitors", value: "1,734", note: "2,554 page views, 98% of them from India." },
         { label: "On a phone", value: "89%", note: "62% on Android, which is why the art had to stay light." },
         { label: "Sent from decathlon.in", value: "196", note: "Visitors who arrived from Decathlon's own site." },
-        { label: "Every league", value: "Ends on its tee", note: "Each one links to its own garment page, tagged for the campaign." },
-      ],
-    },
-    {
-      type: "section",
-      id: "outcomes",
-      title: "Where it stands",
-      body: [
-        "I built the site for Decathlon India. It's served from Decathlon's test address, with page views, Web Vitals and campaign-tagged links to every product, and it has already had 1,734 visitors, nine in ten of them on a phone.",
-        "Its mobile experience score was 54 in early November, on a small sample, so the hero needs to get lighter before the public launch.",
+        { label: "Leagues that end on their own tee", value: "5 / 5", note: "Each links to its garment page, tagged for the campaign." },
       ],
     },
   ],

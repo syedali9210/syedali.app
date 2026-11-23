@@ -1,10 +1,24 @@
-/** A picture in public/. Its size comes from media.json (npm run media). */
-export type Picture = { src: string; alt: string };
+/**
+ * A picture in public/. Its size comes from media.json (npm run media). Pictures are whole screens (or a part of one with its
+ * surroundings), shown on the page as themselves, with no plate around them.
+ * `w`: the width it shows at in CSS px, never wider than the column; without it, it fills the column.
+ * `open`: it has no outline of its own (cards on a transparent ground, or a region that fades out), so it gets no rounding or shadow.
+ * `dark`: the same screen captured in the product's dark theme, the same size; it shows while the site is dark (Syed: "when we
+ * switch the theme as well the product screenshot should also change"). `src` is then the light one.
+ */
+export type Picture = { src: string; alt: string; w?: number; open?: boolean; dark?: string };
+
+/**
+ * One step of a chapter, told through its screen (Niklas Peterson's case studies): the screen, then a numbered line under it.
+ * `wide` spans the column; otherwise steps pair up two to a row. Left out, a chapter of four runs wide, two, wide; of three, wide
+ * then two; of two, a pair.
+ */
+export type Step = { picture: Picture; video?: string; title: string; text?: string; wide?: boolean };
 
 export type Fact = { label: string; value: string };
 
-/** A grey text card: a small label over one or two lines. With no text, the title is the line. */
-export type Card = { title: string; text?: string };
+/** A point: a name over one line. `tag` is a small label above it (a challenge's kind: Design, Tech, Feedback…). */
+export type Card = { title: string; text?: string; tag?: string };
 
 /**
  * One part of a wireframe, in the frame's own units (phone 100 × 200, desktop 160 × 100).
@@ -14,15 +28,16 @@ export type Card = { title: string; text?: string };
 export type WireItem = { k: "box" | "img" | "text" | "btn" | "dot" | "rule"; x: number; y: number; w: number; h?: number; t?: string };
 export type Wire = { title: string; note: string; frame: "phone" | "desktop"; items: WireItem[] };
 
-/** A way of working, step by step: each step's time when it was measured (or a count, like "4 tools"). */
-export type Flow = { label: string; steps: { text: string; time?: string }[]; total?: string };
-
-/** An option and the reason it lost (or was never on the table). */
-export type Option = { option: string; why: string };
-export type Decision = { title: string; chose: string; why: string; considered: Option[] };
-
-/** One part of a system. `moves` lists the parts a change to it reaches directly; the figure follows them all the way down. */
-export type Part = { id: string; label: string; note: string; moves?: string[] };
+/** Every case study tells its story in these seven chapters, in this order; each is a section with this id. */
+export const chapters = [
+  { label: "Problem", href: "#problem" },
+  { label: "Objective", href: "#objective" },
+  { label: "Process", href: "#process" },
+  { label: "Research", href: "#research" },
+  { label: "Challenges", href: "#challenges" },
+  { label: "Trade-offs", href: "#tradeoffs" },
+  { label: "Outcomes", href: "#outcomes" },
+];
 
 export type ProcessKind = "notes" | "cards" | "screen" | "phone" | "box";
 
@@ -37,51 +52,49 @@ export type Theme = { deep: string; mid: string; light: string; highlight: strin
 
 export type Block = Q &
   (
-    /** Starts a new section: a serif headline and its paragraphs. The left ticks and the status card jump to these. */
     /**
-     * The four main sections (the problem, the process, the product, the results) carry an eyebrow and an `entry`:
-     * each arrives a different way. Every other section simply reads.
+     * Starts a chapter: an eyebrow (Problem, Objective, Process, Research, Challenges, Trade-offs, Outcomes), a serif
+     * headline and at most a couple of short lines (index.ts stops the build past 45 words). The contents jump to these.
+     * Four chapters arrive with motion, each a different way (`entry`); the rest simply read.
      */
     | { type: "section"; id: string; title: string; body: string[]; eyebrow?: string; entry?: "rise" | "draw" | "focus" | "wipe" }
-    /** A screenshot or a film. `tall` pictures pan to their foot on hover. */
-    | { type: "media"; picture: Picture; video?: string; tall?: boolean; caption?: string }
+    /** One component, or a film, with a line under it saying what it shows. */
+    | { type: "media"; picture: Picture; video?: string; caption?: string }
     /** Leaves the cards: grows from the column to the whole screen as you scroll, holds, then settles back. */
     | { type: "immersive"; picture: Picture; video?: string }
-    /** A desktop screenshot with the phone version standing in front of it. */
     /**
-     * Pictures together. With `tabs` (one label per picture) it's one at a time under a pill switch. Without, they share one plate: "contain" keeps
-     * each picture's shape in rows that fill the plate's width, in the order given; "row" is for small pictures, at their own size and centred.
+     * Components side by side. "contain" keeps each picture's shape in rows that fill the column, in the order given; "row" is
+     * for small pictures, at their own size and centred.
      */
-    | { type: "gallery"; pictures: Picture[]; caption?: string; fit?: "cover" | "contain" | "row"; tabs?: string[] }
-    /** A serif headline over a screenshot, with a serif caption under it: live text, sharp at any size. */
-    | { type: "showcase"; title: string; picture: Picture; caption: string }
-    /** A full-width picture with no card around it. */
-    | { type: "image"; picture: Picture }
+    | { type: "gallery"; pictures: Picture[]; caption?: string; fit?: "contain" | "row" }
+    /** A film's versions, oldest first: the chosen one plays big, and every version sits under it with what changed. */
+    | { type: "versions"; items: { label: string; meta: string; note: string; video: string; poster: Picture }[] }
     /** The product's screens as hairline wireframes, each with what it's for; a real screen can stand over them. */
     | { type: "wireframes"; screens: Wire[]; over?: Picture }
-    /** An interactive hairline figure (public/illustrations/<name>.html) that answers the pointer. */
-    | { type: "illustration"; src: string; title: string; note: string }
-    /** Grey cards stepping down left, right, left, right. */
+    /** Points side by side, a name over one line each: research findings, competitors, challenges (with a tag). */
     | { type: "cards"; items: Card[] }
-    /** One big line in Geist Medium. */
-    | { type: "statement"; id?: string; text: string }
-    /** The closing line and the numbers; each number can say how it was measured. */
+    /** The numbers; each one says how it was measured. */
     | { type: "stats"; note?: string; items: (Fact & { note?: string })[] }
     /**
-     * The design process: one phase per step (Discover, Define, Build…), what it was for, and what it left behind.
-     * `kind` is the object that phase leaves on its step in the stairs figure (notes, cards, screen, phone, box).
+     * How I worked: one step each, in plain words, what it was for, and what it left behind.
+     * `kind` is the object that step leaves on its stair in the figure (notes, cards, screen, phone, box).
      */
     | { type: "process"; steps: { phase: string; kind: ProcessKind; title: string; text: string; made?: string }[] }
-    /** The old way beside the new one, step for step: step n of each side share a row. */
-    | { type: "compare"; before: Flow; after: Flow }
-    /** Decisions: what I went with and why, what else was weighed and why it lost, what was ruled out from the start. */
-    | { type: "decisions"; items: Decision[] }
-    /** What the business needed, what the design does for it, and the signal that shows whether it works. */
-    | { type: "alignment"; items: { goal: string; design: string; signal: string }[] }
-    /** The parts of the system and what a change to each one moves: point at a part to light its reach. */
-    | { type: "system"; title: string; note: string; parts: Part[] }
-    /** What limited me while making it (time, budget, brand, tech…), how that shaped the work, and what it cost. */
-    | { type: "tradeoffs"; items: { kind: string; constraint: string; chose: string; cost: string }[] }
+    /** Trade-offs: what I went with, and what that cost me. */
+    | { type: "tradeoffs"; items: { chose: string; cost: string }[] }
+    /**
+     * A chapter told in screens: two to four, each with its step's line. Never a lone component. `phones`: phone screens, side by side
+     * in one row, a journey through the page on a phone.
+     */
+    | { type: "steps"; items: Step[]; phones?: boolean }
+    /**
+     * Real code from the project, as it is in its repository: a short excerpt, its file, and a line on why it's here. `from` is the
+     * excerpt's first line number in that file, so the numbers match the repository.
+     */
+    /** What else was out there, a row each: the tool, what it is, what it does well, and where it fell short. */
+    | { type: "compare"; items: { name: string; kind: string; good: string; short: string }[] }
+    /** The story in order, a moment each: when, what happened, one line. */
+    | { type: "timeline"; items: { when: string; title: string; text: string }[] }
   );
 
 export type CaseStudy = {
@@ -97,6 +110,8 @@ export type CaseStudy = {
   year: string;
   summary: string;
   meta: Fact[];
+  /** The result in one line and two numbers, under the title, for someone scanning (Niklas Peterson's Impact card). */
+  impact?: { line: string; stats: Fact[] };
   /** The quick overview, for someone with a minute: three lines. */
   /** What to take from it, a line each. Not on the page at the moment: the board that showed these was removed. */
   takeaways: string[];

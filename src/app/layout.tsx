@@ -34,8 +34,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* Before first paint: lets the scroll reveals hide their content only when JS is there to show it, picks which
             arrangement of the first screen is up (content/heroes.ts), puts back the theme the reader chose (light unless they
             picked dark), so the page never flashes the other one, and on the first full load of the home page in a visit holds
-            its content back for the scaffold reveal (Preloader.tsx). */}
+            its content back for the scaffold reveal (Preloader.tsx). It runs once, before paint, and never changes, so a script
+            a tool slips into the head ahead of it isn't worth a hydration warning (React matches this one by position). */}
         <script
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html:
               "var d=document.documentElement;d.classList.add('js');try{" +
@@ -43,8 +45,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               "if(localStorage.getItem('theme')==='dark')d.dataset.theme='dark';if(location.pathname==='/'&&!sessionStorage.getItem('boot')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('boot','1');d.classList.add('boot')}}catch(e){}",
           }}
         />
-        {/* Who made the site, for search engines and AI agents (content/seo.ts). */}
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(siteLd) }} />
       </head>
       <body className="min-h-svh overflow-x-clip">
         {children}
@@ -52,6 +52,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <BackFade />
         {/* Vercel Web Analytics: page views and where visitors come from, cookieless. Only reports from the deployed site. */}
         <Analytics />
+        {/* Who made the site, for search engines and AI agents (content/seo.ts). In the body, not the head: there the theme script is
+            the only thing React matches by position, so a script an extension or a browser tool slips in after it while the page
+            loads has nothing to be mistaken for (it was, for this one: "A tree hydrated but some attributes … didn't match"). */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ld(siteLd) }} />
       </body>
     </html>
   );

@@ -3,7 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "./Icon";
 
-/** A muted film that plays while it's on screen and pauses when it leaves. With reduced motion it waits for a click. */
+/**
+ * A muted film that plays while it's on screen and pauses when it leaves. With reduced motion it waits for a click. It starts buffering a
+ * screen before it's reached, so it's already playing when it arrives (it used to start fetching only once it was 40% in view).
+ */
 export function Video({ src, poster, width, height, label, fill = false }: { src: string; poster: string; width: number; height: number; label: string; fill?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
@@ -12,6 +15,14 @@ export function Video({ src, poster, width, height, label, fill = false }: { src
   useEffect(() => {
     const video = ref.current!;
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) paused.current = true;
+    const near = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        video.preload = "auto";
+        near.disconnect();
+      },
+      { rootMargin: "100% 0px" },
+    );
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting && !paused.current) video.play().catch(() => {});
@@ -19,8 +30,12 @@ export function Video({ src, poster, width, height, label, fill = false }: { src
       },
       { threshold: 0.4 },
     );
+    near.observe(video);
     io.observe(video);
-    return () => io.disconnect();
+    return () => {
+      near.disconnect();
+      io.disconnect();
+    };
   }, []);
 
   const toggle = () => {
@@ -41,7 +56,7 @@ export function Video({ src, poster, width, height, label, fill = false }: { src
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         aria-label={label}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}

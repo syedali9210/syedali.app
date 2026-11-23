@@ -1,36 +1,47 @@
-import { engineWires } from "../wireframes";
-import type { CaseStudy } from "../types";
+import { chapters, type CaseStudy } from "../types";
 
 const dir = "/case-studies/video-engine";
+
+/**
+ * A screen captured in both of the engine's themes, the same size: the page shows the one matching its own (Picture.dark).
+ * Each half has a name of its own that no earlier capture used: /case-studies/ is cached for a day (next.config.ts), and a browser
+ * still holding last round's dark ve-artist.webp showed it in the light theme.
+ */
+const both = (name: string, alt: string) => ({ src: `${dir}/${name}-light.webp`, dark: `${dir}/${name}-dark.webp`, alt });
 
 export const videoEngine: CaseStudy = {
   slug: "video-engine",
   title: "Video Engine",
   tagline: "A launch film of your product, ==made from its own code==.",
   theme: { deep: "#2563eb", mid: "#9a8cf2", light: "#ffc2e6", highlight: "#ffcfeb" },
-  hero: { frame: "screen", picture: { src: `${dir}/home.webp`, alt: "Video Engine's home: What are we making?" } },
+  hero: { frame: "screen", picture: both("ve-hero", "Video Engine's home: What are we making today?") },
   kind: "Product",
   year: "2026",
   summary:
-    "Video Engine makes a product's launch film from the product itself. Ask in one sentence and it opens the running app, reads its screens, words and colours, then writes, directs and renders the film. The film is made of the real interface, so it never drifts from the product, and every scene stays editable.",
+    "Video Engine makes a product's launch film from the product itself. Ask in one sentence, and it opens your running app and directs the film out of the real interface.",
   meta: [
     { label: "Role", value: "Product Design, Motion, Development" },
     { label: "Made for", value: "Product teams with no motion designer" },
     { label: "Built with", value: "Vite, React 19, three.js, Motion, GSAP" },
   ],
+  impact: {
+    line: "A production-quality launch film from one sentence, with the AI writing only the words and the code doing the directing.",
+    stats: [
+      { label: "to render the latest 31 s film at 1080p, 60 fps", value: "238 s" },
+      { label: "AI tokens a film, read from the engine's own logs", value: "~14K" },
+    ],
+  },
   takeaways: [
     "A film made from the product's own code can't drift from the product. A screen recording starts going stale the day it's made.",
-    "One sentence should be enough for a first cut. The final call stays with the person whose product it is.",
-    "Generic templates make generic films, so every template is measured off a launch film I studied.",
-    "The device is half of every shot. CSS faces never looked real; three.js models at Apple's dimensions do.",
+    "AI on its own doesn't know what makes a film good. Rules it can't skip, and films it has studied, do.",
+    "Generic templates make generic films, so every template is cut from a real launch film.",
+    "A tool that does everything is hard to read. One job, done well, is what people come back to.",
   ],
   quick: {
     problem:
-      "A product film used to mean paying someone else, recording and editing it all by hand, or accepting the look everyone gets from AI tools. And every film went stale as soon as the product changed.",
-    approach:
-      "I built a studio that opens a running product and makes its launch film from one sentence, out of the real interface, with every scene still editable.",
-    result:
-      "Three product launch films made with it so far, Trace's from a single call. A 15-second film renders in about a minute and a half on a laptop.",
+      "A launch film meant hours hunting a template thousands had already used, or learning motion from zero. And AI on its own doesn't know what makes a film good.",
+    approach: "I built an engine that directs the film in code, inside guardrails, from real launch films I took apart. The AI only writes the words.",
+    result: "Its latest 31-second film rendered in 238 seconds and exported in 114, at 1080p and 60 fps, for about 14K AI tokens.",
   },
   status: {
     title: "Video Engine, in daily use",
@@ -39,88 +50,66 @@ export const videoEngine: CaseStudy = {
       { label: "The idea", value: "A launch film made from your product's own code" },
       { label: "Makes", value: "Launch films, product demos, teasers, brand films and social cuts" },
     ],
-    sections: [
-      { label: "Problem", href: "#opening" },
-      { label: "Process", href: "#process" },
-      { label: "Product", href: "#one-call" },
-      { label: "Taste", href: "#taste" },
-      { label: "Decisions", href: "#decisions" },
-      { label: "Results", href: "#results" },
-    ],
+    sections: [...chapters.slice(0, 6), { label: "Iterations", href: "#iterations" }, ...chapters.slice(6)],
     links: [
       { label: "Visit the site", href: "https://video-engine-tau.vercel.app", site: true },
       { label: "Source on GitHub", href: "https://github.com/syedali9210/video-engine" },
     ],
   },
-  cover: { src: `${dir}/home.webp`, alt: "Video Engine's home: What are we making?" },
+  cover: both("ve-hero", "Video Engine's home: What are we making today?"),
   card: { video: `${dir}/card.mp4`, poster: `${dir}/card-poster.webp` },
-  closing: [
-    "That's enough of my own tools for now.",
-    "Next up is a real client and a real deadline.",
-  ],
+  closing: ["That's enough of my own tools for now.", "Next up is a real client and a real deadline."],
   blocks: [
+    {
+      type: "section",
+      id: "problem",
+      entry: "rise",
+      eyebrow: "Problem",
+      title: "I needed a launch film, and ==none of them were mine==",
+      body: [
+        "For my first portfolio I wanted a launch film. Hours of browsing found one decent template: ==used by thousands already==, and watermarked on the free plan. And I had never made one myself.",
+      ],
+    },
     {
       type: "immersive",
       quick: true,
-      picture: { src: `${dir}/engine-launch-poster.webp`, alt: "The engine's launch film" },
-      video: `${dir}/engine-launch.mp4`,
+      picture: { src: `${dir}/film-v4.webp`, alt: "Video Engine's latest film, made by the engine itself" },
+      video: `${dir}/film-v4.mp4`,
     },
     {
       type: "section",
-      id: "opening",
-      entry: "rise",
-      eyebrow: "The problem",
-      title: "Why do I need ==someone else== for this?",
-      body: [
-        "Every product needs a film, and there have only been a few ways to get one. You pay someone to make it, you make it yourself by hand, or you ask an AI tool and get what everyone else gets.",
-        "I've made launch films the slow way, recording, composing, rendering and splicing each one myself. So the same question kept coming back. If I already know what a good film of my product looks like, why can't I just make it, and why does every new film start from an empty timeline?",
-      ],
+      id: "objective",
+      eyebrow: "Objective",
+      title: "Production-quality films, ==minus the AI guesswork==",
+      body: ["Make a launch film of your own product or feature with AI, at production quality, in ==less time and fewer tokens==."],
     },
     {
       type: "cards",
+      items: [
+        { tag: "Quality", title: "Good enough to launch with", text: "A film of your own product or feature, not a stock template with your logo on it." },
+        { tag: "Taste", title: "AI doesn't know what works", text: "On its own it can't tell a strong hook from a weak one, or a good cut from a bad one." },
+        { tag: "Cost", title: "Good or bad, every try costs", text: "Each attempt burns time and tokens, and none of them comes with a guarantee." },
+        { tag: "Goal", title: "Less time, fewer tokens", text: "So the engine directs the film in code, and the AI only writes the words." },
+      ],
+    },
+    {
+      type: "steps",
       quick: true,
       items: [
-        { title: "Hire someone", text: "You brief them, wait, and go back to them for every change. Slowly the idea stops being yours." },
-        { title: "Do it by hand", text: "Record, crop, mock up, keyframe, export, and again. Changing one shot can mean rendering the whole film." },
-        { title: "Ask a generic AI tool", text: "It fills every decision you didn't make with a safe default: big centred text, a gradient, the logo at the end." },
-        { title: "Start over every time", text: "Whichever you choose, the next film begins from nothing, because nothing remembers what you liked." },
-      ],
-    },
-    {
-      type: "section",
-      id: "why",
-      title: "The bet: film the ==real product==",
-      body: [
-        "Most product films are recordings of a product, and a recording starts going stale the day it's made. So the engine doesn't record anything. It opens the running app, at the device's own size, and builds the film out of the real interface.",
-        "That one choice decides the rest. The engine takes the slow parts: reading the product, writing the story, directing the shots and rendering. The idea and the final call stay with the person whose product it is, and when the product changes, the film can simply be made again.",
-      ],
-    },
-    {
-      type: "statement",
-      text: "Your product's film shouldn't have to wait for ==someone else's calendar==.",
-    },
-    {
-      type: "section",
-      id: "constraints",
-      title: "Two rules ==I set for myself==",
-      body: [
-        "The engine grew out of animations I had already made, in different stacks, and I wasn't going to rewrite any of them. That one rule decided most of the architecture.",
-      ],
-    },
-    {
-      type: "tradeoffs",
-      items: [
         {
-          kind: "Existing work",
-          constraint: "My animations were already built, in different stacks: React, plain HTML, shaders.",
-          chose: "Each one runs as it was built, in its own iframe at the device's viewport, with nothing rewritten.",
-          cost: "Every device frame is a whole page, and parameters have to cross into it through a bridge.",
+          picture: both("ve-artist", "The Artist: three takes on a product launch, Neon, Gradient pop and Editorial, each scored"),
+          title: "Ask for a film, get three takes.",
+          text: "Each a different art direction, storyboarded and scored, with the real product in every shot.",
         },
         {
-          kind: "Focus",
-          constraint: "Tuning a shot needs the controls for that shot, and nothing else.",
-          chose: "Only the controls for the current shot stay open. The rest fold away.",
-          cost: "Rare controls are a click deeper.",
+          picture: both("ve-studio", "The Studio: the real product on a 3D iPhone, with the scene's camera and devices beside it"),
+          title: "Change anything.",
+          text: "The real product on a 3D phone. Every scene, title and cut is still yours.",
+        },
+        {
+          picture: both("ve-export-panel", "The export panel beside the stage: 16:9 at 1920 by 1080, 30 or 60 fps, then Export video"),
+          title: "Export it.",
+          text: "Its size, length, song and frame rate, then one button.",
         },
       ],
     },
@@ -128,261 +117,235 @@ export const videoEngine: CaseStudy = {
       type: "section",
       id: "process",
       entry: "draw",
-      eyebrow: "Design process",
-      title: "From a folder of animations to ==a studio==",
-      body: [
-        "I brought the work home first, then solved how it should look on a real screen. The film tools came after that, because the device is half of every shot.",
+      eyebrow: "Process",
+      title: "From a ==watermarked template== to an engine of my own",
+      body: ["It didn't start as a product. It started with me needing one film, and ==not wanting to need it again==."],
+    },
+    {
+      type: "timeline",
+      items: [
+        { when: "Portfolio v1", title: "I needed a launch film", text: "Hours of browsing for one decent template, already used by thousands, with a watermark on the free plan." },
+        { when: "Day one", title: "I'd never made one", text: "So I learned it from zero: the timeline, camera angles, easing, cuts." },
+        { when: "The itch", title: "I wanted it to be mine", text: "Original, and made to my own taste, not a template thousands had already used." },
+        { when: "The idea", title: "A tool, not another template", text: "Something that saves me time and tokens every time I need a film." },
+        { when: "Months later", title: "Portfolio, round two", text: "Redesigning again, and this time the product needed a film of its own." },
+        { when: "Foundation", title: "I tore good launch films apart", text: "Shot by shot, so the engine starts from what already works." },
+        { when: "Pipeline", title: "My own renderer and generator", text: "Inside guardrails the AI can't skip, so it stops guessing." },
       ],
     },
     {
-      type: "process",
-      steps: [
-        {
-          phase: "Audit",
-          kind: "cards",
-          title: "Bring the work home",
-          text: "Each animation became a folder with a small meta file, and the library finds them on its own.",
-          made: "everything I'd animated, in one library",
-        },
-        {
-          phase: "Define",
-          kind: "phone",
-          title: "Start from the device",
-          text: "Each animation runs at the device's own viewport, so its breakpoints behave as they would on the phone.",
-          made: "exact device frames, with a frame-rate estimate for each",
-        },
-        {
-          phase: "Build",
-          kind: "screen",
-          title: "Turn the launch-film kit into a Studio",
-          text: "My hand-built film pipeline worked because every frame was a pure function of time. That idea became the Studio.",
-          made: "the Studio, exporting PNG, MP4 or ProRes",
-        },
-        {
-          phase: "Refine",
-          kind: "notes",
-          title: "Let taste set the rules",
-          text: "Every review I gave became a written rule, so the same mistake couldn't come back.",
-          made: "DESIGN-SYSTEM.md, the engine's rulebook",
-        },
-        {
-          phase: "Ship",
-          kind: "box",
-          title: "Make it one call",
-          text: "Once the pipeline was reliable, I put it behind an MCP server, so any project can ask for its own film.",
-          made: "make_video and make_interactive",
-        },
-      ],
-    },
-    {
-      type: "illustration",
-      src: "/illustrations/devices.html",
-      title: "The four devices it renders on",
-      note: "Point at a device and it stands up straight and lifts off the plinth. Every animation runs inside one of these, at that device's own viewport.",
-    },
-    {
-      type: "section",
-      id: "one-call",
-      entry: "focus",
-      eyebrow: "The product",
-      title: "Ask for a film in ==one sentence==",
-      body: [
-        "You tell it what you want, from Claude or from the app: \"Make an intro video for this codebase.\" The engine reads the project, captures the running app and picks up its name, words and colours. Then it writes the story, sets the art direction and cuts the film to a beat.",
-        "What comes back is a starting point. In the Studio you get three takes to choose from, and every scene, title and cut stays editable, so the final call stays with you.",
-      ],
-    },
-    {
-      type: "gallery",
-      pictures: [
-        { src: `${dir}/artist.webp`, alt: "Three takes on a film, each a different art direction" },
-        { src: `${dir}/templates.webp`, alt: "Start from a template, sorted by kind of film" },
-      ],
-      tabs: ["Three takes", "Templates"],
-      caption: "Three takes on one film, and the templates they start from.",
-    },
-    {
-      type: "section",
-      id: "taste",
-      title: "The next film starts from ==what you kept==",
-      body: [
-        "Most tools treat every film as the first one. The engine keeps track: the take you use, the ones you pass over and the reasons you give all shape the next draft. Say a film has too much going on, and that becomes a rule for the next one.",
-      ],
-    },
-    {
-      type: "section",
-      id: "library",
-      title: "Your own work, ==on real devices==",
-      body: [
-        "The engine started as a home for everything I'd animated, and that's still its heart. Each animation runs live in an exact iPhone, iPad or MacBook frame, so it can go straight into a film without opening the project it came from.",
-      ],
-    },
-    {
-      type: "media",
-      picture: { src: `${dir}/library.webp`, alt: "The library: every animation, running live in an exact device frame." },
-      tall: true,
-      caption: "The library: every animation, running live in an exact device frame.",
-    },
-    {
-      type: "section",
-      id: "studio",
-      title: "What you preview is ==what you export==",
-      body: [
-        "Before anything becomes a film, you can rotate a device, compare every device at true size, emulate reduced motion and read the frame-rate estimate. The Studio then turns that into a film, with layered scenes, real 3D devices, titles and cuts.",
-        "The export renders the same pages the preview shows, so what you see is what ships, and a scene that didn't change is the same file as before.",
-      ],
-    },
-    {
-      type: "illustration",
-      src: "/illustrations/platter.html",
-      title: "A device on a turntable",
-      note: "Give it a push. The phone turns on its platter and settles on a face, the way the Studio turns a device to frame a shot.",
-    },
-    {
-      type: "section",
-      id: "wireframes",
-      title: "Four places, ==one rule==",
-      body: [
-        "The app has four places, and they all follow one rule. Each gallery shows the work drawn as itself, and opening anything goes full screen into the place that makes it.",
-      ],
-    },
-    { type: "wireframes", screens: engineWires, over: { src: `${dir}/studio.webp`, alt: "The Studio, where a film is made" } },
-    {
-      type: "gallery",
-      pictures: [
-        { src: `${dir}/screen-builder.webp`, alt: "The screen builder: animations placed on a device" },
-        { src: `${dir}/search.webp`, alt: "Search: products, films, places and actions in one field" },
-      ],
-      tabs: ["Screen builder", "Search"],
-    },
-    {
-      type: "section",
-      id: "decisions",
-      title: "Three first ideas ==I had to drop==",
-      body: [
-        "In all three cases, the first version was the easy one. Here is what replaced it, and why.",
-      ],
-    },
-    {
-      type: "decisions",
+      type: "steps",
       items: [
         {
-          title: "Where the templates come from",
-          chose: "Templates rebuilt from launch films I studied, with their cuts, framing and palette measured.",
-          why: "A template is only worth starting from if it's measured off a film worth making.",
-          considered: [
-            { option: "The generic built-in templates", why: "They read as generic, so every film made from them did too." },
-          ],
+          picture: both("ve-templates", "Start from a template: 25 films by kind, from product launches to social cuts"),
+          title: "Cut real films into templates.",
+          text: "25 of them, sorted by the kind of film they make.",
+          wide: false,
         },
         {
-          title: "How a device is drawn",
-          chose: "three.js models at Apple's dimensions, with real materials and a photography set.",
-          why: "The device is half of every shot.",
-          considered: [
-            { option: "Devices built from CSS faces", why: "Quick to make, but they never looked like real devices." },
-          ],
+          picture: both("ve-rulebook", "The Lab's Guidelines: the rulebook every proposal is judged by"),
+          title: "Wrote the rules down.",
+          text: "A rulebook the AI reads before every proposal, and a checker that enforces it.",
+          wide: false,
         },
         {
-          title: "The colour of the interface",
-          chose: "Monochrome: ink buttons, grey selection and Geist neutrals.",
-          why: "The colour belongs to the work on the devices.",
-          considered: [
-            { option: "Iris-filled buttons, toggles and selection", why: "That was my first pass, and the colour competed with the work." },
-          ],
+          picture: both("ve-new-films", "The Lab's New films: eight films the Artist made, waiting for a keep or a pass"),
+          title: "Then let it make films on its own.",
+          text: "Four at a time. I keep or pass each one and say why, and the next batch follows what I said.",
+          wide: true,
         },
       ],
     },
     {
-      type: "media",
-      picture: { src: `${dir}/films.webp`, alt: "Films: launch films of a product, live on every screen" },
-      caption: "Films: launch films made with the engine, playing live.",
-    },
-    {
       type: "section",
-      id: "shift",
-      title: "The same film, ==before and after==",
-      body: [],
+      id: "research",
+      entry: "focus",
+      eyebrow: "Research",
+      title: "Great renderers, ==no director==",
+      body: ["I tried what was out there first. Each one could make a video. None of them knew ==what makes a film good==, so I measured that myself."],
     },
     {
       type: "compare",
-      quick: true,
-      before: {
-        label: "Getting a film made",
-        steps: [
-          { text: "Find someone to make it, or clear your calendar" },
-          { text: "Explain the product, the look and the idea from scratch" },
-          { text: "Record, crop and mock up every screen", time: "by hand" },
-          { text: "Keyframe each shot, then render every frame", time: "by hand" },
-          { text: "Change one shot", time: "render it all again" },
-          { text: "Make the next film", time: "start from nothing" },
-        ],
-        total: "Every film starts from nothing",
-      },
-      after: {
-        label: "With the engine",
-        steps: [
-          { text: "Ask for the film in one sentence", time: "1 call" },
-          { text: "It reads the product's screens, words and colours", time: "automatic" },
-          { text: "It captures the running app at device size", time: "automatic" },
-          { text: "It writes the story, cuts to a beat and renders", time: "automatic" },
-          { text: "Change one scene", time: "only that scene renders" },
-          { text: "Make the next film", time: "start from your taste" },
-        ],
-        total: "Every film starts from what it learned",
-      },
-    },
-    {
-      type: "section",
-      id: "system",
-      title: "Every part ==feeds a film==",
-      body: [
-        "Change one scene and only that scene renders again, because the same input always gives the same frames. And everything you keep or pass flows back into the next draft.",
-      ],
-    },
-    {
-      type: "system",
-      title: "How the engine's parts depend on each other",
-      note: "Point at a part, or tab to it, and everything a change to it reaches lights up.",
-      parts: [
-        { id: "animations", label: "Animations", note: "A folder each, with a meta file, which the library picks up automatically.", moves: ["library", "devices"] },
-        { id: "kit", label: "Product kit", note: "A codebase read for its screens, words, colours and logo.", moves: ["templates", "artist", "canvas"] },
-        { id: "taste", label: "Your taste", note: "The takes you use, the ones you pass and your reasons, weighed into every next draft.", moves: ["templates", "artist"] },
-        { id: "library", label: "Library", note: "Every animation, live, searchable by kind." },
-        { id: "devices", label: "Device frames", note: "Each device an isolated iframe at its true viewport, with a bridge for parameters and frame timing.", moves: ["studio", "canvas"] },
-        { id: "templates", label: "Templates", note: "Films that take a product's own device, screens and words.", moves: ["artist", "studio"] },
-        { id: "artist", label: "The Artist", note: "Drafts a story, an art direction and three takes to choose from.", moves: ["studio"] },
-        { id: "studio", label: "Studio", note: "Scenes of layers over a background, real 3D devices, titles and cuts.", moves: ["gates"] },
-        { id: "canvas", label: "Canvas", note: "An interactive canvas for a site: solid 3D devices and layers, saved as JSON with two lines to embed it.", moves: ["mcp"] },
-        { id: "gates", label: "Gates", note: "Checks before export: every scene sampled, every word measured, the pixels read.", moves: ["render"] },
-        { id: "render", label: "Render", note: "Headless Chrome and ffmpeg, scene by scene, re-rendering only what changed.", moves: ["films", "mcp"] },
-        { id: "films", label: "Films", note: "MP4 or ProRes, with review links that pin notes to a moment and a spot." },
-        { id: "mcp", label: "MCP server", note: "make_video and make_interactive: a film or a canvas of any codebase, in one call." },
-      ],
-    },
-    {
-      type: "section",
-      id: "results",
-      entry: "wipe",
-      eyebrow: "Results",
-      title: "What the engine ==does now==",
-      body: [],
-    },
-    {
-      type: "stats",
-      quick: true,
       items: [
-        { label: "A 15-second film", value: "~90 s", note: "From one sentence to a finished MP4, on a laptop." },
-        { label: "Product launch films made", value: "3", note: "Trace's, from a single call; provider-guard's, 46 s; and the engine's own, 57 s." },
-        { label: "To change one scene", value: "One re-render", note: "Scenes that didn't change come straight from the cache." },
-        { label: "Animations ready to film", value: "35", note: "Each running live in an exact device frame." },
+        {
+          name: "Raylight",
+          kind: "Video editor",
+          good: "Product films on a canvas and a timeline, with camera moves, transitions and AI help.",
+          short: "I'd still direct every shot by hand, on a timeline I didn't know yet.",
+        },
+        {
+          name: "HyperFrames",
+          kind: "Open source · HTML to MP4",
+          good: "HeyGen's renderer for AI agents: HTML and animation in, the same MP4 out every time.",
+          short: "It renders what the agent writes. It can't tell a good film from a bad one, so the agent still guesses.",
+        },
+        {
+          name: "Remotion",
+          kind: "React framework",
+          good: "Videos as React code, every frame a function of time.",
+          short: "Every shot is code you write, or tokens an agent spends writing it. Teams of four or more need a company licence.",
+        },
+        {
+          name: "Agent skills",
+          kind: "Open source",
+          good: "Teach an agent a tool's API: how to animate, render and export.",
+          short: "They teach the API, not taste: when to cut, how long to hold, what the hook is. Every retry still costs tokens.",
+        },
+      ],
+    },
+    {
+      type: "steps",
+      items: [
+        {
+          picture: both("ve-studied", "The Lab's Studied films: nine launch films, each torn down into shots, titles and grounds"),
+          title: "Nine launch films, taken apart.",
+          text: "From Linear, Raycast, Figma, Framer and more: 119 shots, about ten minutes of film.",
+        },
+        {
+          picture: both("ve-teardown", "Linear Agent's teardown: 11 shots in 54 seconds, its cuts, camera, pacing, type and palette"),
+          title: "Each one measured.",
+          text: "Linear Agent: 11 shots in 54 s, eight hard cuts, the camera panning most.",
+        },
+        {
+          picture: both("ve-copy", "Linear Agent shot by shot: each shot's camera values and easing, and what a template should copy"),
+          title: "Down to every shot.",
+          text: "Its camera values and easing, and what a template should copy.",
+        },
+      ],
+    },
+    {
+      type: "section",
+      id: "challenges",
+      eyebrow: "Challenges",
+      title: "Keeping the AI ==on the rails==",
+      body: ["Four problems, one answer: a pipeline, guardrails and a generator that ==lean on each other==, so the AI can't lose the track."],
+    },
+    {
+      type: "cards",
+      items: [
+        { tag: "Foundation", title: "A foundation worth building on", text: "The scene language, the renderer, the templates. Every film inherits whatever they get wrong." },
+        { tag: "System", title: "Three parts, one loop", text: "Guardrails, pipeline and generator, all used by AI agents. If an agent can walk around one, the other two don't matter." },
+        { tag: "AI", title: "I caught the AI debugging videos", text: "What does debugging a video even mean? Whatever it was, it wasn't making a film." },
+        { tag: "AI", title: "Bad motion, even inside the rules", text: "Animations and interactions still came out wrong. The AI was fighting the guardrails, not following them." },
+      ],
+    },
+    {
+      type: "steps",
+      items: [
+        {
+          picture: both("ve-check", "Check the film: readability 14 to fix, story 1 to look at, fidelity and brand pass"),
+          title: "Every film is checked before export.",
+          text: "Readability, story, fidelity and brand, on the frames that will render. This one had 14 things to fix.",
+        },
+        {
+          picture: both("ve-frames", "What the check looked at: frames sampled from every scene"),
+          title: "It reads the frames, not the plan.",
+          text: "Each scene sampled coming in, in the middle and going out.",
+        },
+        {
+          picture: both("ve-learned", "What it learned: what eleven of my decisions taught the engine's taste"),
+          title: "And it learns from my verdicts.",
+          text: "Every keep or pass, with a reason, becomes a rule for the next batch.",
+        },
+      ],
+    },
+    {
+      type: "section",
+      id: "tradeoffs",
+      eyebrow: "Trade-offs",
+      title: "A super app, ==cut back to one job==",
+      body: [
+        "I wanted it to do everything: films, web animation for every breakpoint, creatives, component properties. It did, and it stopped being ==clear what it was for==.",
+      ],
+    },
+    {
+      type: "tradeoffs",
+      items: [
+        { chose: "Scope down to one job: launch films", cost: "The component library, screen builder and website check moved to an app of their own. Two apps to keep in step." },
+        { chose: "Cut features that weren't the job", cost: "Less to show off. In return, a clearer mental model, less cognitive load, and a reason to come back." },
+        { chose: "Render in batches, side by side", cost: "One browser per part, all feeding one encoder: heavier on the machine, and parts split on cuts so nothing jumps." },
+        { chose: "Ship what works, then make it good", cost: "A working film came early. A good one took four versions and a lot of iteration." },
+      ],
+    },
+    {
+      type: "steps",
+      items: [
+        {
+          picture: both("ve-library", "The component library, now an app of its own: 31 animations, each running live in a real device"),
+          title: "Before: a component library…",
+          text: "Every animation live in a real device frame, each with its own settings.",
+          wide: false,
+        },
+        {
+          picture: both("ve-builder", "The screen builder, now in the component app: Maze Walk on an iPhone, with its motion and look properties"),
+          title: "…and a screen builder.",
+          text: "Motion and look for every component: a second product inside the first.",
+          wide: false,
+        },
+        {
+          picture: both("ve-films", "After: Films, one place to direct a film, continue one, or start from 25 templates"),
+          title: "After: one place for the one job.",
+          text: "Direct a film, carry on with one, or start from a template.",
+          wide: true,
+        },
+      ],
+    },
+    {
+      type: "section",
+      id: "iterations",
+      eyebrow: "Iterations",
+      title: "Four films, from ==told to shown==",
+      body: ["Same engine, four versions of its own film. Something that works and something that's good are ==a lot of iterations apart==."],
+    },
+    {
+      type: "versions",
+      items: [
+        {
+          label: "Told, not shown",
+          meta: "v1 · 30 fps",
+          note: "A terminal, progress bars and boxed numbers did the talking.",
+          video: `${dir}/film-v1.mp4`,
+          poster: { src: `${dir}/film-v1.webp`, alt: "The first film: a studio made for launch films, on a dark gradient" },
+        },
+        {
+          label: "One thing at a time",
+          meta: "v2 · 60 fps",
+          note: "Type that moves, one card on screen at a time. But the cards were stand-ins.",
+          video: `${dir}/film-v2.mp4`,
+          poster: { src: `${dir}/film-v2.webp`, alt: "The second film: one card on screen, What needs your attention" },
+        },
+        {
+          label: "The real interface",
+          meta: "v3 · 60 fps",
+          note: "The actual app, shot in 3D, from the first prompt to the export.",
+          video: `${dir}/film-v3.mp4`,
+          poster: { src: `${dir}/film-v3.webp`, alt: "The third film: the real app, What are we making today?" },
+        },
+        {
+          label: "A story first",
+          meta: "v4 · latest",
+          note: "The hook, launching takes weeks, then the export panel, then the payoff.",
+          video: `${dir}/film-v4.mp4`,
+          poster: { src: `${dir}/film-v4.webp`, alt: "The latest film: the Video Engine mark on blue" },
+        },
       ],
     },
     {
       type: "section",
       id: "outcomes",
-      title: "Where it stands",
-      body: [
-        "The engine now makes real launch films. Its own came out of its own Studio, provider-guard's was built from that product's own interface code, and Trace's came from one call. Each new draft starts from what I've already kept and passed.",
-        "Next, I want to add music for films, and local models for private work.",
+      entry: "wipe",
+      eyebrow: "Outcomes",
+      title: "A 31-second film in ==under 6 minutes==",
+      body: ["Two AI calls a film: one writes the story, one checks the stills. Everything else is code. Next: music for films, and local models for private work."],
+    },
+    {
+      type: "stats",
+      quick: true,
+      items: [
+        { label: "To render the latest film", value: "238 s", note: "31 seconds of film: 1,864 frames at 1080p and 60 fps." },
+        { label: "To encode and export it", value: "114 s", note: "From rendered frames to a finished MP4." },
+        { label: "AI tokens a film", value: "~14K", note: "One call writes the story, one reads the stills. Averaged over five directed films in the engine's logs." },
+        { label: "Templates to start from", value: "25", note: "Each one cut from a real launch ad." },
       ],
     },
   ],

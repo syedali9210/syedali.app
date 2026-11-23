@@ -20,6 +20,9 @@ export function Immersive({ children, aspect }: { children: React.ReactNode; asp
 
   useEffect(() => {
     if (still()) return;
+    // The nodes, held for the effect's life: React lets go of refs before it runs this cleanup, and a frame landing in between
+    // read a null ref ("Cannot read properties of null (reading 'style')"). A last frame now writes to a node that's gone, harmlessly.
+    const box = runway.current!, sheet = stage.current!, film = media.current!;
     const root = document.documentElement;
     const wide = matchMedia("(orientation: landscape)");
     const me = {};
@@ -34,9 +37,9 @@ export function Immersive({ children, aspect }: { children: React.ReactNode; asp
       const tx = (left + width / 2 - vw / 2) * (1 - e);
       // As a card it keeps to the flow: against the top of the stage while it grows.
       const ty = (-(vh - H * s) / 2) * (1 - e);
-      media.current!.style.transform = `translate3d(${tx.toFixed(2)}px,${ty.toFixed(2)}px,0) scale(${s.toFixed(4)})`;
+      film.style.transform = `translate3d(${tx.toFixed(2)}px,${ty.toFixed(2)}px,0) scale(${s.toFixed(4)})`;
       const rad = Math.round(((16 * Math.min(1, (1 - e) * 2.5)) / s) * 2) / 2;
-      if (rad !== radius) media.current!.style.borderRadius = `${(radius = rad)}px`;
+      if (rad !== radius) film.style.borderRadius = `${(radius = rad)}px`;
       setImmersive(me, top < vh * 0.5 && bottom > vh * 0.5 && e > 0.04);
     };
     // The scroll sets the target; the film follows it over time (1 − e^(−7·dt)), so it glides and settles softly.
@@ -54,8 +57,8 @@ export function Immersive({ children, aspect }: { children: React.ReactNode; asp
       raf = vw = vh = 0;
       cur = radius = -1;
       setImmersive(me, false);
-      stage.current!.removeAttribute("style");
-      media.current!.style.cssText = `aspect-ratio: ${aspect}`;
+      sheet.removeAttribute("style");
+      film.style.cssText = `aspect-ratio: ${aspect}`;
     };
 
     const off = onScrollFrame(() => {
@@ -63,16 +66,16 @@ export function Immersive({ children, aspect }: { children: React.ReactNode; asp
         if (vw) letGo();
         return;
       }
-      const r = runway.current!.getBoundingClientRect();
+      const r = box.getBoundingClientRect();
       if (root.clientWidth !== vw || innerHeight !== vh) {
         vw = root.clientWidth;
         vh = innerHeight;
         W = vw;
         H = vw / vh >= aspect * 0.75 ? vh : Math.round(vw / aspect);
-        stage.current!.style.marginLeft = `${-r.left}px`;
-        stage.current!.style.width = `${vw}px`;
-        media.current!.style.width = `${W}px`;
-        media.current!.style.height = `${H}px`;
+        sheet.style.marginLeft = `${-r.left}px`;
+        sheet.style.width = `${vw}px`;
+        film.style.width = `${W}px`;
+        film.style.height = `${H}px`;
       }
       ({ left, width, top, bottom } = r);
       p = clamp01(-r.top / (r.height - vh));

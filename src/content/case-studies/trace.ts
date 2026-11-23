@@ -1,23 +1,36 @@
-import { traceWires } from "../wireframes";
-import type { CaseStudy } from "../types";
+import { chapters, type CaseStudy } from "../types";
 
 const dir = "/case-studies/trace";
+
+/**
+ * A screen captured in both of Trace's themes, the same size: the page shows the one matching its own (Picture.dark).
+ * Each half has a name of its own that no earlier capture used: /case-studies/ is cached for a day (next.config.ts), and a browser
+ * still holding last round's dark ve-artist.webp showed it in the light theme.
+ */
+const both = (name: string, alt: string) => ({ src: `${dir}/${name}-light.webp`, dark: `${dir}/${name}-dark.webp`, alt });
 
 export const trace: CaseStudy = {
   slug: "trace",
   title: "Trace",
   tagline: "I kept explaining ==the same project==, every single session.",
   theme: { deep: "#2f5bea", mid: "#8db0ff", light: "#d9cffd", highlight: "#dff35a" },
-  hero: { frame: "screen", picture: { src: `${dir}/home.webp`, alt: "Trace's homepage: the latest change in every project" } },
+  hero: { frame: "screen", picture: both("tr-hero", "Trace's home: where you left off, and what changed in your last project") },
   kind: "Product",
   year: "2026",
   summary:
-    "Trace is a design memory. It captures changes from Figma, GitHub and project folders, writes the changelog from what actually changed, and keeps the reasons next to the work, so a teammate or a coding agent can pick up a project without anyone explaining it all over again.",
+    "Trace is a design memory. It catches changes from Figma, GitHub and project folders, writes down what changed, and keeps the why next to the work.",
   meta: [
     { label: "Role", value: "Product Design, UI/UX, Development" },
     { label: "Made for", value: "Designers who build with AI" },
     { label: "Built with", value: "Node 22, node:sqlite, React, Vite, Tailwind v4, MCP" },
   ],
+  impact: {
+    line: "A design memory in daily use: every session starts with the history, the decisions and the reasons already in hand.",
+    stats: [
+      { label: "for a full walk of an app, down from 15 minutes", value: "2:47" },
+      { label: "to re-walk after a one-file change", value: "32 s" },
+    ],
+  },
   takeaways: [
     "A memory people can't trust is worse than none. So the changelog is written by rules from the diff: one wrong AI-written line would make every line suspect.",
     "A change in code is a change in design, so it should arrive as a picture. Trace walks the running app and shows the screens, not a card of code.",
@@ -39,22 +52,21 @@ export const trace: CaseStudy = {
       { label: "Recent Updates", value: "Each change now carries its explanation, and a check re-walks what it touched" },
       { label: "Integrations", value: "Figma, GitHub, local folders and links. Memory from Claude Code, Codex, Cursor, Antigravity, Copilot, and Claude and ChatGPT exports." },
     ],
-    sections: [
-      { label: "Problem", href: "#opening" },
-      { label: "Process", href: "#process" },
-      { label: "Product", href: "#loop" },
-      { label: "Decisions", href: "#decisions" },
-      { label: "Results", href: "#results" },
-    ],
+    sections: chapters,
     links: [{ label: "Source on GitHub", href: "https://github.com/syedali9210/Trace" }],
   },
-  cover: { src: `${dir}/home-cover.webp`, alt: "Trace's homepage" },
+  cover: both("tr-home", "Trace's homepage"),
   card: { video: `${dir}/card.mp4`, poster: `${dir}/card-poster.webp` },
-  closing: [
-    "That's a lot of memory for one tool.",
-    "Thanks for reading this far. Next up is the tool that made Trace's launch film.",
-  ],
+  closing: ["That's a lot of memory for one tool.", "Thanks for reading this far. Next up is the tool that made Trace's launch film."],
   blocks: [
+    {
+      type: "section",
+      id: "problem",
+      entry: "rise",
+      eyebrow: "Problem",
+      title: "Every session ==started cold==",
+      body: ["I design in Figma and build with Claude Code and Cursor. Every new session forgot the project, ==what I'd decided==, and what I'd already thrown out."],
+    },
     {
       type: "immersive",
       quick: true,
@@ -63,59 +75,29 @@ export const trace: CaseStudy = {
     },
     {
       type: "section",
-      id: "opening",
-      entry: "rise",
-      eyebrow: "The problem",
-      title: "Every session started ==cold==",
-      body: [
-        "I design in Figma and build in code, with Claude Code and Cursor beside me. For a while that worked well. Then one thing started to wear me down: every new session began from nothing. The agent didn't know the project, didn't know what I had decided, and kept bringing back ideas I had already rejected.",
-        "A handover like that loses most of the project. The agent gets a screenshot and a prompt. The references, the constraints and the reasons behind each decision stay behind in Figma, in Git and in old chats, and I was the only thing connecting them.",
-      ],
+      id: "objective",
+      eyebrow: "Objective",
+      title: "One memory that ==people and agents== both read",
+      body: ["Catch the work from the tools I already use, and hand the history to the next session ==before it touches anything==."],
     },
     {
-      type: "cards",
+      type: "steps",
       quick: true,
       items: [
-        { title: "Context resets every session", text: "Every new chat meant explaining the history and the decisions all over again, by hand." },
-        { title: "Changelogs are written by hand", text: "Or, more honestly, not written at all. Documenting took as long as designing." },
-        { title: "The work is split across tools", text: "Design sits in Figma, code in Git and references in folders, and the reasons get buried in chat logs." },
-        { title: "Every AI keeps its own memory", text: "What Claude learned on Monday never reached Cursor or Codex on Tuesday." },
-      ],
-    },
-    {
-      type: "illustration",
-      src: "/illustrations/memory.html",
-      title: "A project, taken apart",
-      note: "Pull it open. The same project is a timeline, its diffs, a canvas and a case study, all layered over one memory.",
-    },
-    {
-      type: "section",
-      id: "constraints",
-      title: "Three limits that ==shaped the design==",
-      body: [
-        "Trace had to feel simple even though the data behind it isn't. Three limits did most of the shaping.",
-      ],
-    },
-    {
-      type: "tradeoffs",
-      items: [
         {
-          kind: "Reference",
-          constraint: "One reference for the whole interface: the NCS app.",
-          chose: "I took its patterns and left its pixels: the Latest feed, the tick scrubber and the floating + button.",
-          cost: "At a glance, Trace looks like NCS.",
+          picture: both("tr-home", "Trace's Home: where you left off, current portfolio, added 118 code files and 157 images"),
+          title: "Open it where you left off.",
+          text: "The last project, what changed in it, and one button back in.",
         },
         {
-          kind: "Scale",
-          constraint: "One change can touch 123 files.",
-          chose: "A change is one entry, titled by what moved, instead of a chip for every file.",
-          cost: "Reaching a single file takes one more click.",
+          picture: both("tr-project", "A project in Trace: where it stands, its 99 versions, and its latest changes"),
+          title: "Every project, as it stands.",
+          text: "Where it is, its versions and decisions, written from the work.",
         },
         {
-          kind: "Readers",
-          constraint: "The same record has to work as a sentence for a person and as data for an agent.",
-          chose: "One plain sentence per change, with the exact before and after values one click away.",
-          cost: "A sentence built from a diff can say what changed, but never why.",
+          picture: both("tr-why", "Thinking: your reasons, in your words, for each change"),
+          title: "The why, in your own words.",
+          text: "Reasons you drop in become the story its case study tells.",
         },
       ],
     },
@@ -123,252 +105,150 @@ export const trace: CaseStudy = {
       type: "section",
       id: "process",
       entry: "draw",
-      eyebrow: "Design process",
-      title: "From a PRD to ==daily use==",
-      body: [
-        "I started with a PRD: what Trace had to do, how I'd know it worked, and what it would never try to be. Everything after the first build came from using it on real work and seeing where it failed.",
+      eyebrow: "Process",
+      title: "Write it down, then ==live in it==",
+      body: ["I wrote the PRD first, then used Trace on my own work every day and fixed whatever broke."],
+    },
+    {
+      type: "timeline",
+      items: [
+        { when: "First", title: "A PRD before any screen", text: "What it had to do, how I'd know it worked, and what it would never try to be." },
+        { when: "Next", title: "Checked the nearest tools", text: "Each one got part of it right. None of them had agents in the loop." },
+        { when: "Built", title: "Capture first, screens second", text: "The timeline came first, because it's where every tool's changes meet." },
+        { when: "Since", title: "Real work, round after round", text: "Every fix came from using it: dialogs the walk missed, a folder that wouldn't import." },
       ],
     },
     {
-      type: "process",
-      steps: [
-        {
-          phase: "Discover",
-          kind: "notes",
-          title: "Who it's for, and what they need done",
-          text: "The first user is the solo design engineer who builds with AI, so I could test every idea on my own work.",
-          made: "the PRD, with its features, success metrics and non-goals",
-        },
-        {
-          phase: "Research",
-          kind: "cards",
-          title: "What the nearest tools miss",
-          text: "New Craft Society sorts dropped files and writes a changelog, but it has no agents and no review.",
-          made: "the rule to use the Git metaphor, never Git's mechanics",
-        },
-        {
-          phase: "Build",
-          kind: "screen",
-          title: "Capture first, screens second",
-          text: "The timeline came before any other screen, because it's where every tool's changes meet.",
-          made: "the whole PRD, running end to end",
-        },
-        {
-          phase: "Iterate",
-          kind: "box",
-          title: "Real use, then round after round of fixes",
-          text: "Each round came from real use: dialogs the walk missed, a folder that wouldn't import, and a Home redesign I reverted the same day.",
-          made: "a log of every round: what changed and why",
-        },
-      ],
-    },
-    {
-      type: "media",
-      picture: { src: `${dir}/trace-ui-poster.webp`, alt: "A walk through Trace's interface" },
-      video: `${dir}/trace-ui.mp4`,
-      caption: "A recording of Trace in use: a project's timeline, its screens and the checks waiting for review.",
-    },
-    {
-      type: "section",
-      id: "loop",
-      entry: "focus",
-      eyebrow: "The product",
-      title: "Agents are ==users too==",
-      body: [
-        "The design changed once I stopped treating agents as a feature and started treating them as a second kind of user, with their own way in and their own way out.",
-        "Before an agent changes anything, it reads the project from Trace: the brief, the decisions, the open comments, and what was already tried and undone. After the change, it leaves its reasoning beside the change on the timeline. I review it there, and my reply reaches the next session.",
-      ],
-    },
-    {
-      type: "illustration",
-      src: "/illustrations/volumes.html",
-      title: "One shelf, every AI's memory",
-      note: "Point at a book and it comes off the shelf. Trace can read the memory of six AI tools, read-only and only if you opt in.",
-    },
-    {
-      type: "section",
-      id: "timeline",
-      title: "Raw saves become moments",
-      body: [
-        "A burst of small saves is really one change. Trace groups them into a moment, files it under its project and writes it up from the diff, with a line like \"Decreased font size.\" It isn't poetry, but every word can be checked.",
-      ],
-    },
-    {
-      type: "illustration",
-      src: "/illustrations/spike.html",
-      title: "Moments on a spike",
-      note: "Point at a slip and that moment squares up and rises, carrying the newer ones with it. Newest on top, as on the timeline.",
-    },
-    {
-      type: "section",
-      id: "walk",
-      title: "The app, walked while it runs",
-      body: [
-        "A change in code is a change in design too, but a diff can't show you that. So Trace opens the running app in headless Edge and walks it: tabs, sheets, menus and the theme, up to two clicks deep.",
-        "The first walk was too slow to use: 15 minutes for one app. Exploring first, then capturing screens in parallel batches, brought it to 2 minutes 47 seconds, and it found more on the way, 37 screens instead of 28. After a commit, only the screens that change touched are walked again.",
-      ],
-    },
-    {
-      type: "media",
-      picture: { src: `${dir}/screens.webp`, alt: "Trace's screens map: an app's states, linked by the clicks between them" },
-      caption: "The screens map: every state the walk reached, linked by the clicks between them.",
-    },
-    {
-      type: "section",
-      id: "wireframes",
-      title: "Four screens, four questions",
-      body: [
-        "Stripped down to structure, four screens carry the product. Each one answers a single question before it shows anything else: which project, what changed, what was decided, and what is known.",
-      ],
-    },
-    { type: "wireframes", screens: traceWires, over: { src: `${dir}/projects.webp`, alt: "Trace's projects page" } },
-    {
-      type: "statement",
-      id: "designs",
-      text: "Briefs, constraints, references, decisions and reviews all lived in ==different docs==.",
-    },
-    {
-      type: "gallery",
-      pictures: [
-        { src: `${dir}/canvas-board.webp`, alt: "A project as a canvas of blocks: overview, iterations, reviews, constraints, references, tasks" },
-        { src: `${dir}/case-study.webp`, alt: "The case study, written from the project's own evidence" },
-        { src: `${dir}/todo.webp`, alt: "The to-do board" },
-      ],
-      tabs: ["Canvas", "Case study", "To-do"],
-      caption: "So I brought them into one canvas of blocks, with the case study written from the project's own evidence and the to-dos beside it.",
-    },
-    {
-      type: "section",
-      id: "decisions",
-      title: "Three decisions that ==defined Trace==",
-      body: [
-        "Each of these had a faster option. I turned them down for reasons that still hold.",
-      ],
-    },
-    {
-      type: "decisions",
+      type: "steps",
       items: [
         {
-          title: "How a change gets written up",
-          chose: "Rules that read the diff and state what changed, like \"Decreased font size. Changed colours.\"",
-          why: "A memory people can't trust is worse than having none.",
-          considered: [
-            { option: "An AI-written changelog, as NCS does", why: "A model's guess can't be checked, and one wrong line makes every line suspect." },
-          ],
+          picture: both("tr-screens", "Screens: the running app's states as a map, grouped and linked by the clicks between them"),
+          title: "It walks the running app.",
+          text: "It clicks through like a person would, and every state it reaches becomes a screen on a map.",
         },
         {
-          title: "How versions work",
-          chose: "The Git metaphor: moments, a version tree, and rollback as a new version.",
-          why: "Designers already understand history and rolling back, so nobody has to learn Git.",
-          considered: [
-            { option: "Real branches and merge conflicts", why: "Abstract brought these to design, and designers found them too heavy." },
-          ],
+          picture: both("tr-checks", "Checks: nothing needs you, and 183 states in the code no walk has seen"),
+          title: "Then checks it by rule.",
+          text: "States nobody has seen, values that flip back, changes outside the ask.",
         },
         {
-          title: "How a code change looks",
-          chose: "The running app, walked in headless Edge, with every state shown as a screen and joined by the click that reaches it.",
-          why: "A change in code is a change in design, so it should arrive as a picture.",
-          considered: [
-            { option: "A card of code text", why: "A designer reviewing a change needs to see it, and code text can't show that." },
-          ],
+          picture: both("tr-system", "Design system: the app's colours, read from its CSS, with their contrast"),
+          title: "Reads the design system from what runs.",
+          text: "The colours, type and components the app actually draws, contrast included.",
+        },
+        {
+          picture: both("tr-canvas", "The design canvas: the headline picked on the running app, with its file, line and properties"),
+          title: "And lets you change it like in Figma.",
+          text: "Pick anything on the running app. Each change keeps its file and line.",
         },
       ],
-    },
-    {
-      type: "showcase",
-      quick: true,
-      title: "What changed, in a sentence",
-      picture: { src: `${dir}/timeline.webp`, alt: "A project's timeline in Trace: what needs you, where it stands, and the changes beside it" },
-      caption: "A project opens on what needs you and where it stands, with each change beside it, written from the diff.",
     },
     {
       type: "section",
-      id: "shift",
-      title: "A design change, ==before and after==",
-      body: [
-        "The clearest way to show the difference is one ordinary design change, from start to finish.",
-      ],
+      id: "research",
+      entry: "focus",
+      eyebrow: "Research",
+      title: "Other tools ==guess==, or speak in files",
+      body: ["I looked at what designers already use to keep history and hand work over, and where each one ==stops short==."],
     },
     {
       type: "compare",
-      before: {
-        label: "A design change, before Trace",
-        steps: [
-          { text: "Open a new agent session and paste the history back in", time: "every session" },
-          { text: "Re-explain what I'd already rejected", time: "every session" },
-          { text: "Write the changelog", time: "skipped" },
-          { text: "Find why something was decided, in old chats", time: "4 places" },
-          { text: "Screenshot the app so the agent can see it", time: "by hand" },
-          { text: "Click through the app to check nothing else moved", time: "by hand" },
-        ],
-        total: "Context rebuilt every time",
-      },
-      after: {
-        label: "The same change, with Trace",
-        steps: [
-          { text: "The agent reads the brief, decisions and open comments", time: "1 call" },
-          { text: "It reads what was tried here and undone", time: "1 call" },
-          { text: "Saves become moments, written up from the diff", time: "automatic" },
-          { text: "The agent leaves its reasons beside the change", time: "1 call" },
-          { text: "The running app is walked into screens", time: "automatic" },
-          { text: "A check re-walks what the change touched", time: "by rule" },
-        ],
-        total: "Context kept, and read before every change",
-      },
-    },
-    {
-      type: "section",
-      id: "system",
-      title: "One change, ==many readers==",
-      body: [
-        "When the walk learned that a dialog is a screen too, everything after the walk picked up the new screens with no extra work. That only works because of how the parts depend on each other.",
+      items: [
+        { name: "New Craft Society", kind: "Design workspace", good: "Sorts dropped files and writes the changelog with AI.", short: "No agents, no review, and no way to check what it wrote." },
+        { name: "Abstract", kind: "Version control for design", good: "Brought Git's history and branches to design files.", short: "Branches and merge conflicts were too heavy for designers." },
+        { name: "Git", kind: "Version control", good: "The exact history of every change.", short: "It speaks in files and diffs. A designer needs to see the screen." },
+        { name: "Each AI's memory", kind: "Claude, Cursor, Codex", good: "Each one remembers what you told it.", short: "Alone. Monday's lesson in one tool never reaches Tuesday's in another." },
       ],
     },
     {
-      type: "system",
-      title: "How Trace's parts depend on each other",
-      note: "Point at a part, or tab to it, and everything a change to it reaches lights up, all the way down to the agents.",
-      parts: [
-        { id: "capture", label: "Capture", note: "Watchers on Figma, GitHub and folders save every change as it happens.", moves: ["moments"] },
-        { id: "walk", label: "App walk", note: "Headless Edge walks the running app over DevTools: every state and the click that reaches it.", moves: ["screens"] },
-        { id: "memory", label: "AI memory", note: "Read-only, opt-in readers for six AIs' own memory, with keys and tokens blanked.", moves: ["mcp"] },
-        { id: "moments", label: "Moments", note: "Raw saves grouped into one change each and filed into a project.", moves: ["changelog", "canvas"] },
-        { id: "screens", label: "Screens", note: "Every state as a picture, joined by the clicks between them.", moves: ["system", "timeline", "checks"] },
-        { id: "changelog", label: "Changelog", note: "Written by rules from the diff, so every sentence traces back to a value.", moves: ["timeline", "casestudy", "mcp"] },
-        { id: "canvas", label: "Canvas", note: "The project as blocks: brief, constraints, references, decisions, reviews, tasks.", moves: ["casestudy", "mcp"] },
-        { id: "system", label: "Design system", note: "Tokens, text styles and components, read from the walked screens and the CSS.", moves: ["checks"] },
-        { id: "timeline", label: "Timeline", note: "Where people read it: newest first, each change before and after." },
-        { id: "casestudy", label: "Case study", note: "Answered only from the project's own evidence." },
-        { id: "checks", label: "check_change", note: "Re-walks what a change touched and checks it by rule against the app's own values.", moves: ["mcp"] },
-        { id: "mcp", label: "MCP server", note: "Agents read the same memory people browse, and write their reasoning back." },
+      type: "steps",
+      items: [
+        {
+          picture: both("tr-history", "History: every version on its branch, the files it touched, and Run it to see it"),
+          title: "Git's idea, not Git's mechanics.",
+          text: "Every version on its branch, the files it touched, and a way to run it.",
+        },
+        {
+          picture: both("tr-case", "A project's case study: every question answered from the docs and the work, with its sources"),
+          title: "AI that shows its sources.",
+          text: "The case study answers from the docs and the work, and says where each answer came from.",
+        },
       ],
     },
     {
       type: "section",
-      id: "results",
-      entry: "wipe",
-      eyebrow: "Results",
-      title: "What changed ==once it ran on real work==",
+      id: "challenges",
+      eyebrow: "Challenges",
+      title: "A slow walk, ==123-file changes==, a pulled Home",
       body: [],
     },
     {
-      type: "stats",
-      quick: true,
+      type: "cards",
       items: [
-        { label: "A full walk of an app", value: "15 min → 2 min 47 s", note: "And it found more: 37 screens instead of 28." },
-        { label: "Re-walk after a one-file change", value: "32 s", note: "Only the 4 of 17 screens that file touches. With nothing changed, 1 s." },
-        { label: "Reading a 500 MB agent chat", value: "~5 s, then instant", note: "Each session is read once and cached by its size and time." },
-        { label: "AI tools it reads memory from", value: "6", note: "Claude Code, Codex, Antigravity, Cursor, Copilot and exported Claude and ChatGPT chats." },
+        { tag: "Tech", title: "Walking an app took 15 minutes", text: "Too slow to use. Exploring first, then capturing screens in parallel, got it under 3." },
+        { tag: "Design", title: "One change touched 123 files", text: "A chip per file buried the change. Now it's one entry, titled by what moved." },
+        { tag: "Feedback", title: "A Home I pulled the same day", text: "I redesigned Home as a desk of cards and reverted it on sight. The feed stayed." },
+        { tag: "Design", title: "Trusting the changelog", text: "One wrong AI-written line makes every line suspect, so rules write it from the diff." },
+      ],
+    },
+    {
+      type: "steps",
+      items: [
+        {
+          picture: both("tr-walk", "The walk: every state it reached, linked by the click that gets there"),
+          title: "The walk, under 3 minutes.",
+          text: "Every state it reached, linked by the click that gets there. Exploring first, then capturing in parallel, made it five times faster.",
+        },
+        {
+          picture: both("tr-change", "A change in Trace: one entry, added 4 files, with the why beside it"),
+          title: "One change, one entry.",
+          text: "Titled by what moved, with the why beside it, not a chip per file.",
+        },
+        {
+          picture: both("tr-home-kept", "The Home that stayed: each project's newest work, big, with what changed under it"),
+          title: "The feed I kept.",
+          text: "Each project's newest work, big, with what changed under it, after the desk of cards went the same day.",
+        },
+      ],
+    },
+    {
+      type: "section",
+      id: "tradeoffs",
+      eyebrow: "Trade-offs",
+      title: "Facts over ==guesses==",
+      body: [],
+    },
+    {
+      type: "tradeoffs",
+      items: [
+        { chose: "Rules write each change up from the diff", cost: "A sentence built from a diff can say what changed, but never why." },
+        { chose: "One entry per change, titled by what moved", cost: "Reaching a single file takes one more click." },
+        { chose: "One reference for the whole interface, the NCS app", cost: "At a glance, Trace looks like NCS." },
       ],
     },
     {
       type: "section",
       id: "outcomes",
-      title: "Where it stands",
-      body: [
-        "Trace runs every day on real work. Each change is captured, written up from its diff and filed with the reasoning behind it, and agents read that history before they touch the work. Every feature in its PRD is built, 15 of 15.",
-        "Next, I want to open it up to teams.",
+      entry: "wipe",
+      eyebrow: "Outcomes",
+      title: "From 15 minutes ==to under 3==",
+      body: ["It runs every day on my own work. Next, I want to open it up to teams."],
+    },
+    {
+      type: "stats",
+      quick: true,
+      items: [
+        { label: "A full walk of an app", value: "15 min → 2:47", note: "And it found more: 37 screens instead of 28." },
+        { label: "Re-walk after a one-file change", value: "32 s", note: "Only the 4 of 17 screens that file touches. With nothing changed, 1 s." },
+        { label: "AI tools it reads memory from", value: "6", note: "Claude Code, Codex, Antigravity, Cursor, Copilot, and exported Claude and ChatGPT chats." },
+        { label: "Features in the PRD, built", value: "15 / 15", note: "Every one, running end to end." },
       ],
+    },
+    {
+      type: "media",
+      picture: { src: `${dir}/trace-ui-poster.webp`, alt: "Trace in daily use" },
+      video: `${dir}/trace-ui.mp4`,
+      caption: "Trace in daily use: a project's timeline, its screens and the checks waiting for review.",
     },
   ],
 };

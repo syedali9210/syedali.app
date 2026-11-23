@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import type { CaseStudy } from "@/content/types";
 import { Icon } from "./Icon";
 import { useActiveSection } from "./motion";
 import { PageLink, usePageNav } from "./PageLink";
-import { still } from "./scroll";
 import { SoundToggle } from "./Sound";
 import { ThemeToggle } from "./ThemeToggle";
 import { warmEffects } from "./warm";
@@ -72,11 +71,29 @@ function ModeSwitch({ mode, setMode, className = "" }: { mode: Mode; setMode: (m
   );
 }
 
+/** How far apart the bar's names sit, centre to centre (px), on a 208 px bar: the neighbours land half out at its faded ends. */
+const SLOT = 76;
+
 /**
- * The way round a case study, the same on every screen: it sits at the foot, under the thumb, in the site's own things: a carved stone to go
- * back, and the black tag the first screen's stones wear, grown into a bar. The bar names the section you're in, with the next one coming in
- * at its edge and a tick for each. Press a name, or swipe the bar on a phone, to go there. Press the one you're in for the whole list and the
- * switches, big words on the same soft blur as the home page's menu.
+ * Where one name sits on the bar: the section you're in sharp in the middle, the one before and the one after blurred at the edges, the
+ * rest out of sight. Moving to a section slides them all along together, so the old name blurs away as the new one comes into focus: one
+ * name morphing into the next rather than two swapping (the blur bridges them). Transform, filter and opacity only, written on each name.
+ */
+function place(d: number): CSSProperties {
+  const far = Math.abs(d);
+  return {
+    transform: `translate3d(${d * SLOT}px, 0, 0) scale(${far ? 0.84 : 1})`,
+    filter: far ? `blur(${far === 1 ? 1.6 : 6}px)` : "none",
+    opacity: far === 0 ? 1 : far === 1 ? 0.62 : 0,
+  };
+}
+
+/**
+ * The way round a case study, the same on every screen: it sits at the foot, under the thumb, in the site's own things: a small carved
+ * stone to go back, and the black tag the first screen's stones wear, grown into a small bar. The bar shows only the section you're in,
+ * with the one before and the one after blurred at its edges (Syed, 2026-11-22: "only the current section should be visible and it should
+ * show the coming and previous one with blur and morph it"). Press a neighbour, or flick the bar on a phone, to go there. Press the one
+ * you're in for the whole list and the switches, big words on the same soft blur as the home page's menu.
  */
 function CaseNav({ status, mode }: { status: CaseStudy["status"]; mode: Mode }) {
   const all = useMemo(() => [{ id: "overview", label: "Overview" }, ...status.sections.map((l) => ({ id: l.href.slice(1), label: l.label }))], [status]);
@@ -85,57 +102,23 @@ function CaseNav({ status, mode }: { status: CaseStudy["status"]; mode: Mode }) 
   const [left, setLeft] = useState<string[]>([]);
   useEffect(() => setLeft(all.filter((s) => !document.getElementById(s.id)?.getClientRects().length).map((s) => s.id)), [all, mode]);
   const stops = all.filter((s) => !left.includes(s.id));
-  const at = stops.findIndex((s) => s.id === active);
+  const at = Math.max(0, stops.findIndex((s) => s.id === active));
   const [open, setOpen] = useState(false);
-  const strip = useRef<HTMLDivElement>(null);
-  const swiping = useRef(false);
+  const strip = useRef<HTMLElement>(null);
+  const touch = useRef<{ x: number; t: number } | null>(null);
 
-  // The one you're in stays in the middle of the bar.
-  useEffect(() => {
-    const s = strip.current!, a = s.children[at] as HTMLElement | undefined;
-    if (a && !swiping.current) s.scrollTo({ left: a.offsetLeft - (s.clientWidth - a.offsetWidth) / 2, behavior: still() ? "auto" : "smooth" });
-  }, [at]);
-
-  // A swipe along the bar goes to the name it comes to rest on. (The scroll's own end event isn't in every phone's browser yet.)
-  useEffect(() => {
-    const s = strip.current!;
-    let touching = false, timer = 0;
-    const settle = () => {
-      swiping.current = false;
-      const mid = s.scrollLeft + s.clientWidth / 2, middle = (a: HTMLElement) => Math.abs(a.offsetLeft + a.offsetWidth / 2 - mid);
-      const near = ([...s.children] as HTMLElement[]).reduce((a, b) => (middle(b) < middle(a) ? b : a));
-      if (!near.hasAttribute("aria-current")) near.click();
-    };
-    const wait = () => {
-      clearTimeout(timer);
-      timer = window.setTimeout(settle, 140);
-    };
-    const down = () => {
-      touching = true;
-      clearTimeout(timer);
-    };
-    const move = () => void (swiping.current = true);
-    const up = () => {
-      touching = false;
-      if (swiping.current) wait();
-    };
-    const scrolled = () => {
-      if (swiping.current && !touching) wait();
-    };
-    s.addEventListener("touchstart", down, { passive: true });
-    s.addEventListener("touchmove", move, { passive: true });
-    s.addEventListener("touchend", up, { passive: true });
-    s.addEventListener("touchcancel", up, { passive: true });
-    s.addEventListener("scroll", scrolled, { passive: true });
-    return () => {
-      clearTimeout(timer);
-      s.removeEventListener("touchstart", down);
-      s.removeEventListener("touchmove", move);
-      s.removeEventListener("touchend", up);
-      s.removeEventListener("touchcancel", up);
-      s.removeEventListener("scroll", scrolled);
-    };
-  }, []);
+  // A flick along the bar goes one section that way: far enough, or fast enough (a quick flick needn't travel).
+  const flick = (e: React.TouchEvent) => {
+    const start = touch.current;
+    touch.current = null;
+    if (!start) return;
+    const dx = e.changedTouches[0].clientX - start.x;
+    if (Math.abs(dx) < 24 && Math.abs(dx) / (performance.now() - start.t) < 0.3) return;
+    const to = stops[at + (dx < 0 ? 1 : -1)];
+    if (!to) return;
+    e.preventDefault(); // the tap under the finger doesn't also land
+    strip.current?.querySelector<HTMLAnchorElement>(`a[href="#${to.id}"]`)?.click();
+  };
 
   useEffect(warmEffects, []);
 
@@ -186,32 +169,34 @@ function CaseNav({ status, mode }: { status: CaseStudy["status"]; mode: Mode }) 
           {/* eslint-disable-next-line @next/next/no-img-element -- baked with its outline in alpha, shown small */}
           <img src="/stamps/piece-back.webp" alt="" width={216} height={271} decoding="async" draggable={false} />
         </PageLink>
-        <div className="pnav-bar">
+        <div className="pnav-bar" onTouchStart={(e) => (touch.current = { x: e.touches[0].clientX, t: performance.now() })} onTouchEnd={flick}>
           <nav ref={strip} aria-label="Sections" className="pnav-strip">
-            {stops.map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                aria-current={s.id === active ? "location" : undefined}
-                aria-expanded={s.id === active ? open : undefined}
-                aria-controls={s.id === active ? "pnav-list" : undefined}
-                data-sound="switch"
-                onClick={(e) => {
-                  if (s.id === active) {
-                    e.preventDefault();
-                    setOpen(!open);
-                  } else setOpen(false);
-                }}
-              >
-                {s.label}
-              </a>
-            ))}
+            {stops.map((s, i) => {
+              const d = i - at, here = d === 0, near = Math.abs(d) <= 1;
+              return (
+                <a
+                  key={s.id}
+                  href={`#${s.id}`}
+                  style={place(d)}
+                  aria-current={here ? "location" : undefined}
+                  aria-expanded={here ? open : undefined}
+                  aria-controls={here ? "pnav-list" : undefined}
+                  aria-hidden={near ? undefined : true}
+                  tabIndex={near ? undefined : -1}
+                  data-near={near || undefined}
+                  data-sound="switch"
+                  onClick={(e) => {
+                    if (here) {
+                      e.preventDefault();
+                      setOpen(!open);
+                    } else setOpen(false);
+                  }}
+                >
+                  {s.label}
+                </a>
+              );
+            })}
           </nav>
-          <span className="pnav-ticks" aria-hidden="true">
-            {stops.map((s, i) => (
-              <i key={s.id} data-on={i === at || undefined} data-past={i < at || undefined} />
-            ))}
-          </span>
         </div>
       </div>
     </div>
